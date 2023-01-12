@@ -138,4 +138,61 @@ void goToZero() {
     digitalWrite(stepPin2, LOW);
     delayMicroseconds(200);    
   }
+
+  //Move slightly down
+  digitalWrite(dirPin1, 0);
+  digitalWrite(dirPin2, 1);
+
+  for(int i=0;i<100;i++) {
+    digitalWrite(stepPin1, HIGH);
+    digitalWrite(stepPin2, HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPin1, LOW);
+    digitalWrite(stepPin2, LOW);
+    delayMicroseconds(500);
+  }
+
+  //Move slightly to the right
+  digitalWrite(dirPin1, 0);
+  digitalWrite(dirPin2, 0);
+
+  for(int i=0;i<100;i++) {
+    digitalWrite(stepPin1, HIGH);
+    digitalWrite(stepPin2, HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPin1, LOW);
+    digitalWrite(stepPin2, LOW);
+    delayMicroseconds(500);
+  }
+
+  //Move up really slowly same distance as it was moved down in the last step
+  digitalWrite(dirPin1, 1);
+  digitalWrite(dirPin2, 0);
+
+  for(int i=0;i<100;i++) {
+    digitalWrite(stepPin1, HIGH);
+    digitalWrite(stepPin2, HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPin1, LOW);
+    digitalWrite(stepPin2, LOW);
+    delayMicroseconds(500);
+  }
+
+  //Move left really slowly same distance as it was moved right in the last step
+  digitalWrite(dirPin1, 1);
+  digitalWrite(dirPin2, 1);
+
+  for(int i=0;i<100;i++) {
+    digitalWrite(stepPin1, HIGH);
+    digitalWrite(stepPin2, HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPin1, LOW);
+    digitalWrite(stepPin2, LOW);
+    delayMicroseconds(500);
+  }
+
+  //restart calibration if the pad is not zeroed
+  if(digitalRead(yLimit) == 0 || digitalRead(xLimit) == 0){
+    goToZero();
+  }
 }
