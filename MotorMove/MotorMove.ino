@@ -30,8 +30,9 @@ void loop() {
   // put your main code here, to run repeatedly:
   if(run) {
     int numStepsX = 500;
-    int numStepsY = 1000;
-    int microdel = 265;
+    int numStepsY = 2000;
+    int microdel = 230;
+    int del = 40;
     digitalWrite(dirPin1,1);
     digitalWrite(dirPin2,0);
 
@@ -44,7 +45,7 @@ void loop() {
       delayMicroseconds(microdel);
     }
 
-    delay(1000);
+    delay(del);
 
     digitalWrite(dirPin1,1);
     digitalWrite(dirPin2,1);
@@ -58,7 +59,7 @@ void loop() {
       delayMicroseconds(microdel);
     }
 
-    delay(1000);
+    delay(del);
 
     digitalWrite(dirPin1,0);
     digitalWrite(dirPin2,1);
@@ -72,7 +73,7 @@ void loop() {
       delayMicroseconds(microdel);
     }
 
-    delay(1000);
+    delay(del);
 
     digitalWrite(dirPin1,0);
     digitalWrite(dirPin2,0);
@@ -86,7 +87,7 @@ void loop() {
       delayMicroseconds(microdel);
     }
     
-    delay(1000);
+    delay(del);
     run = false;
   }
   
