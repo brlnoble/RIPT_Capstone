@@ -3,7 +3,7 @@
 #define stepPin1 3
 
 #define dirPin2 6
-#define stepPin2 7
+#define stepPin2 11
 
 // Define limit switches
 #define xLimit 9
@@ -22,9 +22,75 @@ void setup() {
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+bool run = true;
+
+//loop currently contains test code to find max frequency
 void loop() {
   // put your main code here, to run repeatedly:
+  if(run) {
+    int numStepsX = 500;
+    int numStepsY = 2000;
+    int microdel = 230;
+    int del = 40;
+    digitalWrite(dirPin1,1);
+    digitalWrite(dirPin2,0);
 
+    for(int i=0;i<numStepsY;i++) {
+      digitalWrite(stepPin1, HIGH);
+      digitalWrite(stepPin2, HIGH);
+      delayMicroseconds(microdel);
+      digitalWrite(stepPin1, LOW);
+      digitalWrite(stepPin2, LOW);
+      delayMicroseconds(microdel);
+    }
+
+    delay(del);
+
+    digitalWrite(dirPin1,1);
+    digitalWrite(dirPin2,1);
+
+    for(int i=0;i<numStepsX;i++) {
+      digitalWrite(stepPin1, HIGH);
+      digitalWrite(stepPin2, HIGH);
+      delayMicroseconds(microdel);
+      digitalWrite(stepPin1, LOW);
+      digitalWrite(stepPin2, LOW);
+      delayMicroseconds(microdel);
+    }
+
+    delay(del);
+
+    digitalWrite(dirPin1,0);
+    digitalWrite(dirPin2,1);
+
+    for(int i=0;i<numStepsY;i++) {
+      digitalWrite(stepPin1, HIGH);
+      digitalWrite(stepPin2, HIGH);
+      delayMicroseconds(microdel);
+      digitalWrite(stepPin1, LOW);
+      digitalWrite(stepPin2, LOW);
+      delayMicroseconds(microdel);
+    }
+
+    delay(del);
+
+    digitalWrite(dirPin1,0);
+    digitalWrite(dirPin2,0);
+
+    for(int i=0;i<numStepsX;i++) {
+      digitalWrite(stepPin1, HIGH);
+      digitalWrite(stepPin2, HIGH);
+      delayMicroseconds(microdel);
+      digitalWrite(stepPin1, LOW);
+      digitalWrite(stepPin2, LOW);
+      delayMicroseconds(microdel);
+    }
+    
+    delay(del);
+    run = false;
+  }
+  
 }
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,7 +131,7 @@ void moveY(float currPos, float newPos) {
 void moveX(float currPos, float newPos) {
   float vector = currPos - newPos; //Calculates Y vector
 
-  //Specifies up or down
+  //Specifies left or right
   int direction = ( abs(vector) - vector) / abs(2*vector);
   digitalWrite(dirPin1, direction);
   digitalWrite(dirPin2, direction);
@@ -137,5 +203,62 @@ void goToZero() {
     digitalWrite(stepPin1, LOW);
     digitalWrite(stepPin2, LOW);
     delayMicroseconds(200);    
+  }
+
+  //Move slightly down
+  digitalWrite(dirPin1, 0);
+  digitalWrite(dirPin2, 1);
+
+  for(int i=0;i<100;i++) {
+    digitalWrite(stepPin1, HIGH);
+    digitalWrite(stepPin2, HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPin1, LOW);
+    digitalWrite(stepPin2, LOW);
+    delayMicroseconds(500);
+  }
+
+  //Move slightly to the right
+  digitalWrite(dirPin1, 0);
+  digitalWrite(dirPin2, 0);
+
+  for(int i=0;i<100;i++) {
+    digitalWrite(stepPin1, HIGH);
+    digitalWrite(stepPin2, HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPin1, LOW);
+    digitalWrite(stepPin2, LOW);
+    delayMicroseconds(500);
+  }
+
+  //Move up really slowly same distance as it was moved down in the last step
+  digitalWrite(dirPin1, 1);
+  digitalWrite(dirPin2, 0);
+
+  for(int i=0;i<100;i++) {
+    digitalWrite(stepPin1, HIGH);
+    digitalWrite(stepPin2, HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPin1, LOW);
+    digitalWrite(stepPin2, LOW);
+    delayMicroseconds(500);
+  }
+
+  //Move left really slowly same distance as it was moved right in the last step
+  digitalWrite(dirPin1, 1);
+  digitalWrite(dirPin2, 1);
+
+  for(int i=0;i<100;i++) {
+    digitalWrite(stepPin1, HIGH);
+    digitalWrite(stepPin2, HIGH);
+    delayMicroseconds(500);
+    digitalWrite(stepPin1, LOW);
+    digitalWrite(stepPin2, LOW);
+    delayMicroseconds(500);
+  }
+
+  //restart calibration if the pad is not zeroed
+  if(digitalRead(yLimit) == 0 || digitalRead(xLimit) == 0){
+    goToZero();
   }
 }
