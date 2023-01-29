@@ -6,21 +6,21 @@ import PySimpleGUI as sg #for simple interface
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Setup ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #Define the stepper motor pins
-dirPin1 = 6 #direction pin for motor 1
-stepPin1 = 6 #pulse pin for motor 1
+dirPin1 = 21 #direction pin for motor 1
+stepPin1 = 20 #pulse pin for motor 1
 
-dirPin2 = 21 #direction pin for motor 2
-stepPin2 = 20 #pulse pin for motor 2
+dirPin2 = 6 #direction pin for motor 2
+stepPin2 = 5 #pulse pin for motor 2
 
 #Define the zeroing pins
 zeroPinX = 3
 zeroPinY = 3
 
 #Parameters of the motors
-p_delay = 0.000025 #delay between pulses (40k Hz default)
+p_delay = 0.00001 #delay between pulses (40k Hz default)
 m_delay = 0.5 #delay between movements
 m_steps = 1600 #steps per rotation (1/8 microstep)
-m_diameter = 1 #diameter of the motor gear in cm
+m_diameter = 1.215 #diameter of the motor gear in cm
 
 #Location tracking
 x_location = 0
@@ -46,7 +46,7 @@ ccw = GPIO.LOW
 
 #~~~~~ Convert cm to steps ~~~~~
 def Dist_to_Steps(distance):
-    return int( (distance / 3.14156 * m_diameter) * m_steps) #return the number of steps as an integer
+    return int( (distance / (3.14156 * m_diameter)) * m_steps) #return the number of steps as an integer
 
 #~~~~~ Convert steps to cm ~~~~~
 def Steps_to_Dist(steps):
@@ -68,20 +68,20 @@ def Move_Motors(steps,speed):
 def Motor_Direction(direction):
     #Change motor direction as specified
     if direction == "up":
-        GPIO.output(dirPin1,cw)
-        GPIO.output(dirPin2,ccw)
+        GPIO.output(dirPin1,ccw)
+        GPIO.output(dirPin2,cw)
     elif direction == "down":
-        GPIO.output(dirPin1,ccw)
-        GPIO.output(dirPin2,cw)
-    elif direction == "left":
         GPIO.output(dirPin1,cw)
-        GPIO.output(dirPin2,cw)
-    elif direction == "right":
+        GPIO.output(dirPin2,ccw)
+    elif direction == "left":
         GPIO.output(dirPin1,ccw)
         GPIO.output(dirPin2,ccw)
+    elif direction == "right":
+        GPIO.output(dirPin1,cw)
+        GPIO.output(dirPin2,cw)
 
 #~~~~~ Movement based on direction and distance ~~~~~
-def Move_Distance(direction,distance):
+def Move_Distance(direction,distance,x_pos,y_pos):
 
     #Change motor direction as specified
     Motor_Direction(direction)
@@ -89,24 +89,25 @@ def Move_Distance(direction,distance):
     steps_to_move = Dist_to_Steps(distance) #number of steps to move
     dist_to_move = Steps_to_Dist(steps_to_move) #actual distance moved after rounding
 
-    print("\tSteps: " + str(steps_to_move))
-    print("\tDist: " + str(dist_to_move))
-
     #Calculate new position
     if direction == "up":
-        y_location += dist_to_move
+        y_pos += dist_to_move
     elif direction == "down":
-        y_location -= dist_to_move
+        y_pos -= dist_to_move
     elif direction == "left":
-        x_location -= dist_to_move
+        x_pos -= dist_to_move
     elif direction == "right":
-        x_location += dist_to_move
+        x_pos += dist_to_move
 
     #Move the motors into position
     if distance != 0:
         Move_Motors(steps_to_move,p_delay)
+        
+        print("\tSteps: " + str(steps_to_move))
+        print("\tDist: " + str(dist_to_move))
+        print("\tAcc: " + str(100 * (dist_to_move - distance) / distance) + "%")
 
-    return (x_location, y_location) #Return the new X,Y position
+    return (x_pos, y_pos) #Return the new X,Y position
 
 #~~~~~ Zero the location (to be used later) ~~~~~
 def Zero_Motors():
@@ -189,12 +190,15 @@ while True:
     #Move based on what user inputs
     if event in ("move_up","move_down","move_left","move_right"):
         if values["dist_move"] != "":
-            x_location,y_location =  Move_Distance(event[4:],float(values["dist_move"]))
-
-            print("Moving " + str(event[4:]))
+            print("Moving " + str(event[5:]))
+            
+            x_location,y_location = Move_Distance(event[5:],float(values["dist_move"]),x_location,y_location)
+            
             print("X: " + str(x_location))
             print("Y: " + str(y_location))
             print("")
+            
+            window["dist_move"].update(value="0")
 
 #Program closed, clear everything
 window.close()
