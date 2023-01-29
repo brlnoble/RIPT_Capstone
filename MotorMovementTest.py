@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO #for IO control
-from time import sleep, perf_counter #for delay functionality
+from time import sleep, perf_counter #for delay functionality and timing
 import PySimpleGUI as sg #for simple interface
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -17,7 +17,7 @@ zeroPinX = 23
 zeroPinY = 24
 
 #Parameters of the motors
-p_delay = 0.00001 #delay between pulses (40k Hz default)
+p_delay = 0.00001 #delay between pulses (100k Hz default)
 m_delay = 0.5 #delay between movements
 m_steps = 1600 #steps per rotation (1/8 microstep)
 m_diameter = 1.215 #diameter of the motor gear in cm
@@ -34,7 +34,7 @@ GPIO.setup(stepPin1,GPIO.OUT)
 GPIO.setup(dirPin2,GPIO.OUT)
 GPIO.setup(stepPin2,GPIO.OUT)
 
-GPIO.setup(zeroPinX,GPIO.OUT)
+GPIO.setup(zeroPinX,GPIO.IN)
 GPIO.setup(zeroPinY,GPIO.OUT)
 
 #Define clockwise and counter clockwise for readability
@@ -64,7 +64,7 @@ def Move_Motors(steps,speed):
         GPIO.output(stepPin2,GPIO.LOW)
         sleep(speed)
     end_time = perf_counter()
-    print("\tTime to Move: " + str(end_time - start_time))
+    #print("\tTime to Move: " + str(end_time - start_time))
 
 #~~~~~ Change motor direction ~~~~~
 def Motor_Direction(direction):
@@ -115,20 +115,28 @@ def Move_Distance(direction,distance,x_pos,y_pos):
 
 #~~~~~ Zero the location (to be used later) ~~~~~
 def Zero_Motors():
-    print("This function does not yet work")
-    return(0,0)
 
     #Move the motors slightly in case they are already in the zero position
     Move_Distance("up",2,0,0) #Move up 2cm
+    sleep(1)
     Move_Distance("right",2,0,0) #Move right 2cm
+    sleep(1)
 
     #Zero the Y position first
+    Motor_Direction("down")
     while(GPIO.input(zeroPinY) == GPIO.HIGH):
-        Move_Motors(1,p_delay*1000) #very slowly move motors 1 step at a time
+        Move_Motors(1,p_delay*100) #very slowly move motors 1 step at a time
+
+    print("Y has been zeroed...")
+    sleep(2)
 
     #Zero the X position second
+    Motor_Direction("left")
     while(GPIO.input(zeroPinX) == GPIO.HIGH):
-        Move_Motors(1,p_delay*1000) #very slowly move motors 1 step at a time
+        Move_Motors(1,p_delay*100) #very slowly move motors 1 step at a time
+        
+    print("X has been zeroed...")
+    sleep(2)
 
     return (0,0) #return the new X,Y positon
 
@@ -259,7 +267,7 @@ while True:
         
     #Zero the motors
     elif event == "zero_position":
-        x_location,y_location = Zero_Motors()
+        x_location,y_location = Zero_Motors() #zeroes position and sets locations as (0,0)
 
 #Program closed, clear everything
 window.close()
