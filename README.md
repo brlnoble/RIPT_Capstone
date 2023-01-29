@@ -31,7 +31,7 @@ ___
 The project is very much a work in progress and is actively changing day to day. Below are some images and videos of the current state. More detailed images and pictures to come.
 
 #### Movement Test of H-Bot System
-<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Jan20.gif" width="450"> <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Jan29.gif" width="450">
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Jan20.gif" width="200"> <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Jan29.gif" width="200">
 
 #### CAD of One Side of the Device
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/One_Side_Model.jpg" width="900">
