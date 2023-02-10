@@ -1,5 +1,5 @@
 import RPi.GPIO as GPIO #for IO control
-from time import sleep, perf_counter #for delay functionality and timing
+from time import sleep, perf_counter #for delay functionality
 import PySimpleGUI as sg #for simple interface
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -17,7 +17,7 @@ zeroPinX = 23
 zeroPinY = 24
 
 #Parameters of the motors
-p_delay = 0.00001 #delay between pulses (100k Hz default)
+p_delay = 0.00001 #delay between pulses (40k Hz default)
 m_delay = 0.5 #delay between movements
 m_steps = 1600 #steps per rotation (1/8 microstep)
 m_diameter = 1.215 #diameter of the motor gear in cm
@@ -115,6 +115,8 @@ def Move_Distance(direction,distance,x_pos,y_pos):
 
 #~~~~~ Zero the location (to be used later) ~~~~~
 def Zero_Motors():
+    #print("This function does not yet work")
+    #return(0,0)
 
     #Move the motors slightly in case they are already in the zero position
     Move_Distance("up",2,0,0) #Move up 2cm
@@ -137,6 +139,15 @@ def Zero_Motors():
         
     print("X has been zeroed...")
     sleep(2)
+    #Move the motors slightly off the actual zero point
+    Motor_Direction("right")
+    for i in range(800):
+        Move_Motors(1,p_delay*10)
+    sleep(1)
+    Motor_Direction("up")
+    for i in range(800):
+        Move_Motors(1,p_delay*10)
+    sleep(1)
 
     return (0,0) #return the new X,Y positon
 
@@ -267,7 +278,7 @@ while True:
         
     #Zero the motors
     elif event == "zero_position":
-        x_location,y_location = Zero_Motors() #zeroes position and sets locations as (0,0)
+        x_location,y_location = Zero_Motors()
 
 #Program closed, clear everything
 window.close()
