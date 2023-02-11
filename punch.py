@@ -1,13 +1,17 @@
-class punch(dict):
-    def new(self):
-        self.
-punch = {
-    'quadrant' : None,
-    'position' : None,
-    'type' : None,
-    'delay' : None,
-    'form' : None
-}
+import random
+from time import time
+
+class punch:
+    def __init__(self, quadrant, typ):
+        self.quadrant = quadrant
+        self.postion = []
+        self.typ = typ
+        self.delay = None
+        self.form = None
+        self.force = None
+    
+    def punchToArray(self):
+        return [self.quadrant, self.typ]
 
 prob = {
     'q1' : 0.25,
@@ -19,10 +23,32 @@ prob = {
     'uppercut': 0.33
 }
 
-def setQuadrant(punch, quadrant):
-    punch['quadrant'] = quadrant
+def punchSeq(prob, numPunch):
+    sequence = []
+    printable = []
+    for i in range(numPunch):
+        temp = random.random()
+        if temp < 0.25:
+            quadrant = 'q1'
+        elif temp >= 0.25 and temp < 0.5:
+            quadrant = 'q2'
+        elif temp >= 0.5 and temp < 0.75:
+            quadrant = 'q3'
+        else:
+            quadrant = 'q4'
+        temp1 = random.random()
+        if temp1 < 0.33:
+            typ = 'straight'
+        elif temp1 >= 0.67:
+            typ = 'hook'
+        else:
+            typ = 'uppercut'
+        
+        newPunch = punch(quadrant, typ)
+        punchArray = punch.punchToArray(newPunch)
+        sequence.append(newPunch)
+        printable.append(punchArray)
+    print(printable)
 
-def setType(punch, typ):
-    punch['type'] = typ
-
-def training():
+random.seed(time())
+punchSeq(None, 200)
