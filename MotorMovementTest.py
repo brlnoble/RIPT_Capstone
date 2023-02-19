@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO #for IO control
 from time import sleep, perf_counter #for delay functionality
 import PySimpleGUI as sg #for simple interface
+import random #for random positions
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Setup ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -17,7 +18,7 @@ zeroPinX = 23
 zeroPinY = 24
 
 #Parameters of the motors
-speed_max_default =  200e3 #delay between pulses (200k Hz default)
+speed_max_default =  150e3 #delay between pulses (200k Hz default)
 speed_min_default = 75e3
 m_delay = 0.5 #delay between movements
 m_steps = 1600 #steps per rotation (1/8 microstep)
@@ -114,20 +115,40 @@ def Move_Distance(direction,distance,x_pos,y_pos):
 
     steps_to_move = Dist_to_Steps(distance) #number of steps to move
     dist_to_move = Steps_to_Dist(steps_to_move) #actual distance moved after rounding
+    dist_to_move = distance
 
     #Calculate new position
     if direction == "up":
         y_pos += dist_to_move
+        
+        #Set the speed for movement
+        speed_max = speed_max_default
+        speed_min = speed_min_default
+        
     elif direction == "down":
         y_pos -= dist_to_move
+        
+        #Set the speed for movement
+        speed_max = speed_max_default
+        speed_min = speed_min_default
+        
     elif direction == "left":
         x_pos -= dist_to_move
+        
+        #Set the speed for movement
+        speed_max = speed_max_default/2
+        speed_min = speed_min_default/2
+        
     elif direction == "right":
         x_pos += dist_to_move
+        
+        #Set the speed for movement
+        speed_max = speed_max_default/2
+        speed_min = speed_min_default/2
 
     #Move the motors into position
     if distance != 0:
-        Move_Motors(steps_to_move,speed_max_default,speed_min_default)
+        Move_Motors(steps_to_move,speed_max,speed_min)
         
         print("\tSteps: " + str(steps_to_move))
         print("\tDist: " + str(dist_to_move))
@@ -136,6 +157,35 @@ def Move_Distance(direction,distance,x_pos,y_pos):
     end_time = perf_counter()
     print("\tTotal Time: " + str(end_time - start_time) )
     return (x_pos, y_pos) #Return the new X,Y position
+
+#Move to a specific position
+def Move_To(x_move,y_move,x_curr,y_curr):
+    #Make sure values are valid first
+    if x_move <= 12.0 and x_move >= 0.0 and y_move <= 45.0 and y_move >= 0.0:
+        
+        #Calculate relative movements to get into position
+        x_move = x_move - x_curr
+        y_move = y_move - y_curr
+
+        x_move_direction = "right" if x_move > 0.0 else "left"
+        y_move_direction = "up" if y_move > 0.0 else "down"
+        
+        #Move Y position first
+        x_curr,y_curr = Move_Distance(y_move_direction,abs(y_move),x_curr,y_curr)
+        
+        sleep(0.5)
+        
+        #Move X position second
+        x_curr,y_curr = Move_Distance(x_move_direction,abs(x_move),x_curr,y_curr)
+        
+        sleep(0.5)
+        
+        return x_curr,y_curr
+    
+    #If invlaid input
+    else:
+        return x_curr,y_curr
+        
 
 #~~~~~ Zero the location (to be used later) ~~~~~
 def Zero_Motors():
@@ -222,10 +272,12 @@ layout_left = [
 #Right side
 layout_right = [
     [sg.Text("Enter a position to move to in cm.",font=font)],
-    [sg.Text("X position (0 - 15): ",font=btn_font),sg.Input("0",key="x_move",font=font,enable_events=True,size=(5,1))],
-    [sg.Text("Y position (0 - 50): ",font=btn_font),sg.Input("0",key="y_move",font=font,enable_events=True,size=(5,1))],
+    [sg.Text("X position (0 - 12): ",font=btn_font),sg.Input("0",key="x_move",font=font,enable_events=True,size=(5,1))],
+    [sg.Text("Y position (0 - 45): ",font=btn_font),sg.Input("0",key="y_move",font=font,enable_events=True,size=(5,1))],
     [sg.Text()],
-    [sg.Button("Move Position",key="move_position",font=btn_font,enable_events=True,button_color='#F57627')],
+    [sg.Button("Move to Position",key="move_position",font=btn_font,enable_events=True,button_color='#F57627')],
+    [sg.Text()],
+    [sg.Button("Random Position",key="rand_position",font=btn_font,enable_events=True,button_color='red')],
     [sg.Text()],
     [sg.Text()],
     [sg.Button("Zero Position",key="zero_position",font=btn_font)],
@@ -253,54 +305,36 @@ while True:
 
     #Move based a relative distance
     if event in ("move_up","move_down","move_left","move_right"):
-        if values["dist_move"] != "":
-            print("Moving " + str(event[5:]))
-            window["info"].update("Moving " + event[5:] + " by " + str(values["dist_move"]))
-            
+        if values["dist_move"] != "":            
             x_location,y_location = Move_Distance(event[5:],float(values["dist_move"]),x_location,y_location) #Move and get new location
-            
-            print("X: " + str(x_location))
-            print("Y: " + str(y_location))
-            print("")
+            window["info"].update("Position: (" + str(x_location) + ", " + str(y_location) + ")")
             
             window["dist_move"].update(value="0")
 
     #Move to a specified position
     elif event == "move_position":
-
         #Make sure values are valid first
         if values["x_move"] != "" and values["y_move"] != "":
             x_move = float(values["x_move"])
             y_move = float(values["y_move"])
+            
+            x_location,y_location = Move_To(x_move,y_move,x_location,y_location)
 
-            if x_move <= 15.0 and x_move >= 0 and y_move <= 50 and y_move >= 0:
-                
-                #Calculate relative positions to move by
-                x_move = x_move - x_location
-                y_move = y_move - y_location
+            window["info"].update("Position: (" + str(x_location) + ", " + str(y_location) + ")")
 
-                x_move_direction = "right" if x_move > 0 else "left"
-                y_move_direction = "up" if y_move > 0 else "down"
-
-                #Move into new Y position
-                print("Moving " + y_move_direction)
-                window["info"].update("Moving " + y_move_direction + " by " + str(abs(y_move)))
-
-                x_location,y_location = Move_Distance(y_move_direction,abs(y_move),x_location,y_location) #Move and get new location
-
-                #Move into new X position
-                print("Moving " + x_move_direction)
-                window["info"].update("Moving " + x_move_direction + " by " + str(abs(x_move)))
-
-                x_location,y_location = Move_Distance(x_move_direction,abs(x_move),x_location,y_location) #Move and get new location
-
-                print("X: " + str(x_location))
-                print("Y: " + str(y_location))
-                print("")
+            
+    elif event == "rand_position":        
+        x_move = random.randint(0,8)
+        y_move = random.randint(0,35)
+        
+        x_location,y_location = Move_To(x_move,y_move,x_location,y_location)
+        window["info"].update("Position: (" + str(x_location) + ", " + str(y_location) + ")")
+        
         
     #Zero the motors
     elif event == "zero_position":
         x_location,y_location = Zero_Motors()
+        window["info"].update("Position: (" + str(x_location) + ", " + str(y_location) + ")")
 
 #Program closed, clear everything
 window.close()
