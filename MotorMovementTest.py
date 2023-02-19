@@ -17,7 +17,8 @@ zeroPinX = 23
 zeroPinY = 24
 
 #Parameters of the motors
-p_delay = 0.00001 #delay between pulses (40k Hz default)
+speed_max_default =  200e3 #delay between pulses (200k Hz default)
+speed_min_default = 75e3
 m_delay = 0.5 #delay between movements
 m_steps = 1600 #steps per rotation (1/8 microstep)
 m_diameter = 1.215 #diameter of the motor gear in cm
@@ -53,8 +54,33 @@ def Steps_to_Dist(steps):
     return (steps / m_steps) * (3.14156 * m_diameter)
     
 #~~~~~ Move motors a given number of steps ~~~~~
-def Move_Motors(steps,speed):
-    start_time = perf_counter()
+def Move_Motors(steps,speed_max,speed_min):
+    #start_time = perf_counter()
+    
+    #Accelerate over one rotation if steps and max/min speeds set
+    if steps > 1600 and speed_max != speed_min:
+        
+        accel_step = (speed_max - speed_min)/1600 #Frequency increase per step
+        
+        for accel in range(0,1600):
+            
+            accel_speed = 1 / (accel_step*accel + speed_min) #New speed
+            
+            GPIO.output(stepPin1,GPIO.HIGH)
+            GPIO.output(stepPin2,GPIO.HIGH)
+            sleep(accel_speed)
+            GPIO.output(stepPin1,GPIO.LOW)
+            GPIO.output(stepPin2,GPIO.LOW)
+            sleep(accel_speed)
+            
+        #Correct steps and speed for acceleration        
+        steps -= 1600
+        speed = 1 / speed_max #convert frequency to seconds
+
+    #Move at minimum speed otherwise
+    else:
+        speed = 1 / speed_min #convert frequency to seconds
+    
     #Move the motor in the specified direction for the specified number of steps
     for step in range(steps):
         GPIO.output(stepPin1,GPIO.HIGH)
@@ -63,8 +89,6 @@ def Move_Motors(steps,speed):
         GPIO.output(stepPin1,GPIO.LOW)
         GPIO.output(stepPin2,GPIO.LOW)
         sleep(speed)
-    end_time = perf_counter()
-    #print("\tTime to Move: " + str(end_time - start_time))
 
 #~~~~~ Change motor direction ~~~~~
 def Motor_Direction(direction):
@@ -103,7 +127,7 @@ def Move_Distance(direction,distance,x_pos,y_pos):
 
     #Move the motors into position
     if distance != 0:
-        Move_Motors(steps_to_move,p_delay)
+        Move_Motors(steps_to_move,speed_max_default,speed_min_default)
         
         print("\tSteps: " + str(steps_to_move))
         print("\tDist: " + str(dist_to_move))
@@ -115,8 +139,6 @@ def Move_Distance(direction,distance,x_pos,y_pos):
 
 #~~~~~ Zero the location (to be used later) ~~~~~
 def Zero_Motors():
-    #print("This function does not yet work")
-    #return(0,0)
 
     #Move the motors slightly in case they are already in the zero position
     Move_Distance("up",2,0,0) #Move up 2cm
@@ -127,7 +149,7 @@ def Zero_Motors():
     #Zero the Y position first
     Motor_Direction("down")
     while(GPIO.input(zeroPinY) == GPIO.HIGH):
-        Move_Motors(1,p_delay*100) #very slowly move motors 1 step at a time
+        Move_Motors(1,1e3,1e3) #very slowly move motors 1 step at a time
 
     print("Y has been zeroed...")
     sleep(2)
@@ -135,18 +157,18 @@ def Zero_Motors():
     #Zero the X position second
     Motor_Direction("left")
     while(GPIO.input(zeroPinX) == GPIO.HIGH):
-        Move_Motors(1,p_delay*100) #very slowly move motors 1 step at a time
+        Move_Motors(1,1e3,1e3) #very slowly move motors 1 step at a time
         
     print("X has been zeroed...")
     sleep(2)
     #Move the motors slightly off the actual zero point
     Motor_Direction("right")
     for i in range(800):
-        Move_Motors(1,p_delay*10)
+        Move_Motors(1,10e3,10e3)
     sleep(1)
     Motor_Direction("up")
     for i in range(800):
-        Move_Motors(1,p_delay*10)
+        Move_Motors(1,10e3,10e3)
     sleep(1)
 
     return (0,0) #return the new X,Y positon
