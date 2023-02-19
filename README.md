@@ -36,6 +36,7 @@ The project is very much a work in progress and is actively changing day to day.
 #### Movement Test of H-Bot System
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Jan20.gif" width="200"> <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Jan29.gif" width="200">
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Zeroing_Test.gif" width="900">
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Feb19.gif" width="900">
 
 #### Pad Orientation and Control
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Pad_Orient_1.gif" width="200"> <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Pad_Orient_2.gif" width="200">
