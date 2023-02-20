@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import Navbar from "./Components/Navbar"
+import "./index.css"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Navbar></Navbar>
+    <div className='container'>
+      <div className='greeting'>
+        <h1>Welcome Brandon, let's get <span className='title'>R.I.P.T.</span></h1>
+      </div>
+      <p>Qui consectetur incididunt et incididunt reprehenderit.</p>
+      <p>Sit proident voluptate magna reprehenderit occaecat non ex. Reprehenderit fugiat duis occaecat ullamco eu ut. Dolor id commodo enim et nulla velit. Exercitation incididunt labore labore cupidatat id excepteur pariatur ullamco exercitation.</p>
+      <p>Labore dolor reprehenderit velit ea eiusmod Lorem minim quis. Aute id est consectetur nulla enim ea est fugiat. Velit amet ut commodo ullamco mollit consectetur aute ad et proident consequat cupidatat pariatur anim. Non sit in ex officia cupidatat laborum tempor consectetur. Irure dolor sint qui ea veniam adipisicing voluptate nulla. Sint ut aute exercitation excepteur labore mollit fugiat. Pariatur do aliquip elit tempor eiusmod esse. Ullamco non ut fugiat non eu sint mollit. Aliqua sint adipisicing et excepteur ipsum est adipisicing cupidatat magna est aute consequat aliqua. Laborum aute eiusmod non cupidatat aliqua adipisicing ea tempor. Minim minim consectetur fugiat non magna ea consectetur sunt laboris. Culpa veniam reprehenderit voluptate non officia esse occaecat sunt eu commodo dolore irure pariatur commodo. Sunt labore sit pariatur minim veniam labore excepteur consequat tempor duis amet. Duis proident dolor deserunt aliqua ad exercitation dolore aliquip. Esse Lorem enim velit deserunt excepteur amet exercitation. Et proident magna ullamco aliquip amet cupidatat Lorem id veniam in proident ad. Cillum sint anim ullamco ex elit nisi sit quis reprehenderit laborum labore aliquip ea.</p>
+      <p>Labore dolor reprehenderit velit ea eiusmod Lorem minim quis. Aute id est consectetur nulla enim ea est fugiat. Velit amet ut commodo ullamco mollit consectetur aute ad et proident consequat cupidatat pariatur anim. Non sit in ex officia cupidatat laborum tempor consectetur. Irure dolor sint qui ea veniam adipisicing voluptate nulla. Sint ut aute exercitation excepteur labore mollit fugiat. Pariatur do aliquip elit tempor eiusmod esse. Ullamco non ut fugiat non eu sint mollit. Aliqua sint adipisicing et excepteur ipsum est adipisicing cupidatat magna est aute consequat aliqua. Laborum aute eiusmod non cupidatat aliqua adipisicing ea tempor. Minim minim consectetur fugiat non magna ea consectetur sunt laboris. Culpa veniam reprehenderit voluptate non officia esse occaecat sunt eu commodo dolore irure pariatur commodo. Sunt labore sit pariatur minim veniam labore excepteur consequat tempor duis amet. Duis proident dolor deserunt aliqua ad exercitation dolore aliquip. Esse Lorem enim velit deserunt excepteur amet exercitation. Et proident magna ullamco aliquip amet cupidatat Lorem id veniam in proident ad. Cillum sint anim ullamco ex elit nisi sit quis reprehenderit laborum labore aliquip ea.</p>
+      <p>Labore dolor reprehenderit velit ea eiusmod Lorem minim quis. Aute id est consectetur nulla enim ea est fugiat. Velit amet ut commodo ullamco mollit consectetur aute ad et proident consequat cupidatat pariatur anim. Non sit in ex officia cupidatat laborum tempor consectetur. Irure dolor sint qui ea veniam adipisicing voluptate nulla. Sint ut aute exercitation excepteur labore mollit fugiat. Pariatur do aliquip elit tempor eiusmod esse. Ullamco non ut fugiat non eu sint mollit. Aliqua sint adipisicing et excepteur ipsum est adipisicing cupidatat magna est aute consequat aliqua. Laborum aute eiusmod non cupidatat aliqua adipisicing ea tempor. Minim minim consectetur fugiat non magna ea consectetur sunt laboris. Culpa veniam reprehenderit voluptate non officia esse occaecat sunt eu commodo dolore irure pariatur commodo. Sunt labore sit pariatur minim veniam labore excepteur consequat tempor duis amet. Duis proident dolor deserunt aliqua ad exercitation dolore aliquip. Esse Lorem enim velit deserunt excepteur amet exercitation. Et proident magna ullamco aliquip amet cupidatat Lorem id veniam in proident ad. Cillum sint anim ullamco ex elit nisi sit quis reprehenderit laborum labore aliquip ea.</p>
+    </div>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

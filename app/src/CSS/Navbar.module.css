@@ -1,0 +1,66 @@
+/*Main container for the navbar*/
+.container {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    margin: 0;
+    padding: 0 0.5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    background-color: #EEE;
+    z-index: 999; /*Make sure this stays on top of everything*/
+}
+
+/*Logo on the left*/
+.logo {
+    height: 60px;
+}
+
+/*Company name R.I.P.T. beside logo*/
+.title {
+    margin: auto;
+    color: '#222';
+    font-family: "Antihero", Tahoma, sans-serif;
+}
+
+/*Put logo and title in a div for spacing control*/
+.logo_and_title {
+    width: 12.5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/*For the <ul> full of links*/
+.link {
+    font-family: "Roboto", Verdana, Geneva, Tahoma, sans-serif;
+    width: 75%;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 1.25em;
+}
+
+/*Hovering over a link*/
+.link li:hover {
+    color: #f15a24;
+    font-weight: bold;
+    cursor: pointer;
+    transform: scale(1.2);
+    transition: .5s ease;
+}
+
+/*User icon and menu icon*/
+.icon {
+    height: 55px;
+    padding: 0 10px;
+    margin: 0;
+}
+
+.icon:hover {
+    transform: scale(1.2);
+    transition: .5s ease;
+}
