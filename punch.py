@@ -23,17 +23,17 @@ prob = {
     'uppercut': 0.33
 }
 
-def punchSeq(prob, numPunch):
+def punchSeq(numPunch):
     sequence = []
     printable = []
     for i in range(numPunch):
         temp = random.random()
-        if temp < 0.25:
+        if temp < 0.5:
             quadrant = 'q1'
-        elif temp >= 0.25 and temp < 0.5:
-            quadrant = 'q2'
-        elif temp >= 0.5 and temp < 0.75:
-            quadrant = 'q3'
+        # elif temp >= 0.25 and temp < 0.5:
+        #     quadrant = 'q2'
+        # elif temp >= 0.5 and temp < 0.75:
+        #     quadrant = 'q3'
         else:
             quadrant = 'q4'
         temp1 = random.random()
@@ -49,6 +49,7 @@ def punchSeq(prob, numPunch):
         sequence.append(newPunch)
         printable.append(punchArray)
     print(printable)
+    return sequence
 
 random.seed(time())
-punchSeq(None, 200)
+punchSeq(200)
