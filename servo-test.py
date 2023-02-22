@@ -25,9 +25,9 @@ bot_serv = servo(03)
 top_serv = servo(04)
 
 bot_serv.SetGPIO()
-bot_serv.SetAngle(90) #just need to figure out the angles
-top_serv.SetGPIO()
-top_serv.SetAngle(90)
+bot_serv.SetAngle(90) #need to figure out the angles
+top_serv.SetGPIO() #only need to set GPIO pins at the start
+top_serv.SetAngle(90) 
 
 
 GPIO.cleanup()
