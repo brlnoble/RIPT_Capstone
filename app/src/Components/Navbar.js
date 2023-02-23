@@ -1,4 +1,6 @@
 import React from "react"
+import { Link } from "react-router-dom";
+
 import styles from "../CSS/Navbar.module.css" //Style sheet for the navigation bar
 
 //Import images
@@ -12,21 +14,25 @@ class Navbar extends React.Component {
             <div className={styles.container}>
 
                 {/*The logo and title sit here*/}
-                <div className={styles.logo_and_title}>
-                    <img src={logo} alt="logo" className={styles.logo}></img>
-                    <h1 className={styles.title}>R.I.P.T.</h1>
+                <div>
+                    <Link to="/" className={styles.logo_and_title}>
+                        <img src={logo} alt="logo" className={styles.logo}></img>
+                        <h1 className={styles.title}>R.I.P.T.</h1>
+                    </Link>
                 </div>
             
                 {/*Links to other pages*/}
                 <ul className={styles.link}>
-                    <li>About Us</li>
-                    <li>How it Works</li>
-                    <li>Sessions</li>
-                    <li>Trends</li>
+                    <li><Link to="/about" className={styles.react_link}>About us</Link></li>
+                    <li><Link to="/technical" className={styles.react_link}>How it Works</Link></li>
+                    <li><Link to="/sessions" className={styles.react_link}>Sessions</Link></li>
+                    <li><Link to="/trends" className={styles.react_link}>Trends</Link></li>
                 </ul>
 
                 {/*User icon and burger menu*/}
-                <img src={user_icon} alt="user_icon" className={styles.icon}></img>
+                <Link to="/profile" className={styles.react_link}>
+                    <img src={user_icon} alt="user_icon" className={styles.icon}></img>
+                </Link>
                 <img src={menu_icon} alt="menu_icon" className={styles.icon}></img>
             </div>
         )

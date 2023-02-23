@@ -1,13 +1,3 @@
-body {
-  margin: 0;
-  font-family: "Roboto", Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.container {
-  margin: 5% 10%;
-  height: 100vh;
-}
-
 .greeting {
   padding: 0;
   margin: 0;

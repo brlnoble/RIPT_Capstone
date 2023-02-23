@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    font-family: "Roboto", Verdana, Geneva, Tahoma, sans-serif;
+}
+  
+.main_container {
+    margin: 5% 10%;
+    height: 100vh;
+}
+
+.react_link {
+    text-decoration: none;
+    color: inherit;
+}

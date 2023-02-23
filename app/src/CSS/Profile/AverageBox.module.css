@@ -1,0 +1,52 @@
+.average_box {
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.average_title {
+    border-bottom: 4px solid #ddd;
+    color: #666;
+    font-weight: normal;
+    width: 60%;
+    margin-bottom: 50px;
+}
+
+.metric_box {
+    width: 75%;
+    padding: 0;
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 40% 30% 30%;
+    row-gap: 30px;
+    align-items: stretch;
+}
+
+.metric_box h2 {
+    padding: 0;
+    margin: 0;
+
+    border-bottom: 4px solid #ddd;
+}
+
+.metric_box h3 {
+    padding: 0;
+    margin: 0;
+
+    color: #f15a24;
+    border-bottom: 4px solid #ddd;
+}
+
+.metric_box p {
+    padding: 0;
+    margin: 0;
+    
+    color: #666;
+    border-bottom: 4px solid #ddd;
+}
+
+.context {
+    margin-top: 50px;
+    color: #666;
+}

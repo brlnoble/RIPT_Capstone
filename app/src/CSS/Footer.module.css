@@ -1,0 +1,28 @@
+.container {
+    background-color: #222;
+    padding: 1% 5%;
+    color: #eee;
+}
+
+.container ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 25px;
+    padding: 0 10px;
+}
+
+.container a {
+    color: #eee;
+    text-decoration: none;
+}
