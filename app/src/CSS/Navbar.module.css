@@ -9,7 +9,7 @@
     flex-direction: row;
     justify-content: left;
     align-items: center;
-    background-color: #DDD/*#fef4f1*/;
+    background-color: #fef4f1;
     z-index: 999; /*Make sure this stays on top of everything*/
     border-bottom: 2px solid #efc2b2;
 }

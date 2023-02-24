@@ -7,10 +7,7 @@ import "../../CSS/Session/Session.css"
 import SessionsBoxHeader from "./SessionBoxHeader";
 import PunchMetrics from "./PunchMetrics";
 
-const force = {avg: "250 N", quads: {q1: 100, q2: 200, q3: 300, q4: 400}};
-const accuracy = {avg: "92%", quads: {q1: 90, q2: 90, q3: 88, q4: 100}}
-const reaction = {avg: "315 ms", quads: {q1: 335, q2: 295, q3: 310, q4: 320}}
-const form = {avg: "60%", quads: {q1: 65, q2: 62, q3: 50, q4: 63}}
+
 
 class SessionBox extends React.Component {
     render() {
@@ -18,35 +15,34 @@ class SessionBox extends React.Component {
 
             <div className="container">
                 <div className="makeMeBig">
-                    <Collapsible trigger={SessionsBoxHeader("Personalized","Feb. 23, 2023","3:09 PM", "3m 30s")}>
+                    <Collapsible trigger={
+
+                        //Box with information that can be opened or collapsed
+                        SessionsBoxHeader(
+                            this.props.info.category,
+                            this.props.info.date,
+                            this.props.info.time, 
+                            this.props.info.duration)}
+                        
+                    >
                         <div className="container_collapse">
-                            <PunchMetrics
-                                punch="Uppercut" 
-                                force={force} 
-                                accuracy={accuracy} 
-                                reaction={reaction}
-                                form={form}>
-                            </PunchMetrics>
 
-                            <hr className="line_separator"></hr>
+                            {/*Create a metric box for each punch type analyzed*/}
+                            {this.props.punchData.map( (punch) => (
+                                <PunchMetrics
+                                    punch={punch.type} 
+                                    force={punch.metrics.force} 
+                                    accuracy={punch.metrics.accuracy} 
+                                    reaction={punch.metrics.reaction}
+                                    form={punch.metrics.form}
+                                    stability={punch.metrics.stability}>
+                                </PunchMetrics>
+                            ))}
 
-                            <PunchMetrics
-                                punch="Cross" 
-                                force={force} 
-                                accuracy={accuracy} 
-                                reaction={reaction}
-                                form={form}>
-                            </PunchMetrics>
+                            <p style={{textAlign: "center"}}>The results of this session will be analyzed and applied to your next personalized session. 
+                                <br/> <strong>R.I.P.T.</strong> is commited to bettering your skills with our boxing algorithms!
+                            </p>
 
-                            <hr className="line_separator"></hr>
-
-                            <PunchMetrics
-                                punch="Straight" 
-                                force={force} 
-                                accuracy={accuracy} 
-                                reaction={reaction}
-                                form={form}>
-                            </PunchMetrics>
                         </div>
                     </Collapsible>
                 </div>

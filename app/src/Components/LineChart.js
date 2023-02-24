@@ -3,7 +3,7 @@ import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
 //Creates the data object required for the line chart
-function GetData(chartData) {
+function GetData(chartData,avg) {
     return(
         {
             labels: Array.from(Array(chartData.length).keys()), //generates labels based on length of input array
@@ -16,7 +16,7 @@ function GetData(chartData) {
 
               {
                 borderColor: "#999",
-                data: Array.from(Array(chartData.length)).fill(chartData.reduce((a, b) => a + b) / chartData.length), //average value
+                data: Array.from(Array(chartData.length)).fill(avg), //average value
               }
             ],
           }
@@ -44,7 +44,7 @@ const options = {
 
 class LineChart extends React.Component {
     render() {
-        const myData = GetData(this.props.chartData); //Creatse the data object based on the props
+        const myData = GetData(this.props.chartData,this.props.avg); //Creatse the data object based on the props
 
         return (
             <div style={{width: "70%",height: "50%"}}>

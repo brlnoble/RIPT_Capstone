@@ -16,8 +16,9 @@ class PunchMetrics extends React.Component {
                     <MetricBreakdown metricType="Accuracy" metrics={this.props.accuracy}></MetricBreakdown>
                     <MetricBreakdown metricType="Reaction Time" metrics={this.props.reaction}></MetricBreakdown>
                     <MetricBreakdown metricType="Form" metrics={this.props.form}></MetricBreakdown>
-                    <div className="metric_grid_stability"><MetricStability avg="70%"></MetricStability></div>
+                    <div className="metric_grid_stability"><MetricStability avg={this.props.stability.avg} chartData={this.props.stability.chartData}></MetricStability></div>
                 </div>
+                <hr className="line_separator"></hr>
             </div>
         )
     }
