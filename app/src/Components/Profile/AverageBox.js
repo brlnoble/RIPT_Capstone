@@ -13,23 +13,23 @@ class AverageBox extends React.Component {
 
                     <div className={styles.metric_box}>
                         <h2>Force</h2>
-                        <h3>530 N</h3>
+                        <h3>{this.props.user.force}</h3>
                         <p>+10% this week</p>
 
                         <h2>Accuracy</h2>
-                        <h3>87%</h3>
+                        <h3>{this.props.user.accuracy}</h3>
                         <p>-8% this week</p>
 
                         <h2>Reation Time</h2>
-                        <h3>325 ms</h3>
+                        <h3>{this.props.user.reaction}</h3>
                         <p>+3% this week</p>
 
                         <h2>Form Score</h2>
-                        <h3>65%</h3>
+                        <h3>{this.props.user.form}</h3>
                         <p>+1% this week</p>
 
                         <h2>Stability</h2>
-                        <h3>80%</h3>
+                        <h3>{this.props.user.stability}</h3>
                         <p>-11% this week</p>
                     </div>
 

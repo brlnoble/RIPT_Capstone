@@ -3,7 +3,6 @@ import {Link} from "react-router-dom"
 
 import "../../CSS/Box.css"
 import styles from "../../CSS/Profile/ProfileBox.module.css"
-import user_pic from "../../Images/user_pic.png"
 
 class ProfileBox extends React.Component {
     render() {
@@ -12,8 +11,8 @@ class ProfileBox extends React.Component {
                 <div className={styles.profile_box}>
 
                     {/*Profile picture and first name*/}
-                    <img src={user_pic} alt="profile_picture" className={styles.profile_pic}></img>
-                    <h1 className={styles.user_fullname}>Brandon</h1>
+                    <img src={this.props.user.picture.base64} alt="profile_picture" className={styles.profile_pic}></img>
+                    <h1 className={styles.user_fullname}>{this.props.user.firstName}</h1>
                     
                     <div className={styles.user_info}>
                         
@@ -30,13 +29,13 @@ class ProfileBox extends React.Component {
 
                         {/*The user's actual information*/}
                         <div className={styles.info_text}>
-                            <h2>GingaNinja</h2>
-                            <h2>brandon@email.com</h2>
-                            <h2>March 28, 1999</h2>
+                            <h2>{this.props.user.userName}</h2>
+                            <h2>{this.props.user.email}</h2>
+                            <h2>{this.props.user.birthday}</h2>
                             <br></br>
-                            <h2>September 8, 2022</h2>
-                            <h2>88</h2>
-                            <h2>Orthodox</h2>
+                            <h2>{this.props.user.member}</h2>
+                            <h2>{this.props.user.sessions}</h2>
+                            <h2>{this.props.user.stance}</h2>
                         </div>
 
                     </div>

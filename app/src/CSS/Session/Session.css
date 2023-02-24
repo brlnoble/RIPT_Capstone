@@ -67,7 +67,19 @@
     }
 
 /*For between the different punches*/
-.line_separator {
-    border: 5px solid #ddd;
-    margin: 50px 0;
-}
+    .line_separator {
+        border: 5px solid #ddd;
+        margin: 50px 0;
+    }
+
+
+/*Handles rotating the expand/close icon when interacted with*/
+    .collapsible_open img{
+        transform: rotate(180deg);
+        transition: ease 0.5s;
+    }
+
+    .collapsible_close img {
+        transform: rotate(0deg);
+        transition: ease 0.5s;
+    }

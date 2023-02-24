@@ -8,6 +8,9 @@ import Sessions from "./Pages/Sessions"
 import About from "./Pages/About"
 import NoPage from "./Pages/NoPage"
 
+//This needs to be passed in by the backend
+import currentUser from "./UserData/brandonData";
+
 
 export default function App() {
   return (
@@ -15,8 +18,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/sessions" element={<Sessions />} />
+          <Route path="/profile" element={<Profile user={currentUser}/>} />
+          <Route path="/sessions" element={<Sessions user={currentUser}/>} />
           <Route path="/about" element={<About />} />
 
           <Route path="*" element={<NoPage />} />

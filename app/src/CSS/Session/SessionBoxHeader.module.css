@@ -46,3 +46,7 @@
     background-color: #ccc;
     border-radius: 15px;
 }
+
+.expand_icon:hover {
+    cursor: pointer;
+}

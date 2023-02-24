@@ -14,7 +14,7 @@ class SessionBox extends React.Component {
         return (
             <div className="container">
                 <div className="makeMeBig">
-                    <Collapsible trigger={
+                    <Collapsible triggerOpenedClassName="collapsible_open" triggerClassName="collapsible_close" trigger={
 
                         //Box with information that can be opened or collapsed
                         SessionsBoxHeader(

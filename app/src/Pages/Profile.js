@@ -12,10 +12,10 @@ class Profile extends React.Component {
             <div className="main_container">
                 <div className="profile_container">
                     {/*User's profile on left side*/}
-                    <ProfileBox></ProfileBox>                    
+                    <ProfileBox user={this.props.user.profile}></ProfileBox>                    
 
                     {/*Average statistics on right side*/}
-                    <AverageBox></AverageBox>
+                    <AverageBox user={this.props.user.averageMetrics}></AverageBox>
                 </div>
             </div>
         )
