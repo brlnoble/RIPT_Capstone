@@ -12,7 +12,6 @@ import PunchMetrics from "./PunchMetrics";
 class SessionBox extends React.Component {
     render() {
         return (
-
             <div className="container">
                 <div className="makeMeBig">
                     <Collapsible trigger={
@@ -47,7 +46,6 @@ class SessionBox extends React.Component {
                     </Collapsible>
                 </div>
             </div>
-            
         )
     }
 }

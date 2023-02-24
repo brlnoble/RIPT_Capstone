@@ -40,7 +40,7 @@ const cross = {
 const punches = [uppercut, straight, cross];
 
 //Session data object that needs to be passed from backend
-const sessionData = {
+const sessionDataOne = {
     key: 12345, //needs to be generated
     sessionInfo: {
         category: "Personalized",
@@ -51,17 +51,44 @@ const sessionData = {
     punchData: punches
 }
 
+const sessionDataTwo = {
+    key: 54321, //needs to be generated
+    sessionInfo: {
+        category: "Endurance",
+        date: "Feb. 24, 2023",
+        time: "10:27 AM",
+        duration: "5m 00s",
+    },
+    punchData: punches
+}
+
+const sessionDataThree = {
+    key: 98765, //needs to be generated
+    sessionInfo: {
+        category: "Personalized",
+        date: "Feb. 24, 2023",
+        time: "10:32 AM",
+        duration: "3m 00s",
+    },
+    punchData: punches
+}
+
+//Object containing all the user's data
+const userSessions = [sessionDataOne, sessionDataTwo, sessionDataThree];
 
 class Sessions extends React.Component {
     render() {
         return(
             <div className="main_container">
                 <h1>Sessions and stuff</h1>
-                <SessionBox
-                    key={sessionData.key}
-                    info={sessionData.sessionInfo}
-                    punchData={sessionData.punchData}
-                />
+
+                {userSessions.map( (session) => (
+                    <SessionBox
+                        key={session.key}
+                        info={session.sessionInfo}
+                        punchData={session.punchData}
+                    />
+                ))}
             </div>
         )
     }

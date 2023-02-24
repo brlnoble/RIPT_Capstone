@@ -17,7 +17,7 @@ class ListBox extends React.Component {
                 </ul>
 
                 {/*Button to redirect pages*/}
-                <button><Link to={this.props.redirect} className="react_link">{this.props.button_text}</Link></button>
+                <Link to={this.props.redirect} className="react_link_button"><button>{this.props.button_text}</button></Link>
             </div>
         )
     }

@@ -1,4 +1,5 @@
 import React from "react"
+import {Link} from "react-router-dom"
 
 import "../../CSS/Box.css"
 import styles from "../../CSS/Profile/ProfileBox.module.css"
@@ -39,12 +40,14 @@ class ProfileBox extends React.Component {
                         </div>
 
                     </div>
-                </div>
 
-                {/*Buttons we might not actually need*/}
-                <button>Update my info</button>
-                <button>Change my password</button>
-                
+                    <div>
+                        {/*Buttons we might not actually need*/}
+                        <Link className="react_link_button"><button className="react_link_button">Update my info</button></Link>
+                        <Link className="react_link_button"><button className="react_link_button">Change my password</button></Link>
+                    </div>
+
+                </div>                
             </div>               
         )
     }
