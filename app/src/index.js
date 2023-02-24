@@ -1,9 +1,11 @@
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Layout from "./Pages/layout";
-import Home from "./Pages/Home";
-import Profile from "./Pages/Profile";
+import Layout from "./Pages/layout"
+import Home from "./Pages/Home"
+import Profile from "./Pages/Profile"
+import Sessions from "./Pages/Sessions"
+import About from "./Pages/About"
 import NoPage from "./Pages/NoPage"
 
 
@@ -14,6 +16,8 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/sessions" element={<Sessions />} />
+          <Route path="/about" element={<About />} />
 
           <Route path="*" element={<NoPage />} />
         </Route>
