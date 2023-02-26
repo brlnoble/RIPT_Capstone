@@ -3,12 +3,10 @@ import React from "react"
 import MetricBreakdown from "./MetricBreakdown"
 import MetricStability from "./MetricStability"
 
-import styles from "../../CSS/Session/Session.css"
-
 class PunchMetrics extends React.Component {
     render() {
         return(
-            <div className={styles.container}>
+            <div className="punch_container">
                 <h2 className="punch_title">{this.props.punch}</h2>
 
                 <div className="metric_grid">
@@ -18,7 +16,6 @@ class PunchMetrics extends React.Component {
                     <MetricBreakdown metricType="Form" metrics={this.props.form}></MetricBreakdown>
                     <div className="metric_grid_stability"><MetricStability avg={this.props.stability.avg} chartData={this.props.stability.chartData}></MetricStability></div>
                 </div>
-                <hr className="line_separator"></hr>
             </div>
         )
     }

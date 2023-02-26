@@ -16,6 +16,7 @@ function GetData(chartData,avg) {
 
               {
                 borderColor: "#999",
+                pointRadius: 0,
                 data: Array.from(Array(chartData.length)).fill(avg), //average value
               }
             ],
@@ -35,7 +36,7 @@ const options = {
         }
     },
 
-    scales: { x: { ticks: { display: false } } },
+    scales: { x: { display: false } }, //Removes the X lines
 
     maintainAspectRatio: false,
 
@@ -47,7 +48,7 @@ class LineChart extends React.Component {
         const myData = GetData(this.props.chartData,this.props.avg); //Creatse the data object based on the props
 
         return (
-            <div style={{width: "70%",height: "50%"}}>
+            <div style={{width: "100%",height: "100%"}}>
                 <Line data={myData} options={options}/>
             </div>
         );

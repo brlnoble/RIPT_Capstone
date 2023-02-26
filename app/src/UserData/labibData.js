@@ -128,7 +128,7 @@ const userData = {
                 },
 
                 {
-                    type: "Cross",
+                    type: "Straight",
                     metrics: {
                         force: {
                             avg: "250 N", 
@@ -278,7 +278,7 @@ const userData = {
                 },
 
                 {
-                    type: "Cross",
+                    type: "Straight",
                     metrics: {
                         force: {
                             avg: "250 N", 
@@ -428,7 +428,7 @@ const userData = {
                 },
 
                 {
-                    type: "Cross",
+                    type: "Straight",
                     metrics: {
                         force: {
                             avg: "250 N", 
@@ -578,7 +578,7 @@ const userData = {
                 },
 
                 {
-                    type: "Cross",
+                    type: "Straight",
                     metrics: {
                         force: {
                             avg: "250 N", 

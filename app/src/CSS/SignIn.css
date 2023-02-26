@@ -1,0 +1,24 @@
+.sign_in_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    width: 50%;
+}
+
+.sign_in_label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.sign_in_input {
+    height: 30px;
+    width: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.sign_in_container {
+    width: 50%;
+    padding: 5% 25%;
+}

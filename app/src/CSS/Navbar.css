@@ -1,13 +1,14 @@
 /*Main container for the navbar*/
-.container {
+.nav_container {
     position: fixed;
-    width: 100%;
+    width: 90%;
     top: 0;
     margin: 0;
-    padding: 0 0.5%;
+    padding: 0 5%;
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     background-color: #fef4f1;
     z-index: 999; /*Make sure this stays on top of everything*/
@@ -15,19 +16,19 @@
 }
 
 /*Logo on the left*/
-.logo {
+.nav_logo {
     height: 60px;
 }
 
 /*Company name R.I.P.T. beside logo*/
-.title {
+.nav_title {
     margin: auto;
     font-family: "Antihero", Tahoma, sans-serif;
     color: #222;
 }
 
 /*Put logo and title in a div for spacing control*/
-.logo_and_title {
+.nav_logo_and_title {
     width: 12.5%;
     display: flex;
     flex-direction: row;
@@ -36,7 +37,7 @@
 }
 
 /*For the <ul> full of links*/
-.link {
+.nav_link {
     font-family: "Roboto", Verdana, Geneva, Tahoma, sans-serif;
     width: 75%;
     list-style: none;
@@ -47,7 +48,7 @@
 }
 
 /*Hovering over a link*/
-.link li:hover {
+.nav_link li:hover {
     color: #f15a24;
     font-weight: bold;
     cursor: pointer;
@@ -56,13 +57,18 @@
 }
 
 /*User icon and menu icon*/
-.icon {
+.nav_icon {
     height: 55px;
-    padding: 0 10px;
-    margin: 0;
+    padding: 0;
+    margin: 0 10px;
+    transition: .5s ease;
 }
 
-.icon:hover {
+.nav_icon:hover {
     transform: scale(1.2);
-    transition: .5s ease;
+}
+
+.nav_active_icon .nav_icon{
+    box-shadow: inset 0px 0px 0px 5px #f15a24;
+    border-radius: 100%;
 }

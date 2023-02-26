@@ -1,9 +1,6 @@
 import React from "react"
 import Collapsible from 'react-collapsible';
 
-import "../../CSS/Box.css"
-import "../../CSS/Session/Session.css"
-
 import SessionsBoxHeader from "./SessionBoxHeader";
 import PunchMetrics from "./PunchMetrics";
 
@@ -24,11 +21,13 @@ class SessionBox extends React.Component {
                             this.props.info.duration)}
                         
                     >
+                        <hr className="line_separator"></hr>
                         <div className="container_collapse">
 
                             {/*Create a metric box for each punch type analyzed*/}
                             {this.props.punchData.map( (punch) => (
                                 <PunchMetrics
+                                    key={punch.type}
                                     punch={punch.type} 
                                     force={punch.metrics.force} 
                                     accuracy={punch.metrics.accuracy} 
@@ -38,11 +37,11 @@ class SessionBox extends React.Component {
                                 </PunchMetrics>
                             ))}
 
-                            <p style={{textAlign: "center"}}>The results of this session will be analyzed and applied to your next personalized session. 
-                                <br/> <strong>R.I.P.T.</strong> is commited to bettering your skills with our boxing algorithms!
-                            </p>
-
                         </div>
+                        
+                        <p style={{textAlign: "center"}}>The results of this session will be analyzed and applied to your next personalized session. 
+                            <br/> <strong>R.I.P.T.</strong> is commited to bettering your skills with our boxing algorithms!
+                        </p>
                     </Collapsible>
                 </div>
             </div>

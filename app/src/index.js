@@ -5,7 +5,9 @@ import Layout from "./Pages/layout"
 import Home from "./Pages/Home"
 import Profile from "./Pages/Profile"
 import Sessions from "./Pages/Sessions"
+import Trends from "./Pages/Trends"
 import About from "./Pages/About"
+import SignIn from "./Pages/SignIn"
 import NoPage from "./Pages/NoPage"
 
 //This needs to be passed in by the backend
@@ -20,7 +22,9 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="/profile" element={<Profile user={currentUser}/>} />
           <Route path="/sessions" element={<Sessions user={currentUser}/>} />
+          <Route path="/trends" element={<Trends user={currentUser}/>} />
           <Route path="/about" element={<About />} />
+          <Route path="/sign-in" element={<SignIn/>} />
 
           <Route path="*" element={<NoPage />} />
         </Route>

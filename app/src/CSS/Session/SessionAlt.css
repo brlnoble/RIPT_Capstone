@@ -1,3 +1,7 @@
+h1 {
+    text-align: center;
+}
+
 /*Make the collapsable element fill the area*/
     .makeMeBig {
         width: 100%;
@@ -6,6 +10,8 @@
     .container_collapse {
         width: 100%;
         padding: 2.5%;
+        display: flex;
+        flex-direction: row;
     }
 
 /*For the quadrant metrics*/
@@ -19,6 +25,7 @@
     .quad_box p{
         padding: 5px;
         margin: 0;
+        text-align: center;
     }
 
     .bottom_line {
@@ -31,7 +38,7 @@
 
 /*Stying the metrics*/
     .punch_title {
-        text-align: left;
+        text-align: center;
         color: #f15a24;
     }
 
@@ -42,34 +49,31 @@
     .metrics {
         display: flex;
         flex-direction: row;
-        width: 60%;
+        width: 100%;
         justify-content: space-between;
-        padding-left: 5%;
+        align-items: center;
     }
 
     .metric_grid {
-        display: grid;
-        grid-template-columns: 33% 33% 33%;
-        row-gap: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .punch_container {
+        width: 100%;
+        padding: 2.5%;
+        justify-content: center;
+        border-right: 4px solid #ddd;
     }
 
 /*Make the stability graph section large enough for the graph*/
-    .metric_grid_stability {
-        grid-column: 2 / 4;
-    }
-
     .metrics_stability {
         display: flex;
-        flex-direction: row;
-        width: 90%;
-        justify-content: space-between;
-        padding-left: 2.5%;
+        flex-direction: column;
     }
 
-/*For between the different punches*/
-    .line_separator {
-        border: 5px solid #ddd;
-        margin: 50px 0;
+    .metrics_stability canvas {
+        padding: 2.5%; /*PRevents it from getting cut off*/
     }
 
 
@@ -82,4 +86,11 @@
     .collapsible_close img {
         transform: rotate(0deg);
         transition: ease 0.5s;
+    }
+
+/*For better organization*/
+    .line_separator {
+        margin: 0;
+        margin-top: 20px;
+        border: 2px solid #ddd;
     }

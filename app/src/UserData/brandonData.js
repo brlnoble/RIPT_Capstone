@@ -76,7 +76,7 @@ const userData = {
                         }, 
                         stability: {
                             avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
+                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72,75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
                         }
                     }
                 },
@@ -122,13 +122,13 @@ const userData = {
                         }, 
                         stability: {
                             avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
+                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72,75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
                         }
                     }
                 },
 
                 {
-                    type: "Cross",
+                    type: "Straight",
                     metrics: {
                         force: {
                             avg: "250 N", 
@@ -168,7 +168,7 @@ const userData = {
                         }, 
                         stability: {
                             avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
+                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72,75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
                         }
                     }
                 },
@@ -278,7 +278,7 @@ const userData = {
                 },
 
                 {
-                    type: "Cross",
+                    type: "Straight",
                     metrics: {
                         force: {
                             avg: "250 N", 
@@ -428,7 +428,7 @@ const userData = {
                 },
 
                 {
-                    type: "Cross",
+                    type: "Straight",
                     metrics: {
                         force: {
                             avg: "250 N", 
