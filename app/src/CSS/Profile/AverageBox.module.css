@@ -50,3 +50,18 @@
     margin-top: 50px;
     color: #666;
 }
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+    .average_box {
+        width: 100%;
+    }
+
+    .metric_box {
+        width: 100%;
+    }
+
+    .metric_box h2 {
+        font-size: 1.25rem;
+    }
+}

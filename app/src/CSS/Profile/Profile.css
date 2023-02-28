@@ -6,3 +6,10 @@
     margin: 0;
     padding: 0;
 }
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+    .profile_container {
+        margin-top: 100px;
+    }
+}

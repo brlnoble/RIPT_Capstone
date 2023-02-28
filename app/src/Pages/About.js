@@ -7,7 +7,7 @@ class About extends React.Component {
     render() {
         return(
             <div className="main_container">
-                <h1>About This Project</h1>
+                <h1 className="page_title">About This Project</h1>
 
                 <h2>Overview</h2>
                 <p>The Robot Integrated Pad Trainer (R.I.P.T.) is a device for helping boxers develop their offensive skills. The project uses a YOLOv7 computer vision model to observe and track the user with webcams, and identifies deficiencies in their skills. Once a training regime has been developed by a custom algorithm, pad training sessions can be conducted with the new regime. A gantry like system moves pads around for the user to interact with, sensing when they are hit before moving to a new location. This robotic emulation of a human pad trainer allows for more direct customization in the training, and is expandable and repeatable for any number of users and skill levels.</p>

@@ -37,3 +37,14 @@
     color: #533;
     transition: 0.5s ease;
 }
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+    .session_search {
+        width: 100%;
+    }
+
+    .search_title {
+        padding-left: 5%;
+    }
+}

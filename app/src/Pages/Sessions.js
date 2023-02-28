@@ -12,7 +12,7 @@ class Sessions extends React.Component {
     render() {
         return(
             <div className="main_container">
-                <h1>Sessions and Metrics</h1>
+                <h1 className="page_title">Sessions and Metrics</h1>
                 
                 <hr className="line_separator"></hr>
                 <FilterForm></FilterForm>

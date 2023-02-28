@@ -46,3 +46,11 @@
     width: 50%;
     margin-top: 25px;
 }
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+    .container {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+}

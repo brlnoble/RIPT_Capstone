@@ -2,6 +2,10 @@ body {
     margin: 0;
     font-family: "Roboto", Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.page_title {
+    text-align: center;
+}
   
 .main_container {
     margin: 5% 10%;
@@ -11,4 +15,15 @@ body {
 .react_link {
     text-decoration: none;
     color: inherit;
+}
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+    .main_container {
+        margin: 10% 0;
+    }
+
+    .page_title {
+        margin-top: 100px;
+    }
 }

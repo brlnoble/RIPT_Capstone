@@ -6,7 +6,6 @@ import "../CSS/Navbar.css" //Style sheet for the navigation bar
 //Import images
 import logo from "../Images/Logov2-01.svg"
 import user_icon_unactive from "../Images/Icons/account_icon_unselect.svg"
-import user_icon_active from "../Images/Icons/account_icon_select.svg"
 import menu_icon from "../Images/Icons/menu_icon.svg"
 
 //Setup active style for navlinks
@@ -46,7 +45,7 @@ class Navbar extends React.Component {
                 <NavLink to="/profile" className={({ isActive }) => isActive ? "nav_active_icon" : "nav_inactive_icon"}>
                     <img src={user_icon_unactive} alt="user_icon" className="nav_icon"></img>
                 </NavLink> {/*The best I can do is make the icon orange*/}
-                <NavLink to="/sign-in"><img src={menu_icon} alt="menu_icon" className="nav_icon"></img></NavLink>
+                <NavLink to="/sign-in" className="menu_icon"><img src={menu_icon} alt="menu_icon" className="nav_icon"></img></NavLink>
             </div>
         )
     }

@@ -50,3 +50,31 @@
 .expand_icon:hover {
     cursor: pointer;
 }
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+    .header_box {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0;
+    }
+
+    .header_box span {
+        display: none;
+    }
+
+    .expand_icon {
+        height: 25px;
+        margin: 0;
+    }
+
+    .header_box h2 {
+        font-size: 1rem;
+    }
+
+    .header_box h3 {
+        font-size: 0.75rem;
+    }
+}

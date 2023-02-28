@@ -7,7 +7,7 @@ class Sessions extends React.Component {
     render() {
         return(
             <div className="main_container">
-                <h1>Trends and stuff</h1>
+                <h1 className="page_title">Trends and stuff</h1>
             </div>
         )
     }

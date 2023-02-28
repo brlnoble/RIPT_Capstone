@@ -26,3 +26,15 @@
     color: #eee;
     text-decoration: none;
 }
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+    .container ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container ul li {
+        margin: 10px;
+    }
+}

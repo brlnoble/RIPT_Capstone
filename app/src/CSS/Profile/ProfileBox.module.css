@@ -44,3 +44,20 @@
     font-weight: normal;
     width: 60%;
 }
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+
+    .profile_pic {
+        width: 50px;
+    }
+
+    .profile_box {
+        width: 100%;
+    }
+
+    .user_info {
+        width: 100%;
+        padding: 0 20px;
+    }
+}

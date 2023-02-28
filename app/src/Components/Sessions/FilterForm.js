@@ -4,7 +4,7 @@ class FilterForm extends React.Component {
     render() {
         return(
             <>
-                <h2>Filter Results</h2>
+                <h2 className="search_title">Filter Results</h2>
                 <form className="session_search">
 
                     <div className="filter_category">
