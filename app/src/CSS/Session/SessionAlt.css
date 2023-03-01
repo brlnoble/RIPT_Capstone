@@ -102,8 +102,16 @@ h1 {
         padding: 0;
     }
 
-
     .punch_container {
         padding: 0;
+    }
+
+    .punch_title { /*Adds a separator line between the punches*/
+        padding-top: 10px;
+        border-top: 5px solid #ddd;
+    }
+
+    .line_separator { 
+        display: none; /*Not needed when displaying in column format*/
     }
 }

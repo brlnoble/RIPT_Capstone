@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const pageStyle = {
     height: "45vh",
     margin: "10%",
+    marginTop: "100px",
     textAlign: "center"
 };
 

@@ -39,13 +39,16 @@ class Navbar extends React.Component {
                     <li><NavLink to="/technical" style={({ isActive }) => isActive ? active_link : unactive_link}>How it Works</NavLink></li>
                     <li><NavLink to="/sessions" style={({ isActive }) => isActive ? active_link : unactive_link}>Sessions</NavLink></li>
                     <li><NavLink to="/trends" style={({ isActive }) => isActive ? active_link : unactive_link}>Trends</NavLink></li>
+                    <NavLink to="/profile" 
+                        style={({ isActive }) => isActive ? active_link : unactive_link}
+                        className={({ isActive }) => isActive ? "nav_active_icon" : "nav_inactive_icon"}>
+                        <img src={user_icon_unactive} alt="user_icon" className="nav_icon profile_icon"></img>
+                        <p className="profile_text">Profile</p>
+                    </NavLink>
                 </ul>
 
                 {/*User icon and burger menu*/}
-                <NavLink to="/profile" className={({ isActive }) => isActive ? "nav_active_icon" : "nav_inactive_icon"}>
-                    <img src={user_icon_unactive} alt="user_icon" className="nav_icon"></img>
-                </NavLink> {/*The best I can do is make the icon orange*/}
-                <NavLink to="/sign-in" className="menu_icon"><img src={menu_icon} alt="menu_icon" className="nav_icon"></img></NavLink>
+                <NavLink to="" className="menu_icon"><img src={menu_icon} alt="menu_icon" className="nav_icon"></img></NavLink>
             </div>
         )
     }

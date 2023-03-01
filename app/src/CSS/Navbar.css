@@ -1,10 +1,9 @@
 /*Main container for the navbar*/
 .nav_container {
     position: fixed;
-    width: 90%;
+    width: 100%;
     top: 0;
     margin: 0;
-    padding: 0 5%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -39,11 +38,13 @@
 /*For the <ul> full of links*/
 .nav_link {
     font-family: "Roboto", Verdana, Geneva, Tahoma, sans-serif;
-    width: 75%;
+    width: 80%;
+    margin: 0;
     list-style: none;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     font-size: 1.25em;
 }
 
@@ -78,8 +79,24 @@
     display: none;
 }
 
+.profile_text {
+    display: none;
+}
+
 /*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
 @media only screen and (max-width: 600px) {
+
+    /*TODO: Make this display only when the menu icon is clicked*/
+    .nav_container .nav_link{
+        order: 3;
+    }
+
+    .nav_link {
+        width: 100%;
+        display: inline;
+        text-align: center;
+        display: none;
+    }
 
     /*Show the menu icon*/
     .menu_icon {
@@ -87,14 +104,18 @@
     }
 
     .nav_container {
-        width: 100%;
-        padding: 0;
         justify-content: space-between;
     }
 
-    /*TODO: Make this display only when the menu icon is clicked*/
-    .nav_link {
+    /*Hide the profile icon and show the text instead*/
+    .profile_icon {
         display: none;
-        width: 100%;
     }
+
+    .profile_text {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
 }
