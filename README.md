@@ -12,21 +12,21 @@ This project is a collaboration between Brandon Noble ([brlnoble](https://github
 ___
 
 ## Project Goals
-- [ ] Robotic system to control boxing training pads
+- [X] Robotic system to control boxing training pads
   - [X] H-bot inspired pulley system with 10mm GT2 belt, and custom mounts
   - [X] Zero motor position
-  - [ ] Fine motor control for NEMA 24 stepper motors to accurately move gantry system to specific locations
+  - [X] Fine motor control for NEMA 24 stepper motors to accurately move gantry system to specific locations
 - [ ] System to change pad orientation along 2 axes
-  - [ ] Mechanical design to support pad
+  - [X] Mechanical design to support pad
   - [ ] Control over position for different types of punches
-- [ ] YOLOv7 computer vision model
+- [X] YOLOv7 computer vision model
   - [X] Train YOLOv7 tiny model to recognize faces and boxing gloves
   - [X] Deploy on NVIDIA Jetson Nano
   - [X] Determine user blocking with intersection between gloves and face
-  - [ ] Identify different punches based on movements (i.e. jab, cross, uppercut, etc.)
 - [ ] Display and collect user metrics
   - [ ] Implement various sensors to collect user metrics (i.e. reaction time, speed, endurance, accuracy, etc.)
-  - [ ] Web application to display metrics and training sessions
+  - [X] Web application to display metrics and training sessions
+  - [ ] Utilize user metrics to personalize a training regime
   
 ___
 
@@ -43,6 +43,9 @@ The project is very much a work in progress and is actively changing day to day.
 
 #### CAD of One Side of the Device
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/One_Side_Model.jpg" width="900">
+
+### Front End Demonstration of the Web App
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Web_Front_End_Mar6.gif" width="900">
 
 #### Selfie with our YOLOv7 Model
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/YOLO_Selfie.jpg" width="450">
