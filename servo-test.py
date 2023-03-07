@@ -9,7 +9,7 @@ class servo:
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.pin, GPIO.OUT)
 
-    def SetAngle(self, angle): #could write different positions into this function or could set the positions as defined properties of the class
+    def SetAngle(self, angle): 
         pwm=GPIO.PWM(self.pin, 50)
         pwm.start(0)
         duty = angle / 18 + 2
@@ -25,9 +25,28 @@ bot_serv = servo(03)
 top_serv = servo(04)
 
 bot_serv.SetGPIO()
-bot_serv.SetAngle(90) #need to figure out the angles
-top_serv.SetGPIO() #only need to set GPIO pins at the start
-top_serv.SetAngle(90) 
+top_serv.SetGPIO()
 
+# for top servo jab = 90 uppercut & hook = 10, for bottom servo jab & uppercut = 125, hook = 30
+
+def jab():
+    bot_serv.SetAngle(125)
+    top_serv.SetAngle(90)
+def uppercut():
+    bot_serv.SetAngle(125) 
+    top_serv.SetAngle(10)
+def hook():
+    bot_serv.SetAngle(30) 
+    top_serv.SetAngle(10)
+
+i = 0
+while i<25:
+    jab()
+    sleep(1)
+    uppercut()
+    sleep(1)
+    hook()
+    sleep(1)
+    i += 1
 
 GPIO.cleanup()
