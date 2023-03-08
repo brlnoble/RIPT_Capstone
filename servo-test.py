@@ -1,43 +1,153 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-class servo:
-    def __init__(self, pin):
-        self.pin = pin
+bot_serv = 12
+top_serv = 13
+bot_pos = 125
+top_pos = 90
 
-    def SetGPIO(self):
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.pin, GPIO.OUT)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(bot_serv, GPIO.OUT)
+GPIO.setup(top_serv, GPIO.OUT)
 
-    def SetAngle(self, angle): 
-        pwm=GPIO.PWM(self.pin, 50)
-        pwm.start(0)
-        duty = angle / 18 + 2
-        GPIO.output(self.pin, True)
-        pwm.ChangeDutyCycle(duty)
-        sleep(1)
-        GPIO.output(self.pin, False)
-        pwm.ChangeDutyCycle(0)
-        pwm.stop()
-
-
-bot_serv = servo(12)
-top_serv = servo(13)
-
-bot_serv.SetGPIO()
-top_serv.SetGPIO()
-
-# for top servo jab = 90 uppercut & hook = 10, for bottom servo jab & uppercut = 125, hook = 30
+# for top servo 
+# jab = 90 
+# uppercut & hook = 10
+# for bottom servo 
+# jab & uppercut = 125 
+# hook = 30
 
 def jab():
-    bot_serv.SetAngle(125)
-    top_serv.SetAngle(90)
+    if bot_pos == 125:
+        pwm_bot=GPIO.PWM(bot_serv, 50)
+        pwm_bot.start(0)
+        duty_bot = bot_pos / 18 + 2
+        GPIO.output(bot_serv, True)
+        pwm_bot.ChangeDutyCycle(duty_bot)
+        sleep(1)
+        GPIO.output(bot_serv, False)
+        pwm_bot.ChangeDutyCycle(0)
+        pwm_bot.stop()
+    else:
+        bot_pos = 125
+        pwm_bot=GPIO.PWM(bot_serv, 50)
+        pwm_bot.start(0)
+        duty_bot = bot_pos / 18 + 2
+        GPIO.output(bot_serv, True)
+        pwm_bot.ChangeDutyCycle(duty_bot)
+        sleep(1)
+        GPIO.output(bot_serv, False)
+        pwm_bot.ChangeDutyCycle(0)
+        pwm_bot.stop()
+    if top_pos == 90:
+        pwm_top=GPIO.PWM(top_serv, 50)
+        pwm_top.start(0)
+        duty_top = top_pos / 18 + 2
+        GPIO.output(top_serv, True)
+        pwm_top.ChangeDutyCycle(duty_top)
+        sleep(1)
+        GPIO.output(top_serv, False)
+        pwm_top.ChangeDutyCycle(0)
+        pwm_top.stop()
+    else:
+        top_pos = 90
+        pwm_top=GPIO.PWM(top_serv, 50)
+        pwm_top.start(0)
+        duty_top = top_pos / 18 + 2
+        GPIO.output(top_serv, True)
+        pwm_top.ChangeDutyCycle(duty_top)
+        sleep(1)
+        GPIO.output(top_serv, False)
+        pwm_top.ChangeDutyCycle(0)
+        pwm_top.stop()
+
 def uppercut():
-    bot_serv.SetAngle(125) 
-    top_serv.SetAngle(10)
+    if bot_pos == 125:
+        pwm_bot=GPIO.PWM(bot_serv, 50)
+        pwm_bot.start(0)
+        duty_bot = bot_pos / 18 + 2
+        GPIO.output(bot_serv, True)
+        pwm_bot.ChangeDutyCycle(duty_bot)
+        sleep(1)
+        GPIO.output(bot_serv, False)
+        pwm_bot.ChangeDutyCycle(0)
+        pwm_bot.stop()
+    else:
+        bot_pos = 125
+        pwm_bot=GPIO.PWM(bot_serv, 50)
+        pwm_bot.start(0)
+        duty_bot = bot_pos / 18 + 2
+        GPIO.output(bot_serv, True)
+        pwm_bot.ChangeDutyCycle(duty_bot)
+        sleep(1)
+        GPIO.output(bot_serv, False)
+        pwm_bot.ChangeDutyCycle(0)
+        pwm_bot.stop()
+    if top_pos == 10:
+        pwm_top=GPIO.PWM(top_serv, 50)
+        pwm_top.start(0)
+        duty_top = top_pos / 18 + 2
+        GPIO.output(top_serv, True)
+        pwm_top.ChangeDutyCycle(duty_top)
+        sleep(1)
+        GPIO.output(top_serv, False)
+        pwm_top.ChangeDutyCycle(0)
+        pwm_top.stop()
+    else:
+        top_pos = 10
+        pwm_top=GPIO.PWM(top_serv, 50)
+        pwm_top.start(0)
+        duty_top = top_pos / 18 + 2
+        GPIO.output(top_serv, True)
+        pwm_top.ChangeDutyCycle(duty_top)
+        sleep(1)
+        GPIO.output(top_serv, False)
+        pwm_top.ChangeDutyCycle(0)
+        pwm_top.stop()
+
 def hook():
-    bot_serv.SetAngle(30) 
-    top_serv.SetAngle(10)
+    if bot_pos == 30:
+        pwm_bot=GPIO.PWM(bot_serv, 50)
+        pwm_bot.start(0)
+        duty_bot = bot_pos / 18 + 2
+        GPIO.output(bot_serv, True)
+        pwm_bot.ChangeDutyCycle(duty_bot)
+        sleep(1)
+        GPIO.output(bot_serv, False)
+        pwm_bot.ChangeDutyCycle(0)
+        pwm_bot.stop()
+    else:
+        bot_pos = 30
+        pwm_bot=GPIO.PWM(bot_serv, 50)
+        pwm_bot.start(0)
+        duty_bot = bot_pos / 18 + 2
+        GPIO.output(bot_serv, True)
+        pwm_bot.ChangeDutyCycle(duty_bot)
+        sleep(1)
+        GPIO.output(bot_serv, False)
+        pwm_bot.ChangeDutyCycle(0)
+        pwm_bot.stop()
+    if top_pos == 10:
+        pwm_top=GPIO.PWM(top_serv, 50)
+        pwm_top.start(0)
+        duty_top = top_pos / 18 + 2
+        GPIO.output(top_serv, True)
+        pwm_top.ChangeDutyCycle(duty_top)
+        sleep(1)
+        GPIO.output(top_serv, False)
+        pwm_top.ChangeDutyCycle(0)
+        pwm_top.stop()
+    else:
+        top_pos = 10
+        pwm_top=GPIO.PWM(top_serv, 50)
+        pwm_top.start(0)
+        duty_top = top_pos / 18 + 2
+        GPIO.output(top_serv, True)
+        pwm_top.ChangeDutyCycle(duty_top)
+        sleep(1)
+        GPIO.output(top_serv, False)
+        pwm_top.ChangeDutyCycle(0)
+        pwm_top.stop()
 
 i = 0
 while i<25:
