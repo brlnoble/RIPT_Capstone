@@ -3,10 +3,11 @@ from time import sleep
 
 bot_serv = 12
 top_serv = 13
-bot_pos = 125
-top_pos = 90
+bot_pos = 0
+top_pos = 0
 
 GPIO.setmode(GPIO.BOARD)
+GPIO.cleanup()
 GPIO.setup(bot_serv, GPIO.OUT)
 GPIO.setup(top_serv, GPIO.OUT)
 
@@ -60,6 +61,7 @@ def jab(bot_serv, top_serv, bot_pos, top_pos):
         GPIO.output(top_serv, False)
         pwm_top.ChangeDutyCycle(0)
         pwm_top.stop()
+    return bot_pos, top_pos
 
 def uppercut(bot_serv, top_serv, bot_pos, top_pos):
     if bot_pos == 125:
@@ -104,6 +106,7 @@ def uppercut(bot_serv, top_serv, bot_pos, top_pos):
         GPIO.output(top_serv, False)
         pwm_top.ChangeDutyCycle(0)
         pwm_top.stop()
+    return bot_pos, top_pos
 
 def hook(bot_serv, top_serv, bot_pos, top_pos):
     if bot_pos == 30:
@@ -148,15 +151,16 @@ def hook(bot_serv, top_serv, bot_pos, top_pos):
         GPIO.output(top_serv, False)
         pwm_top.ChangeDutyCycle(0)
         pwm_top.stop()
+    return bot_pos, top_pos
 
-i = 0
-while i<25:
+while 1:
     jab(bot_serv, top_serv, bot_pos, top_pos)
-    sleep(1)
     uppercut(bot_serv, top_serv, bot_pos, top_pos)
-    sleep(1)
     hook(bot_serv, top_serv, bot_pos, top_pos)
-    sleep(1)
-    i += 1
+
+    jab(bot_serv, top_serv, bot_pos, top_pos)
+    uppercut(bot_serv, top_serv, bot_pos, top_pos)
+    hook(bot_serv, top_serv, bot_pos, top_pos)
+    break
 
 GPIO.cleanup()
