@@ -1,11 +1,6 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-global bot_serv 
-global top_serv 
-global bot_pos 
-global top_pos 
-
 bot_serv = 12
 top_serv = 13
 bot_pos = 125
@@ -22,7 +17,7 @@ GPIO.setup(top_serv, GPIO.OUT)
 # jab & uppercut = 125 
 # hook = 30
 
-def jab():
+def jab(bot_serv, top_serv, bot_pos, top_pos):
     if bot_pos == 125:
         pwm_bot=GPIO.PWM(bot_serv, 50)
         pwm_bot.start(0)
@@ -66,7 +61,7 @@ def jab():
         pwm_top.ChangeDutyCycle(0)
         pwm_top.stop()
 
-def uppercut():
+def uppercut(bot_serv, top_serv, bot_pos, top_pos):
     if bot_pos == 125:
         pwm_bot=GPIO.PWM(bot_serv, 50)
         pwm_bot.start(0)
@@ -110,7 +105,7 @@ def uppercut():
         pwm_top.ChangeDutyCycle(0)
         pwm_top.stop()
 
-def hook():
+def hook(bot_serv, top_serv, bot_pos, top_pos):
     if bot_pos == 30:
         pwm_bot=GPIO.PWM(bot_serv, 50)
         pwm_bot.start(0)
@@ -156,11 +151,11 @@ def hook():
 
 i = 0
 while i<25:
-    jab()
+    jab(bot_serv, top_serv, bot_pos, top_pos)
     sleep(1)
-    uppercut()
+    uppercut(bot_serv, top_serv, bot_pos, top_pos)
     sleep(1)
-    hook()
+    hook(bot_serv, top_serv, bot_pos, top_pos)
     sleep(1)
     i += 1
 
