@@ -1,6 +1,11 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
+global bot_serv 
+global top_serv 
+global bot_pos 
+global top_pos 
+
 bot_serv = 12
 top_serv = 13
 bot_pos = 125
