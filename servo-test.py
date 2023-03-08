@@ -21,8 +21,8 @@ class servo:
         pwm.stop()
 
 
-bot_serv = servo(03)
-top_serv = servo(04)
+bot_serv = servo(12)
+top_serv = servo(13)
 
 bot_serv.SetGPIO()
 top_serv.SetGPIO()
