@@ -12,20 +12,20 @@ top_serv = AngularServo(13, min_angle = 0, max_angle = 270, min_pulse_width = 0.
 # hook = 30
 
 def jab(bot_serv, top_serv):
-    bot_serv.angle = 90
-    top_serv.angle = 125
+    bot_serv.angle = 125
+    top_serv.angle = 90
     sleep(2)
     return 0
 
 def uppercut(bot_serv, top_serv):
-    bot_serv.angle = 10
-    top_serv.angle = 125
+    bot_serv.angle = 125
+    top_serv.angle = 10
     sleep(2)
     return 0
 
 def hook(bot_serv, top_serv):
-    bot_serv.angle = 10
-    top_serv.angle = 30
+    bot_serv.angle = 30
+    top_serv.angle = 10
     sleep(2)
     return 0
 
