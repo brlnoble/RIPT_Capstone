@@ -1,7 +1,5 @@
 import RPi.GPIO as GPIO #for IO control
-from time import sleep, perf_counter #for delay functionality
-import PySimpleGUI as sg #for simple interface
-import random #for random positions
+from time import sleep
 
 #Define clockwise and counter clockwise for readability
 cw = GPIO.HIGH
@@ -109,7 +107,7 @@ class Stepper:
                 GPIO.output(self.dirPin2,cw)
 
         #~~~~~ Movement based on direction and distance ~~~~~
-        def Move_Distance(self,direction,distance,location):
+        def Move_Distance(self,direction,distance):
             #Change motor direction as specified
             Motor_Direction(direction)
 
@@ -119,28 +117,28 @@ class Stepper:
 
             #Calculate new position
             if direction == "up":
-                location[1] += dist_to_move
+                self.location[1] += dist_to_move
                 
                 #Set the speed for movement
                 speed_max = self.speed_max_default
                 speed_min = self.speed_min_default
                 
             elif direction == "down":
-                location[1] -= dist_to_move
+                self.location[1] -= dist_to_move
                 
                 #Set the speed for movement
                 speed_max = self.speed_max_default
                 speed_min = self.speed_min_default
                 
             elif direction == "left":
-                location[0] -= dist_to_move
+                self.location[0] -= dist_to_move
                 
                 #Set the speed for movement
                 speed_max = self.speed_max_default/2
                 speed_min = self.speed_min_default/2
                 
             elif direction == "right":
-                location[0] += dist_to_move
+                self.location[0] += dist_to_move
                 
                 #Set the speed for movement
                 speed_max = self.speed_max_default/2
@@ -150,35 +148,31 @@ class Stepper:
             if distance != 0:
                 Move_Motors(self,steps_to_move,speed_max,speed_min)
 
-            return location #Return the new X,Y position
-
         #Move to a specific position
-        def Move_To(self,x_move,y_move,location):
+        def Move_To(self,x_move,y_move):
             #Make sure values are valid first
             if x_move <= 12.0 and x_move >= 0.0 and y_move <= 45.0 and y_move >= 0.0:
                 
                 #Calculate relative movements to get into position
-                x_move = x_move - location[0]
-                y_move = y_move - location[1]
+                x_move = x_move - self.location[0]
+                y_move = y_move - self.location[1]
 
                 x_move_direction = "right" if x_move > 0.0 else "left"
                 y_move_direction = "up" if y_move > 0.0 else "down"
                 
                 #Move Y position first
-                location = Move_Distance(self,y_move_direction,abs(y_move),location)
+                self.location = Move_Distance(self,y_move_direction,abs(y_move))
                 
                 sleep(0.5)
                 
                 #Move X position second
-                location = Move_Distance(self,x_move_direction,abs(x_move),location)
+                self.location = Move_Distance(self,x_move_direction,abs(x_move))
                 
                 sleep(0.5)
-                
-                return location
             
             #If invlaid input
             else:
-                return location
+                return
                 
 
         #~~~~~ Zero the location (to be used later) ~~~~~
@@ -212,4 +206,4 @@ class Stepper:
                 Move_Motors(1,10e3,10e3)
             sleep(1)
 
-            return [0,0] #return the new X,Y positon
+            self.location = [0,0]
