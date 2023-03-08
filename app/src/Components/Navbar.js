@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import "../CSS/Navbar.css" //Style sheet for the navigation bar
 
 //Import images
-import logo from "../Images/Logov2-01.svg"
+import logo from "../Images/Logo_icon.svg"
 import user_icon_unactive from "../Images/Icons/account_icon_unselect.svg"
 import menu_icon from "../Images/Icons/menu_icon.svg"
 

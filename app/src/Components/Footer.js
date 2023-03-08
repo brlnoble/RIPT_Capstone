@@ -8,7 +8,7 @@ class Footer extends React.Component {
         return(
             <div className={styles.container}>
                 <ul>
-                    <li>This is an engineering capstone project by students. <br></br><strong>Copyright © 2023 These Students Lmao</strong></li>
+                    <li>This is an engineering capstone project by students. <br></br><strong>Copyright © 2023</strong></li>
                     <li>email@email.com</li>
                     <li><a href="https://github.com/brlnoble/RIPT_Capstone" target="_blank" rel="noreferrer" className={styles.link}><img src={github_icon} alt="github" className={styles.icon}></img>Github</a></li>
                 </ul>
