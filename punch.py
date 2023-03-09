@@ -6,9 +6,9 @@ class punch:
         self.quadrant = quadrant
         self.postion = []
         self.typ = typ
-        self.delay = None
-        self.form = None
-        self.force = None
+        self.reaction = None #time until impact or 1s max
+        self.force = None #load cell or null
+        self.accuracy = None #did they hit (True/False)
     
     def punchToArray(self):
         return [self.quadrant, self.typ]
