@@ -1,12 +1,12 @@
 import RPi.GPIO as GPIO #for IO control
-from time import sleep
+from time import sleep, perf_counter
 
 #Define clockwise and counter clockwise for readability
 cw = GPIO.HIGH
 ccw = GPIO.LOW
 
 class Stepper:
-    def __init__(self,motorPins,zeroPins):
+    def __init__(self,motorPins,zeroPins,loadPins):
 
         #Pins for the motor drivers
         self.dirPin1 = motorPins[0]
@@ -17,6 +17,11 @@ class Stepper:
         #Pins for the zero positioning
         self.zeroPinX = zeroPins[0]
         self.zeroPinY = zeroPins[1]
+
+        #Pins for clock and reading values of the load cell
+        self.loadRead = loadPins[0]
+        self.loadClock = loadPins[1]
+        self.loadCalibrate = 0 #value for calibration
 
         #Parameters of the motors
         self.speed_max_default =  150e3 #delay between pulses (200k Hz default)
@@ -38,6 +43,8 @@ class Stepper:
 
         GPIO.setup(self.zeroPinX,GPIO.IN)
         GPIO.setup(self.zeroPinY,GPIO.OUT)
+
+        GPIO.setup(self.loadPin,GPIO.IN)
 
     #~~~~~ Return the parameters ~~~~~
     def __str__(self):
@@ -208,3 +215,8 @@ class Stepper:
         sleep(1)
 
         self.location = [0,0]
+
+
+    #~~~~~ Read the load cells ~~~~~
+    def ReadLoad():
+        return 0  #Placeholder for now, will update with proper code later
