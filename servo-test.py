@@ -14,7 +14,7 @@ top_serv = AngularServo(13, min_angle = 0, max_angle = 270, min_pulse_width = 0.
 
 def jab(bot_serv, top_serv):
     bot_serv.angle = 180
-    top_serv.angle = 45
+    top_serv.angle = 225
     sleep(2)
     return 0
 
