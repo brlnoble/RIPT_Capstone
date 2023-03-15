@@ -18,27 +18,29 @@ ript_logo = [
 ]
 
 #Startup screen
-startLayout = [
-	[sg.Image(ript_logo[0],pad=((100,100),(50,50)))], #Logo
-	[sg.ProgressBar(max_value=1,size=(10,10),expand_x=True,bar_color="#F15A24",pad=((50,50),(0,50)))], #Using as a horizontal line
+screenLayout = [ 
+	[sg.Column(
+	[
+		[sg.Image(ript_logo[0],pad=((100,100),(50,50)))], #Logo
+		[sg.ProgressBar(max_value=1,size=(10,10),expand_x=True,bar_color="#F15A24",pad=((50,50),(0,50)))], #Using as a horizontal line
 
-	[sg.Text("Ready to start? Let's get R.I.P.T.",font=boldFont),],
-	[sg.Button("Start Demonstration",key="start_btn",enable_events=True,button_color='#02AB29',font=btnFont,pad=(100,20),expand_x=True,size=(40,2))],
-	[sg.Button("Exit Program",key="exit_btn",enable_events=True,button_color='Red',font=btnFont,pad=(100,20),size=(20,2))],
+		[sg.Text("Ready to start? Let's get R.I.P.T.",font=boldFont),],
+		[sg.Button("Start Demonstration",key="start_btn",enable_events=True,button_color='#02AB29',font=btnFont,pad=(100,20),expand_x=True,size=(40,2))],
+		[sg.Button("Exit Program",key="exit_start",enable_events=True,button_color='Red',font=btnFont,pad=(100,20),size=(20,2))],
+	],key="startScreen",visible=True,element_justification='c'),
+
+	sg.Column(
+	[
+		[sg.Image(ript_logo[0],subsample=2,pad=((100,100),(25,25)))], #Logo
+		[sg.ProgressBar(max_value=1,size=(10,10),expand_x=True,bar_color="#F15A24",pad=(50,0))], #Using as a horizontal line
+
+		[sg.Text('',key="timer",font=largeFont)], #Timer for how long is left in the session
+		[sg.Image(filename='',key='image')],
+		[sg.Button("Exit Program",key="exit_disp",enable_events=True,button_color='Red',font=btnFont,pad=(100,20),size=(15,1))],
+	],key="displayScreen",visible=False,element_justification='c')]
 ]
 
-displayLayout = [
-	[sg.Image(ript_logo[0],subsample=2,pad=((100,100),(25,25)))], #Logo
-	[sg.ProgressBar(max_value=1,size=(10,10),expand_x=True,bar_color="#F15A24",pad=(50,0))], #Using as a horizontal line
-
-	[sg.Text('',key="timer",font=largeFont)], #Timer for how long is left in the session
-	[sg.Image(filename='',key='image')],
-	[sg.Button("Exit Program",key="exit_btn",enable_events=True,button_color='Red',font=btnFont,pad=(100,20),size=(15,1))],
-]
 
 
-def GetStartWindow():
-	return sg.Window("Startup",startLayout,keep_on_top=True,element_justification='c',finalize=True)
-
-def GetDisplayWindow():
-	return sg.Window("Stream Test",displayLayout,keep_on_top=True,element_justification='c',finalize=True)
+def GetWindow():
+	return sg.Window("R.I.P.T.",screenLayout,keep_on_top=True,element_justification='c',finalize=True)
