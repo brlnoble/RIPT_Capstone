@@ -26,7 +26,7 @@ class Stepper:
         #Parameters of the motors
         self.speed_max_default =  150e3 #delay between pulses (200k Hz default)
         self.speed_min_default = 75e3
-        self.m_delay = 0.5 #delay between movements
+        self.m_delay = 0.25 #delay between movements
         self.m_steps = 1600 #steps per rotation (1/8 microstep)
         self.m_diameter = 1.215 #diameter of the motor gear in cm
 
@@ -171,12 +171,12 @@ class Stepper:
             #Move Y position first
             self.Move_Distance(y_move_direction,abs(y_move))
             
-            sleep(0.5)
+            sleep(self.m_delay)
             
             #Move X position second
             self.Move_Distance(x_move_direction,abs(x_move))
             
-            sleep(0.5)
+            sleep(self.m_delay)
         
         #If invlaid input
         else:
@@ -218,5 +218,34 @@ class Stepper:
 
 
     #~~~~~ Read the load cells ~~~~~
-    def ReadLoad():
-        return 0  #Placeholder for now, will update with proper code later
+    '''
+    UNTESTED: This is a first attempt at code following the datasheet provided by
+    https://cdn.sparkfun.com/datasheets/Sensors/ForceFlex/hx711_english.pdf
+
+    I have yet to test this, but my understanding is that it *should* work.
+    Total time of operation is 640us of delays + time for executing commands.
+    '''
+    def ReadLoad(self):
+
+        reading = 0
+
+        #Prep the unit for output
+        GPIO.output(self.loadClock,GPIO.LOW)
+        sleep(10e-6) 
+
+        #Read the value from channel A at 128 gain
+        for i in range(25,-1,-1):
+            GPIO.output(self.loadClock,GPIO.HIGH)
+            sleep(10e-6) #CANNOT EXCEED 60us OR BOARD WILL POWER DOWN
+            GPIO.output(self.loadClock,GPIO.LOW)
+
+            #Reading is from MSB to LSB, so shift bit as required
+            reading |= (GPIO.input(self.loadRead) << i)
+            
+            sleep(10e-6)
+
+        #Power down the unit until it needs to be read again
+        GPIO.output(self.loadClock,GPIO.HIGH)
+        sleep(100e-6)
+
+        return reading
