@@ -234,7 +234,7 @@ class Stepper:
         sleep(10e-6) 
 
         #Read the value from channel A at 128 gain
-        for i in range(25,-1,-1):
+        for i in range(24,-1,-1):
             GPIO.output(self.loadClock,GPIO.HIGH)
             sleep(10e-6) #CANNOT EXCEED 60us OR BOARD WILL POWER DOWN
             GPIO.output(self.loadClock,GPIO.LOW)
