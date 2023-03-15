@@ -16,8 +16,9 @@ boardRight = StepperMovement.Stepper([0,1,2,3],[4,5],[6,7])
 boardLeft = StepperMovement.Stepper([8,9,10,11],[12,13],[14,7]) #can use the same clock for both load cells
 
 #~~~~~ Get the punch sequences ~~~~~
-punchSeqRight = punch.punchSeq(50)
-punchSeqLeft = punch.punchSeq(50)
+numPunches = 5
+punchSeqRight = punch.punchSeq(numPunches)
+punchSeqLeft = punch.punchSeq(numPunches)
 
 #~~~~~ Zero the motors ~~~~~
 thread1 = Thread(target=boardRight.Zero_Motors())
@@ -32,31 +33,51 @@ thread1.join()
 thread2.join()
 
 #~~~~~ Loop through the punches ~~~~~
-end_time = perf_counter() + 30.0 #maximum runtime of the program (30s)
+endTime = perf_counter() + 30.0 #maximum runtime of the program (30s)
+punchTimer = 3.0 #maximum time the user has to punch
 
 #Timers for the two sides
-time_right = perf_counter()
-time_left = perf_counter()
+timerRight = perf_counter()
+timerLeft = perf_counter()
 
 #Index in the punch sequences
-punch_right = 0
-punch_left = 0
+punchRight = 0
+punchLeft = 0
 
-while end_time - perf_counter() > 0.0 or (punch_left > 50 and punch_right > 50):
+#Load cell readings
+forceRight = 0.0
+forceLeft = 0.0
 
+while endTime - perf_counter() > 0.0 and (punchLeft <= numPunches and punchRight <= numPunches):
+
+    #Read the load cells
+    force_right = boardRight.ReadLoad()
+    force_left = boardLeft.ReadLoad()
+
+    #~~~~~~~~~~ Right Side ~~~~~~~~~~
     #If the pad has been hit or the timer expires
-    if punch_right < 50 and ((perf_counter() - time_right > 1.0) or (boardRight.ReadLoad() > 0.0)):
-        thread1 = Thread(target=boardRight.Move_To(punchSeqRight[punch_right].position))
-        thread1.start()
+    if punchRight < numPunches and ((perf_counter() - timerRight > punchTimer) or (forceRight > 0.0)):
+        #Add the metrics
+        punchSeqRight[punchRight].reaction = perf_counter() - timerRight #Reaction time in miliseconds
+        punchSeqRight[punchRight].force = forceRight #Force of the punch in Newtons
+        punchSeqRight[punchRight].accuracy = True if forceRight > 0.0 else False #Was it hit? True/False
 
-        punch_right += 1
+        #Move the pad
+        boardRight.Move_To(punchSeqRight[punchRight].position)
+
+        punchRight += 1
         time_right = perf_counter()
     
+    #~~~~~~~~~~ Left Side ~~~~~~~~~~
     #If the pad has been hit or the timer expires
-    if punch_left < 50 and ((perf_counter() - time_left > 1.0) or (boardLeft.ReadLoad() > 0.0)):
-        thread2 = Thread(target=boardLeft.Move_To(punchSeqLeft[punch_left].position))
-        thread2.start()
+    if punchLeft < numPunches and ((perf_counter() - timerLeft > punchTimer) or (forceLeft > 0.0)):
+        #Add the metrics
+        punchSeqLeft[punchLeft].reaction = perf_counter() - timerLeft #Reaction time in miliseconds
+        punchSeqLeft[punchLeft].force = forceLeft #Force of the punch in Newtons
+        punchSeqLeft[punchLeft].accuracy = True if forceLeft > 0.0 else False #Was it hit? True/False
+
+        #Move the pad
+        boardLeft.Move_To(punchSeqLeft[punchLeft].position)
         
-        punch_left += 1
+        punchLeft += 1
         time_left = perf_counter()
-        
