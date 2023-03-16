@@ -74,7 +74,7 @@ punches = [
 sleep(3)
 print("Starting movements")
 thread1 = Process(target=boardLeft.Movements, args=(punches,endTime))
-thread1 = Process(target=boardRight.Movements, args=(punches,endTime))
+thread2 = Process(target=boardRight.Movements, args=(punches,endTime))
 threads = [thread1, thread2]
 
 for thread in threads:
