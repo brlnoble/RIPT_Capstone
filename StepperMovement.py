@@ -67,12 +67,12 @@ class Stepper:
         
     #~~~~~ Move motors a given number of steps ~~~~~
     def Move_Motors(self,steps,speed_max,speed_min):    
-        #Accelerate over one rotation if steps and max/min speeds set
-        if steps > 1600 and speed_max != speed_min:
+        #Accelerate over two rotation if steps and max/min speeds set
+        if steps > 3200 and speed_max != speed_min:
             
-            accel_step = (speed_max - speed_min)/1600 #Frequency increase per step
+            accel_step = (speed_max - speed_min)/3200 #Frequency increase per step
             
-            for accel in range(0,1600):
+            for accel in range(0,3200):
                 
                 accel_speed = 1 / (accel_step*accel + speed_min) #New speed
                 
@@ -84,7 +84,7 @@ class Stepper:
                 sleep(accel_speed)
                 
             #Correct steps and speed for acceleration        
-            steps -= 1600
+            steps -= 3200
             speed = 1 / speed_max #convert frequency to seconds
 
         #Move at minimum speed otherwise
