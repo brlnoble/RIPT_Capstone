@@ -6,14 +6,41 @@ The two boards will be operated in parallel with both the gantry and pad control
 
 import RPi.GPIO as GPIO
 from time import sleep, perf_counter
-from threading import Thread
+from multiprocessing import Process
 
 import punch
 import StepperMovement
 
-#~~~~~ Setup the two stepper motors ~~~~~
-boardRight = StepperMovement.Stepper([0,1,2,3],[4,5],[6,7])
-boardLeft = StepperMovement.Stepper([8,9,10,11],[12,13],[14,7]) #can use the same clock for both load cells
+#~~~~~ Setup the left stepper motors ~~~~~
+leftPins = [
+    19, #dir1
+    6, #dir2
+    13, #step1
+    5 #step2
+]
+
+leftZero = [
+    27, #X zero
+    22 #Y zero
+]
+
+boardLeft = StepperMovement.Stepper(leftPins,leftZero,[0,0]) #can use the same clock for both load cells
+
+#~~~~~ Setup the right stepper motors ~~~~~
+rightPins = [
+    12, #dir1
+    20, #dir2
+    16, #step1
+    21 #step2
+]
+
+rightZero = [
+    24, #X zero
+    23 #Y zero
+]
+
+boardRight = StepperMovement.Stepper(rightPins,rightZero,[0,0]) #can use the same clock for both load cells
+
 
 #~~~~~ Get the punch sequences ~~~~~
 numPunches = 5
@@ -21,63 +48,43 @@ punchSeqRight = punch.punchSeq(numPunches)
 punchSeqLeft = punch.punchSeq(numPunches)
 
 #~~~~~ Zero the motors ~~~~~
-thread1 = Thread(target=boardRight.Zero_Motors())
-thread2 = Thread(target=boardLeft.Zero_Motors())
+thread1 = Process(target=boardRight.Zero_Motors, args=())
+thread2 = Process(target=boardLeft.Zero_Motors, args=())
+threads = [thread1, thread2]
 
 #Start threads
-thread1.start()
-thread2.start()
+for thread in threads:
+    thread.start()
 
 #Join so the threads so we ensure both finish before continuing
-thread1.join()
-thread2.join()
+for thread in threads:
+    thread.join()
 
 #~~~~~ Loop through the punches ~~~~~
-endTime = perf_counter() + 30.0 #maximum runtime of the program (30s)
-punchTimer = 3.0 #maximum time the user has to punch
+endTime = 30.0 #maximum runtime of the program (30s)
 
-#Timers for the two sides
-timerRight = perf_counter()
-timerLeft = perf_counter()
+punches = [
+    [3,10],
+    [6,30],
+    [6,5],
+    [10,7],
+    [0,40]
+]
 
-#Index in the punch sequences
-punchRight = 0
-punchLeft = 0
+sleep(3)
+print("Starting movements")
+thread1 = Process(target=boardLeft.Movements, args=(punches,endTime))
+thread1 = Process(target=boardRight.Movements, args=(punches,endTime))
+threads = [thread1, thread2]
 
-#Load cell readings
-forceRight = 0.0
-forceLeft = 0.0
+for thread in threads:
+    thread.start()
 
-while endTime - perf_counter() > 0.0 and (punchLeft <= numPunches and punchRight <= numPunches):
+for thread in threads:
+    thread.join()
 
-    #Read the load cells
-    force_right = boardRight.ReadLoad()
-    force_left = boardLeft.ReadLoad()
+print("All finished")
 
-    #~~~~~~~~~~ Right Side ~~~~~~~~~~
-    #If the pad has been hit or the timer expires
-    if punchRight < numPunches and ((perf_counter() - timerRight > punchTimer) or (forceRight > 0.0)):
-        #Add the metrics
-        punchSeqRight[punchRight].reaction = perf_counter() - timerRight #Reaction time in miliseconds
-        punchSeqRight[punchRight].force = forceRight #Force of the punch in Newtons
-        punchSeqRight[punchRight].accuracy = True if forceRight > 0.0 else False #Was it hit? True/False
-
-        #Move the pad
-        boardRight.Move_To(punchSeqRight[punchRight].position)
-
-        punchRight += 1
-        time_right = perf_counter()
-    
-    #~~~~~~~~~~ Left Side ~~~~~~~~~~
-    #If the pad has been hit or the timer expires
-    if punchLeft < numPunches and ((perf_counter() - timerLeft > punchTimer) or (forceLeft > 0.0)):
-        #Add the metrics
-        punchSeqLeft[punchLeft].reaction = perf_counter() - timerLeft #Reaction time in miliseconds
-        punchSeqLeft[punchLeft].force = forceLeft #Force of the punch in Newtons
-        punchSeqLeft[punchLeft].accuracy = True if forceLeft > 0.0 else False #Was it hit? True/False
-
-        #Move the pad
-        boardLeft.Move_To(punchSeqLeft[punchLeft].position)
-        
-        punchLeft += 1
-        time_left = perf_counter()
+del boardLeft
+del boardRight
+GPIO.cleanup()

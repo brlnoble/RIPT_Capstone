@@ -19,9 +19,9 @@ class Stepper:
         self.zeroPinY = zeroPins[1]
 
         #Pins for clock and reading values of the load cell
-        self.loadRead = loadPins[0]
-        self.loadClock = loadPins[1]
-        self.loadCalibrate = 0 #value for calibration
+        #self.loadRead = loadPins[0]
+        #self.loadClock = loadPins[1]
+        #self.loadCalibrate = 0 #value for calibration
 
         #Parameters of the motors
         self.speed_max_default =  150e3 #delay between pulses (200k Hz default)
@@ -32,6 +32,9 @@ class Stepper:
 
         #Location tracking
         self.location = [0,0]
+
+        #Time the user has to punch the target
+        self.punch_timer = 3.0
 
         #Setup the GPIO pins
         GPIO.setmode(GPIO.BCM)
@@ -44,7 +47,7 @@ class Stepper:
         GPIO.setup(self.zeroPinX,GPIO.IN)
         GPIO.setup(self.zeroPinY,GPIO.OUT)
 
-        GPIO.setup(self.loadPin,GPIO.IN)
+        #GPIO.setup(self.loadPin,GPIO.IN)
 
     #~~~~~ Return the parameters ~~~~~
     def __str__(self):
@@ -187,9 +190,9 @@ class Stepper:
     def Zero_Motors(self):
 
         #Move the motors slightly in case they are already in the zero position
-        self.Move_Distance("up",2,[0,0]) #Move up 2cm
+        self.Move_Distance("up",2) #Move up 2cm
         sleep(1)
-        self.Move_Distance("right",2,[0,0]) #Move right 2cm
+        self.Move_Distance("right",2) #Move right 2cm
         sleep(1)
 
         #Zero the Y position first
@@ -226,26 +229,50 @@ class Stepper:
     Total time of operation is 640us of delays + time for executing commands.
     '''
     def ReadLoad(self):
+        return 0
+        # reading = 0
 
-        reading = 0
+        # #Prep the unit for output
+        # GPIO.output(self.loadClock,GPIO.LOW)
+        # sleep(10e-6) 
 
-        #Prep the unit for output
-        GPIO.output(self.loadClock,GPIO.LOW)
-        sleep(10e-6) 
+        # #Read the value from channel A at 128 gain
+        # for i in range(24,-1,-1):
+        #     GPIO.output(self.loadClock,GPIO.HIGH)
+        #     sleep(10e-6) #CANNOT EXCEED 60us OR BOARD WILL POWER DOWN
+        #     GPIO.output(self.loadClock,GPIO.LOW)
 
-        #Read the value from channel A at 128 gain
-        for i in range(24,-1,-1):
-            GPIO.output(self.loadClock,GPIO.HIGH)
-            sleep(10e-6) #CANNOT EXCEED 60us OR BOARD WILL POWER DOWN
-            GPIO.output(self.loadClock,GPIO.LOW)
-
-            #Reading is from MSB to LSB, so shift bit as required
-            reading |= (GPIO.input(self.loadRead) << i)
+        #     #Reading is from MSB to LSB, so shift bit as required
+        #     reading |= (GPIO.input(self.loadRead) << i)
             
-            sleep(10e-6)
+        #     sleep(10e-6)
 
-        #Power down the unit until it needs to be read again
-        GPIO.output(self.loadClock,GPIO.HIGH)
-        sleep(100e-6)
+        # #Power down the unit until it needs to be read again
+        # GPIO.output(self.loadClock,GPIO.HIGH)
+        # sleep(100e-6)
 
-        return reading
+        # return reading
+
+    #~~~~~ Movement Loop ~~~~~
+    def Movements(self,punches,duration):
+
+        numPunches = len(punches) #number of punches in the set
+        punchIndex = 1 #position in the punch set
+
+        self.Move_To(punches[0]) #Move to first position
+
+        #Maximum runtime of the program
+        endTime = perf_counter() + duration
+        
+        #Time the last punch occured
+        lastPunch = perf_counter()
+
+        #~~~~~ Main loop~~~~~
+        while endTime - perf_counter() > 0.0 and punchIndex < numPunches:
+            if self.ReadLoad > 0.0 or perf_counter() - lastPunch > self.punch_timer:
+                self.Move_To(punches[punchIndex][0], punches[punchIndex][1])
+                punchIndex += 1
+                lastPunch = perf_counter()
+                print("PUNCH: " + str(punchIndex))
+            
+        
