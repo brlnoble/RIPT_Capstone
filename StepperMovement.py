@@ -257,22 +257,23 @@ class Stepper:
     def Movements(self,punches,duration):
 
         numPunches = len(punches) - 1 #number of punches in the set
-        punchIndex = 1 #position in the punch set
-
-        self.Move_To(punches[0][0], punches[0][1]) #Move to first position
+        punchIndex = 0 #position in the punch set
 
         #Maximum runtime of the program
         endTime = perf_counter() + duration
         
         #Time the last punch occured
-        lastPunch = perf_counter()
+        lastPunch = perf_counter() - self.punch_timer
 
         #~~~~~ Main loop~~~~~
-        while endTime - perf_counter() > 0.0 and punchIndex < numPunches:
+        while endTime - perf_counter() > 0.0 and punchIndex <= numPunches:
             if self.ReadLoad() > 0.0 or perf_counter() - lastPunch > self.punch_timer:
                 self.Move_To(punches[punchIndex][0], punches[punchIndex][1])
                 print("PUNCH: " + str(punchIndex))
                 lastPunch = perf_counter()
                 punchIndex += 1
             
+        #Finished, return close to zero
+        sleep(2)
+        self.Move_To(5,5)
         
