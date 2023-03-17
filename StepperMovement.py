@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO #for IO control
 from time import sleep, perf_counter
+from multiprocessing import Process, Queue
 
 #Define clockwise and counter clockwise for readability
 cw = GPIO.HIGH
@@ -254,7 +255,7 @@ class Stepper:
         # return reading
 
     #~~~~~ Movement Loop ~~~~~
-    def Movements(self,punches,duration):
+    def Movements(self,punches,duration,results):
 
         numPunches = len(punches) - 1 #number of punches in the set
         punchIndex = 0 #position in the punch set
@@ -263,17 +264,40 @@ class Stepper:
         endTime = perf_counter() + duration
         
         #Time the last punch occured
-        lastPunch = perf_counter() - self.punch_timer
+        punchStart = perf_counter() - self.punch_timer
 
         #~~~~~ Main loop~~~~~
         while endTime - perf_counter() > 0.0 and punchIndex <= numPunches:
-            if self.ReadLoad() > 0.0 or perf_counter() - lastPunch > self.punch_timer:
-                self.Move_To(punches[punchIndex].position[0], punches[punchIndex].position[1])
-                print("PUNCH: " + str(punchIndex) + ": " + str(punches[punchIndex].position))
-                lastPunch = perf_counter()
+
+            #Measure the force of the punch
+            punchForce = self.ReadLoad()
+
+            #If the user hit or if the timer expired, move to next position
+            if punchForce > 0.0 or perf_counter() - punchStart > self.punch_timer:
+
+                #End of the punch (for reaction time)
+                punchEnd = perf_counter() 
+
+                #Move the motors into position
+                moveThread = Process(target=self.Move_To, args=(punches[punchIndex].position[0], punches[punchIndex].position[1]))
+                moveThread.start()
+
+                #Record metrics while motors are moving
+                thisPunch = punches[punchIndex] #Access the current punch object
+                thisPunch.Set_Reaction(punchEnd - punchStart)
+                thisPunch.Set_Force(punchForce)
+                thisPunch.Set_Accuracy( bool(punchForce) ) #True or false depending if they hit the target in time
+                
+                #Wait until the movement is complete before continuing
+                moveThread.join()
+
+                #Add the punch object to the results queue so it can be reutned
+                results.put(thisPunch)
+
+                #Reset timer and increment index
+                punchStart = perf_counter()
                 punchIndex += 1
             
         #Finished, return close to zero
         sleep(2)
         self.Move_To(5,5)
-        

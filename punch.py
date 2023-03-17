@@ -22,7 +22,7 @@ class punch:
     def Set_Force(self,force):
         self.force = force
 
-    def Set_Accuracry(self,accuracy):
+    def Set_Accuracy(self,accuracy):
         self.accuracy = accuracy
 
 prob = {
