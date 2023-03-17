@@ -268,8 +268,8 @@ class Stepper:
         #~~~~~ Main loop~~~~~
         while endTime - perf_counter() > 0.0 and punchIndex <= numPunches:
             if self.ReadLoad() > 0.0 or perf_counter() - lastPunch > self.punch_timer:
-                self.Move_To(punches[punchIndex][0], punches[punchIndex][1])
-                print("PUNCH: " + str(punchIndex))
+                self.Move_To(punches[punchIndex].position[0], punches[punchIndex].position[1])
+                print("PUNCH: " + str(punchIndex) + ": " + str(punches[punchIndex].position))
                 lastPunch = perf_counter()
                 punchIndex += 1
             
