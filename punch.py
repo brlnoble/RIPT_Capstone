@@ -17,13 +17,22 @@ class punch:
         return [self.quadrant, self.typ]
     
     def Set_Reaction(self,reaction):
-        self.reaction = reaction
+        self.reaction = round(reaction*1000,2) #Convert to ms, 2 decimals
 
     def Set_Force(self,force):
-        self.force = force
+        self.force = round(force,2) #Convert to 2 decimals
 
     def Set_Accuracy(self,accuracy):
         self.accuracy = accuracy
+
+    def Return_Data(self):
+        return {
+            'quad': self.quadrant,
+            'type': self.typ,
+            'reaction': self.reaction,
+            'force': self.force,
+            'accuracy': self.accuracy 
+        }
 
 prob = {
     'q1' : 0.25,

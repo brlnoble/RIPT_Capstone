@@ -5,7 +5,7 @@ The two boards will be operated in parallel with both the gantry and pad control
 '''
 
 import RPi.GPIO as GPIO
-from time import sleep, perf_counter
+from time import sleep
 from multiprocessing import Process, Queue
 
 import punch
@@ -44,8 +44,8 @@ boardRight = StepperMovement.Stepper(rightPins,rightZero,[0,0]) #can use the sam
 
 #~~~~~ Get the punch sequences ~~~~~
 numPunches = 5
-punchSeqLeft = punch.Punch_Sequence(numPunches,["q1","q4"])
-punchSeqRight = punch.Punch_Sequence(numPunches,["q2","q4"])
+punchSeqLeft = punch.Punch_Sequence(numPunches,["q1","q2"])
+punchSeqRight = punch.Punch_Sequence(numPunches,["q3","q4"])
 
 #~~~~~ Zero the motors ~~~~~
 print("~~~~~ Zeroing motors ~~~~~")
@@ -82,21 +82,16 @@ for thread in threads:
 for thread in threads:
     thread.join()
 
-#Print the results now that the threads have finished running
-
-print("\n\n################## LEFT SIDE ##################")
-for i in range(resultsL.qsize()):
-    p = resultsL.get()
-
-    print(p)
-    print("~~~~~~~~~~~~~~~~")
-
-print("\n\n################## RIGHT SIDE ##################")
-for i in range(resultsR.qsize()):
-    p = resultsR.get()
-
-    print(p)
-    print("~~~~~~~~~~~~~~~~")
+#Save the results now that the threads have finished running
+with open("resultsL.txt",'w') as f:
+    for i in range(resultsL.qsize()):
+        p = resultsL.get()
+        f.write(str(p.Return_Data()) + "\n")
+        
+with open("resultsR.txt",'w') as f:
+    for i in range(resultsR.qsize()):
+        p = resultsR.get()
+        f.write(str(p.Return_Data()) + "\n")
 
 del boardLeft
 del boardRight
