@@ -1,0 +1,121 @@
+/*Main container for the navbar*/
+.nav_container {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #fef4f1;
+    z-index: 999; /*Make sure this stays on top of everything*/
+    border-bottom: 2px solid #efc2b2;
+}
+
+/*Logo on the left*/
+.nav_logo {
+    height: 60px;
+}
+
+/*Company name R.I.P.T. beside logo*/
+.nav_title {
+    margin: auto;
+    font-family: "Antihero", Tahoma, sans-serif;
+    color: #222;
+}
+
+/*Put logo and title in a div for spacing control*/
+.nav_logo_and_title {
+    width: 12.5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-decoration: none;
+}
+
+/*For the <ul> full of links*/
+.nav_link {
+    font-family: "Roboto", Verdana, Geneva, Tahoma, sans-serif;
+    width: 80%;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.25em;
+}
+
+/*Hovering over a link*/
+.nav_link li:hover {
+    color: #f15a24;
+    font-weight: bold;
+    cursor: pointer;
+    transform: scale(1.2);
+    transition: .5s ease;
+}
+
+/*User icon and menu icon*/
+.nav_icon {
+    height: 55px;
+    padding: 0;
+    margin: 0 10px;
+    transition: .5s ease;
+}
+
+.nav_icon:hover {
+    transform: scale(1.2);
+}
+
+.nav_active_icon .nav_icon{
+    box-shadow: inset 0px 0px 0px 5px #f15a24;
+    border-radius: 100%;
+}
+
+/*Hide this normally*/
+.menu_icon {
+    display: none;
+}
+
+.profile_text {
+    display: none;
+}
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+
+    /*TODO: Make this display only when the menu icon is clicked*/
+    .nav_container .nav_link{
+        order: 3;
+    }
+
+    .nav_link {
+        width: 100%;
+        display: inline;
+        text-align: center;
+        display: none;
+    }
+
+    /*Show the menu icon*/
+    .menu_icon {
+        display: block;
+    }
+
+    .nav_container {
+        justify-content: space-between;
+    }
+
+    /*Hide the profile icon and show the text instead*/
+    .profile_icon {
+        display: none;
+    }
+
+    .profile_text {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+}

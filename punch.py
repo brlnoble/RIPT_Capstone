@@ -2,16 +2,37 @@ import random
 from time import time
 
 class punch:
-    def __init__(self, quadrant, typ):
-        self.quadrant = quadrant
-        self.postion = []
-        self.typ = typ
-        self.delay = None
-        self.form = None
-        self.force = None
+    def __init__(self, quadrant, typ, position):
+        self.quadrant = quadrant #q1, q2, q3, or q4
+        self.position = position #[x,y]
+        self.typ = typ #hook, straight, uppercut
+        self.reaction = None #time until impact or 1s max
+        self.force = None #load cell or null
+        self.accuracy = None #did they hit (True/False)
+
+    def __str__(self):
+        return f"Punch Object: \nQuad: {self.quadrant} \nPos: {self.position} \nType: {self.typ} \nReac: {self.reaction} \nForce: {self.force} \nAcc: {self.accuracy}"
     
-    def punchToArray(self):
+    def Punch_To_Array(self):
         return [self.quadrant, self.typ]
+    
+    def Set_Reaction(self,reaction):
+        self.reaction = round(reaction*1000,2) #Convert to ms, 2 decimals
+
+    def Set_Force(self,force):
+        self.force = round(force,2) #Convert to 2 decimals
+
+    def Set_Accuracy(self,accuracy):
+        self.accuracy = accuracy
+
+    def Return_Data(self):
+        return {
+            'quad': self.quadrant,
+            'type': self.typ,
+            'reaction': self.reaction,
+            'force': self.force,
+            'accuracy': self.accuracy 
+        }
 
 prob = {
     'q1' : 0.5,
@@ -23,19 +44,6 @@ prob = {
     'uppercut': 0.33
 }
 
-<<<<<<< Updated upstream
-def punchSeq(prob, numPunch):
-    sequence = []
-    printable = []
-    for i in range(numPunch):
-        temp = random.random()
-        if temp < 0.25:
-            quadrant = 'q1'
-        elif temp >= 0.25 and temp < 0.5:
-            quadrant = 'q2'
-        elif temp >= 0.5 and temp < 0.75:
-            quadrant = 'q3'
-=======
 def Punch_Sequence(numPunch, quads, prob):
     sequence = []
 
@@ -53,9 +61,10 @@ def Punch_Sequence(numPunch, quads, prob):
         #Assign quadrants based on positions
         if y_pos <= 20:
             quadrant = quads[0]
->>>>>>> Stashed changes
         else:
-            quadrant = 'q4'
+            quadrant = quads[1]
+
+        #Assign punch type based on random variable
         temp1 = random.random()
         if temp1 < prob['straight']:
             typ = 'straight'
@@ -64,11 +73,9 @@ def Punch_Sequence(numPunch, quads, prob):
         else:
             typ = 'uppercut'
         
-        newPunch = punch(quadrant, typ)
-        punchArray = punch.punchToArray(newPunch)
+        newPunch = punch(quadrant, typ, [x_pos,y_pos])
         sequence.append(newPunch)
-        printable.append(punchArray)
-    print(printable)
+
+    return sequence
 
 random.seed(time())
-punchSeq(None, 200)

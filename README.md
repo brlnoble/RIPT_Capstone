@@ -12,18 +12,21 @@ This project is a collaboration between Brandon Noble ([brlnoble](https://github
 ___
 
 ## Project Goals
-- [ ] Robotic system to control boxing training pads
+- [X] Robotic system to control boxing training pads
   - [X] H-bot inspired pulley system with 10mm GT2 belt, and custom mounts
-  - [ ] Fine motor control for NEMA 24 stepper motors to accurately move gantry system to specific locations
-  - [ ] System to change pad orientation along 2 axes
-- [ ] YOLOv7 computer vision model
+  - [X] Zero motor position
+  - [X] Fine motor control for NEMA 24 stepper motors to accurately move gantry system to specific locations
+- [ ] System to change pad orientation along 2 axes
+  - [X] Mechanical design to support pad
+  - [ ] Control over position for different types of punches
+- [X] YOLOv7 computer vision model
   - [X] Train YOLOv7 tiny model to recognize faces and boxing gloves
-  - [ ] Deploy on NVIDIA Jetson Nano
-  - [ ] Track user movements in real time
-  - [ ] Identify different punches based on movements (i.e. jab, cross, uppercut, etc.)
+  - [X] Deploy on NVIDIA Jetson Nano
+  - [X] Determine user blocking with intersection between gloves and face
 - [ ] Display and collect user metrics
   - [ ] Implement various sensors to collect user metrics (i.e. reaction time, speed, endurance, accuracy, etc.)
-  - [ ] Web application to display metrics and training sessions
+  - [X] Web application to display metrics and training sessions
+  - [ ] Utilize user metrics to personalize a training regime
   
 ___
 
@@ -31,10 +34,18 @@ ___
 The project is very much a work in progress and is actively changing day to day. Below are some images and videos of the current state. More detailed images and pictures to come.
 
 #### Movement Test of H-Bot System
-<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Jan20.gif" width="200"> <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Jan29.gif" width="200">
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Mar16.gif" width="900">
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Zeroing_Test.gif" width="900">
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Feb19.gif" width="900">
+
+#### Pad Orientation and Control
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Pad_Orient_1.gif" width="200"> <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Pad_Orient_2.gif" width="200">
 
 #### CAD of One Side of the Device
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/One_Side_Model.jpg" width="900">
+
+### Front End Demonstration of the Web App
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Web_Front_End_Mar6.gif" width="900">
 
 #### Selfie with our YOLOv7 Model
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/YOLO_Selfie.jpg" width="450">

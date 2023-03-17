@@ -1,0 +1,20 @@
+.container {
+    width: 100%;
+    padding: 2.5%;
+}
+
+.punch_title {
+    text-align: left;
+    color: #f15a24;
+}
+
+.punch_average {
+    color: #777;
+}
+
+.metrics {
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    justify-content: space-between;
+}

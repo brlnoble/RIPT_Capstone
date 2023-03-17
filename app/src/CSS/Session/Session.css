@@ -1,0 +1,85 @@
+/*Make the collapsable element fill the area*/
+    .makeMeBig {
+        width: 100%;
+    }
+
+    .container_collapse {
+        width: 100%;
+        padding: 2.5%;
+    }
+
+/*For the quadrant metrics*/
+    .quad_box {
+        display: grid;
+        grid-template-columns: 2.5em 2.5em;
+        padding: 0;
+        margin: 0;
+    }
+
+    .quad_box p{
+        padding: 5px;
+        margin: 0;
+    }
+
+    .bottom_line {
+        border-bottom: 3px solid #666;
+    }
+
+    .right_line {
+        border-right: 3px solid #666;
+    }
+
+/*Stying the metrics*/
+    .punch_title {
+        text-align: left;
+        color: #f15a24;
+    }
+
+    .punch_average {
+        color: #777;
+    }
+
+    .metrics {
+        display: flex;
+        flex-direction: row;
+        width: 60%;
+        justify-content: space-between;
+        padding-left: 5%;
+    }
+
+    .metric_grid {
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+        row-gap: 25px;
+    }
+
+/*Make the stability graph section large enough for the graph*/
+    .metric_grid_stability {
+        grid-column: 2 / 4;
+    }
+
+    .metrics_stability {
+        display: flex;
+        flex-direction: row;
+        width: 90%;
+        justify-content: space-between;
+        padding-left: 2.5%;
+    }
+
+/*For between the different punches*/
+    .line_separator {
+        border: 5px solid #ddd;
+        margin: 50px 0;
+    }
+
+
+/*Handles rotating the expand/close icon when interacted with*/
+    .collapsible_open img{
+        transform: rotate(180deg);
+        transition: ease 0.5s;
+    }
+
+    .collapsible_close img {
+        transform: rotate(0deg);
+        transition: ease 0.5s;
+    }

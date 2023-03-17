@@ -1,0 +1,41 @@
+.greeting {
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.greeting h1 {
+  font-weight: 300;
+  font-size: 3em;
+}
+
+.title {
+  font-family: "Antihero", Tahoma, sans-serif;
+  font-size: 2em;
+  display: inline-block;
+  transform: translateY(0.15em);
+}
+
+.boxes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+  .greeting {
+    margin-top: 100px;
+    font-size: 10px;
+    padding: 0 40px;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+}

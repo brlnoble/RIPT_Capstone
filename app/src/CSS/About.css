@@ -1,0 +1,49 @@
+.sample_img {
+    height: 40vh;
+    justify-self: center;
+    margin: 5px;
+}
+
+.prototype_images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 50px;
+}
+
+.person_pic {
+    border-radius: 100%;
+    height: 150px;
+    width: 150px;
+}
+
+.team_member a {
+    text-decoration: none;
+    color: inherit;
+    font-style: italic;
+}
+
+.team_member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+hr {
+    border-top: 2px solid #ccc;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.team_member p {
+    margin: 0;
+}

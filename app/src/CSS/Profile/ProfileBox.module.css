@@ -1,0 +1,63 @@
+.profile_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+}
+
+.profile_pic {
+    width: 100px;
+    border-radius: 100%;
+    border: 5px solid #555;
+}
+
+.info_titles {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+
+    font-size: 0.75rem;
+}
+
+.info_text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    font-size: 0.75rem;
+}
+
+.info_text h2 {
+    font-weight: normal;
+}
+
+.user_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 20vw;
+}
+
+.user_fullname {
+    border-bottom: 4px solid #ddd;
+    color: #666;
+    font-weight: normal;
+    width: 60%;
+}
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+
+    .profile_pic {
+        width: 50px;
+    }
+
+    .profile_box {
+        width: 100%;
+    }
+
+    .user_info {
+        width: 100%;
+        padding: 0 20px;
+    }
+}

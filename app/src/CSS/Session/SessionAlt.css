@@ -1,0 +1,117 @@
+h1 {
+    text-align: center;
+}
+
+/*Make the collapsable element fill the area*/
+    .makeMeBig {
+        width: 100%;
+    }
+
+    .container_collapse {
+        width: 100%;
+        padding: 2.5%;
+        display: flex;
+        flex-direction: row;
+    }
+
+/*For the quadrant metrics*/
+    .quad_box {
+        display: grid;
+        grid-template-columns: 2.5em 2.5em;
+        padding: 0;
+        margin: 0;
+    }
+
+    .quad_box p{
+        padding: 5px;
+        margin: 0;
+        text-align: center;
+    }
+
+    .bottom_line {
+        border-bottom: 3px solid #666;
+    }
+
+    .right_line {
+        border-right: 3px solid #666;
+    }
+
+/*Stying the metrics*/
+    .punch_title {
+        text-align: center;
+        color: #f15a24;
+    }
+
+    .punch_average {
+        color: #777;
+    }
+
+    .metrics {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .metric_grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .punch_container {
+        width: 100%;
+        padding: 2.5%;
+        justify-content: center;
+        border-right: 4px solid #ddd;
+    }
+
+/*Make the stability graph section large enough for the graph*/
+    .metrics_stability {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .metrics_stability canvas {
+        padding: 2.5%; /*PRevents it from getting cut off*/
+    }
+
+
+/*Handles rotating the expand/close icon when interacted with*/
+    .collapsible_open img{
+        transform: rotate(180deg);
+        transition: ease 0.5s;
+    }
+
+    .collapsible_close img {
+        transform: rotate(0deg);
+        transition: ease 0.5s;
+    }
+
+/*For better organization*/
+    .line_separator {
+        margin: 0;
+        margin-top: 20px;
+        border: 2px solid #ddd;
+    }
+
+/*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
+@media only screen and (max-width: 600px) {
+    .container_collapse {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .punch_container {
+        padding: 0;
+    }
+
+    .punch_title { /*Adds a separator line between the punches*/
+        padding-top: 10px;
+        border-top: 5px solid #ddd;
+    }
+
+    .line_separator { 
+        display: none; /*Not needed when displaying in column format*/
+    }
+}
