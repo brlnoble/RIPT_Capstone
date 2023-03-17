@@ -1,8 +1,8 @@
 from gpiozero import AngularServo
 from time import sleep
 
-bot_serv = AngularServo(12, min_angle = 0, max_angle = 270, min_pulse_width = 0.0005, max_pulse_width = 0.0025)
-top_serv = AngularServo(13, min_angle = 0, max_angle = 270, min_pulse_width = 0.0005, max_pulse_width = 0.0025)
+bot_serv = AngularServo(5, min_angle = 0, max_angle = 270, min_pulse_width = 0.0005, max_pulse_width = 0.0025)
+top_serv = AngularServo(6, min_angle = 0, max_angle = 270, min_pulse_width = 0.0005, max_pulse_width = 0.0025)
 
 def jab_right(bot_serv, top_serv):
     bot_serv.angle = 180
