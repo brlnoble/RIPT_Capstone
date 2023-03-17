@@ -279,17 +279,13 @@ class Stepper:
                 punchEnd = perf_counter() 
 
                 #Move the motors into position
-                moveThread = Process(target=self.Move_To, args=(punches[punchIndex].position[0], punches[punchIndex].position[1]))
-                moveThread.start()
+                self.Move_To(punches[punchIndex].position[0], punches[punchIndex].position[1])
 
                 #Record metrics while motors are moving
                 thisPunch = punches[punchIndex] #Access the current punch object
                 thisPunch.Set_Reaction(punchEnd - punchStart)
                 thisPunch.Set_Force(punchForce)
                 thisPunch.Set_Accuracy( bool(punchForce) ) #True or false depending if they hit the target in time
-                
-                #Wait until the movement is complete before continuing
-                moveThread.join()
 
                 #Add the punch object to the results queue so it can be reutned
                 results.put(thisPunch)
