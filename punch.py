@@ -35,22 +35,28 @@ class punch:
         }
 
 prob = {
-    'q1' : 0.25,
-    'q2' : 0.25,
-    'q3' : 0.25,
-    'q4' : 0.25,
+    'q1' : 0.5,
+    'q2' : 0.5,
+    'q3' : 0.5,
+    'q4' : 0.5,
     'straight': 0.33,
     'hook' : 0.33,
     'uppercut': 0.33
 }
 
-def Punch_Sequence(numPunch,quads):
+def Punch_Sequence(numPunch, quads, prob):
     sequence = []
 
-    for i in range(numPunch):    
+    for i in range(numPunch):
+        temp = random.random()
+
+        if temp < prob[quads[0]]:
+            y_pos = random.randint(0,20)
+        else:
+            y_pos = random.randint(21,40)
+        
         #Generate the positions
         x_pos = random.randint(0,12)
-        y_pos = random.randint(0,40)
 
         #Assign quadrants based on positions
         if y_pos <= 20:
@@ -60,9 +66,9 @@ def Punch_Sequence(numPunch,quads):
 
         #Assign punch type based on random variable
         temp1 = random.random()
-        if temp1 < 0.33:
+        if temp1 < prob['straight']:
             typ = 'straight'
-        elif temp1 >= 0.67:
+        elif temp1 >= prob['straight'] + prob['uppercut']:
             typ = 'hook'
         else:
             typ = 'uppercut'
