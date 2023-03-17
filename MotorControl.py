@@ -85,14 +85,14 @@ for thread in threads:
 #Print the results now that the threads have finished running
 
 print("\n\n################## LEFT SIDE ##################")
-for i in range(numPunches):
+for i in range(resultsL.qsize()):
     p = resultsL.get()
 
     print(p)
     print("~~~~~~~~~~~~~~~~")
 
 print("\n\n################## RIGHT SIDE ##################")
-for i in range(numPunches):
+for i in range(resultsR.qsize()):
     p = resultsR.get()
 
     print(p)
