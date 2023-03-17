@@ -44,8 +44,8 @@ boardRight = StepperMovement.Stepper(rightPins,rightZero,[0,0]) #can use the sam
 
 #~~~~~ Get the punch sequences ~~~~~
 numPunches = 5
-punchSeqLeft = punch.punchSeq(numPunches,["q1","q4"])
-punchSeqRight = punch.punchSeq(numPunches,["q2","q4"])
+punchSeqLeft = punch.Punch_Sequence(numPunches,["q1","q4"])
+punchSeqRight = punch.Punch_Sequence(numPunches,["q2","q4"])
 
 #~~~~~ Zero the motors ~~~~~
 thread1 = Process(target=boardRight.Zero_Motors, args=())
