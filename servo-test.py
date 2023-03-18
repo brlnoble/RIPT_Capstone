@@ -17,7 +17,7 @@ def uppercut_right(bot_serv, top_serv):
     return 0
 
 def hook_right(bot_serv, top_serv):
-    bot_serv.angle = 180
+    bot_serv.angle = 0
     top_serv.angle = 180
     sleep(10)
     return 0
