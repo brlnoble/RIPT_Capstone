@@ -3,6 +3,7 @@ import PySimpleGUI as sg
 #Basic theme setup
 sg.theme('DefaultNoMoreNagging')
 sg.theme_text_element_background_color('#EEE')
+sg.theme_element_background_color("#EEE")
 sg.theme_text_color('#222')
 sg.theme_background_color('#EEE')
 
@@ -21,7 +22,7 @@ ript_logo = [
 screenLayout = [ 
 	[sg.Column(
 	[
-		[sg.Image(ript_logo[0],pad=((100,100),(50,50)))], #Logo
+		[sg.Image(ript_logo[0],background_color="#EEE",pad=((100,100),(50,50)))], #Logo
 		[sg.ProgressBar(max_value=1,size=(10,10),expand_x=True,bar_color="#F15A24",pad=((50,50),(0,50)))], #Using as a horizontal line
 
 		[sg.Text("Ready to start? Let's get R.I.P.T.",font=boldFont),],
@@ -36,6 +37,7 @@ screenLayout = [
 
 		[sg.Text('',key="timer",font=largeFont)], #Timer for how long is left in the session
 		[sg.Image(filename='',key='image')],
+                [sg.Text("",key="infer_time",font=font)],
 		[sg.Button("Exit Program",key="exit_disp",enable_events=True,button_color='Red',font=btnFont,pad=(100,20),size=(15,1))],
 	],key="displayScreen",visible=False,element_justification='c')]
 ]
@@ -43,4 +45,4 @@ screenLayout = [
 
 
 def GetWindow():
-	return sg.Window("R.I.P.T.",screenLayout,keep_on_top=True,element_justification='c',finalize=True)
+	return sg.Window("R.I.P.T.",screenLayout,keep_on_top=True,element_justification='c',finalize=True,no_titlebar=True,size=(1920,1080))
