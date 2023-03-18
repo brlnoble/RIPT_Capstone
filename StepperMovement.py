@@ -242,6 +242,7 @@ class Stepper:
         #     GPIO.output(self.loadClock,GPIO.HIGH)
         #     sleep(10e-6) #CANNOT EXCEED 60us OR BOARD WILL POWER DOWN
         #     GPIO.output(self.loadClock,GPIO.LOW)
+        #     sleep(10e-6)
 
         #     #Reading is from MSB to LSB, so shift bit as required
         #     reading |= (GPIO.input(self.loadRead) << i)
