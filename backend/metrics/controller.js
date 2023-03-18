@@ -20,7 +20,7 @@ const getMetricsByUser = (req, res) => {
     });
 };
 
-const addUser = (req, res) => {
+const addUserMetrics = (req, res) => {
     //using JS destructuring to get the values from the request body
     const { username, forces, accuracy, reaction, form, stability } = req.body;
 
@@ -33,7 +33,7 @@ const addUser = (req, res) => {
             res.status(400).json({ message: "User already exists" });
         }
         else{
-            pool.query(queries.addUser, [username, forces, accuracy, reaction, form, stability], (error, results) => {
+            pool.query(queries.addUserMetrics, [username, forces, accuracy, reaction, form, stability], (error, results) => {
                 if (error) {
                     throw error;
                 }
@@ -43,7 +43,7 @@ const addUser = (req, res) => {
     });
 };
 
-const deleteUser = (req, res) => {
+const deleteUserMetrics = (req, res) => {
     const username = req.params.username;
 
     pool.query(queries.getMetricsByUser, [username], (error, results) => {
@@ -52,7 +52,7 @@ const deleteUser = (req, res) => {
             res.status(400).json({ message: "User does not exist" });
         }
         else {
-            pool.query(queries.deleteUser, [username], (error, results) => {
+            pool.query(queries.deleteUserMetrics, [username], (error, results) => {
                 if (error) {
                     throw error;
                 }
@@ -62,7 +62,7 @@ const deleteUser = (req, res) => {
     });
 };
 
-const updateUser = (req, res) => {
+const updateUserMetrics = (req, res) => {
     const username = req.params.username;
     const { forces, accuracy, reaction, form, stability } = req.body;
     pool.query(queries.getMetricsByUser, [username], (error, results) => {
@@ -71,7 +71,7 @@ const updateUser = (req, res) => {
             res.status(400).json({ message: "User does not exist" });
         }
         else {
-            pool.query(queries.updateUser, [forces, accuracy, reaction, form, stability, username], (error, results) => {
+            pool.query(queries.updateUserMetrics, [forces, accuracy, reaction, form, stability, username], (error, results) => {
                 if (error) {
                     throw error;
                 }
@@ -85,8 +85,8 @@ const updateUser = (req, res) => {
 module.exports = {
     getMetrics,
     getMetricsByUser,
-    addUser,
-    deleteUser,
-    updateUser,
+    addUserMetrics,
+    deleteUserMetrics,
+    updateUserMetrics,
 
 };
