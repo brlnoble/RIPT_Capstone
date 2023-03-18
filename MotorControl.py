@@ -7,6 +7,7 @@ The two boards will be operated in parallel with both the gantry and pad control
 import RPi.GPIO as GPIO
 from time import sleep
 from multiprocessing import Process, Queue
+import json
 
 import punch
 import StepperMovement
@@ -82,16 +83,21 @@ for thread in threads:
 for thread in threads:
     thread.join()
 
-#Save the results now that the threads have finished running
-with open("resultsL.txt",'w') as f:
-    for i in range(resultsL.qsize()):
-        p = resultsL.get()
-        f.write(str(p.Return_Data()) + "\n")
-        
-with open("resultsR.txt",'w') as f:
-    for i in range(resultsR.qsize()):
-        p = resultsR.get()
-        f.write(str(p.Return_Data()) + "\n")
+#~~~~~ Save the results ~~~~~
+
+writeData = []
+for i in range(resultsL.qsize()):
+    p = resultsL.get()
+    writeData.append(p.Return_Data())
+
+for i in range(resultsR.qzie()):
+    p = resultsR.get()
+    writeData.apped(p.Return_Data())
+
+writeData = json.dumps(writeData) #Convert to json
+
+with open("results.json") as f:
+    f.write(writeData)
 
 del boardLeft
 del boardRight
