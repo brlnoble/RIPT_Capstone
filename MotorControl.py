@@ -69,12 +69,11 @@ sleep(3)
 print("~~~~~ Starting movements ~~~~~")
 
 #Using queues to return the punch objects to the main program
-resultsL = Queue()
-resultsR = Queue()
+results = Queue()
 
 #Create the movement threads
-thread1 = Process(target=boardLeft.Movements, args=(punchSeqLeft,endTime,resultsL))
-thread2 = Process(target=boardRight.Movements, args=(punchSeqRight,endTime,resultsR))
+thread1 = Process(target=boardLeft.Movements, args=(punchSeqLeft,endTime,results))
+thread2 = Process(target=boardRight.Movements, args=(punchSeqRight,endTime,results))
 threads = [thread1, thread2]
 
 for thread in threads:
@@ -86,13 +85,9 @@ for thread in threads:
 #~~~~~ Save the results ~~~~~
 
 writeData = []
-for i in range(resultsL.qsize()):
-    p = resultsL.get()
+for i in range(results.qsize()):
+    p = results.get()
     writeData.append(p.Return_Data())
-
-for i in range(resultsR.qzie()):
-    p = resultsR.get()
-    writeData.apped(p.Return_Data())
 
 writeData = json.dumps(writeData) #Convert to json
 

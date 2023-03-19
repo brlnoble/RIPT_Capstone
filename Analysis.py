@@ -1,86 +1,112 @@
 import json
 
-#Read in the data
+##~~~~~~~~~~ Read in the data #~~~~~~~~~~
 data = []
 with open('results.json') as f:
     data = json.load(f)
 
-#Punch type arrays
-metrics = [
-    #Hook [0]
-    [
-        [],[],[],[]
-    ],
+#~~~~~~~~~~ Format of results #~~~~~~~~~~
+metrics = {
+    "hook": {
+        "force": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "reaction": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "accuracy": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "numPunch": 0
+    },
 
-    #Straight [1]
-    [
-        [],[],[],[]
-    ],
+    "uppercut": {
+        "force": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "reaction": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "accuracy": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "numPunch": 0
+    },
+    
+    "straight": {
+        "force": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "reaction": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "accuracy": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "numPunch": 0
+    },    
+}
 
-    #Uppercut [2]
-    [
-        [],[],[],[]
-    ]
-]
+#~~~~~~~~~~ Copy data over to metrics ~~~~~~~~~~
+
+for p in data: #for hook, straight, uppercut
+
+    #Averages
+    metrics[p["type"]]["force"]["avg"] += p["force"]
+    metrics[p["type"]]["reaction"]["avg"] += p["reaction"]
+    metrics[p["type"]]["accuracy"]["avg"] += p["accuracy"]
+
+    #Quadrant specific
+    metrics[p["type"]]["force"]["quads"][int(p["quad"][1])-1] += p["force"]
+
+    metrics[p["type"]]["reaction"]["quads"][int(p["quad"][1])-1] += p["reaction"]
+
+    metrics[p["type"]]["accuracy"]["quads"][int(p["quad"][1])-1] += p["accuracy"]
+
+    #Count number number of punches so average can be calculated
+    metrics[p["type"]]["numPunch"] += 1
+    metrics[p["type"]]["force"]["numPunch"][int(p["quad"][1])-1] += 1
+    metrics[p["type"]]["reaction"]["numPunch"][int(p["quad"][1])-1] += 1
+    metrics[p["type"]]["accuracy"]["numPunch"][int(p["quad"][1])-1] += 1
+
+#~~~~~~~~~~ Calculate the average of each ~~~~~~~~~~
+for pType in ["hook","uppercut","straight"]:
+    for avg in ["force","reaction","accuracy"]:
+
+        #Overall average
+        if metrics[pType]["numPunch"] > 0:
+            metrics[pType][avg]["avg"] = round(metrics[pType][avg]["avg"] / metrics[pType]["numPunch"],2)
+
+        #Average per quadrant
+        for quad in range(0,4):
+            if metrics[pType][avg]["numPunch"][quad] > 0:
+                metrics[pType][avg]["quads"][quad] = round(metrics[pType][avg]["quads"][quad] / metrics[pType][avg]["numPunch"][quad],2)
+
+        #Remove the number of punches from the metrics dictionary
+        del metrics[pType][avg]["numPunch"]
+    
+    #Remove the number of punches from the metrics dictionary
+    del metrics[pType]["numPunch"]
 
 
-#Copy the data into the quadrant arrays
-for p in data:
-
-    #Check punch type
-    if p["type"] == "hook":
-        typeIndex = 0
-    elif p["type"] == "straight":
-        typeIndex = 1
-    else:
-        typeIndex = 2
-
-    if p["quad"] == "q1":
-        metrics[typeIndex][0].append(p)
-    elif p["quad"] == "q2":
-        metrics[typeIndex][1].append(p)
-    elif p["quad"] == "q3":
-        metrics[typeIndex][2].append(p)
-    else:
-        metrics[typeIndex][3].append(p)
-
-#~~~~~~~~~~ Calculate average forces ~~~~~~~~~~
-
-for pType in metrics: #for hook, straight, uppercut
-    print("#"*50)
-    #Average per quadrant
-    reaction = [0,0,0,0]
-    force = [0,0,0,0]
-    accuracy = [0,0,0,0]
-
-    #Average for all quadrants
-    reactionAll = 0
-    forceAll = 0
-    accuracyAll = 0
-
-    for quad in range(0,4): #for q1, q2, q3, q4
-        for p in pType[quad]:
-            reaction[quad] += p["reaction"]
-            reactionAll += p["reaction"]
-
-            force[quad] += p["force"]
-            forceAll += p["force"]
-
-            accuracy[quad] += p["accuracy"] * 1
-            accuracyAll += p["accuracy"] * 1
-
-        if len(pType[quad]) > 0:
-            force[quad] /= len(pType[quad])
-            reaction[quad] /= len(pType[quad])
-            accuracy[quad] /= len(pType[quad])
-
-
-        print(f"Q: {quad+1}\nF: {force[quad]}\nR: {reaction[quad]}\nA: {accuracy[quad]}\nNum Punches: {len(pType[quad])}")
-        print("~"*20)
-
-    if len(pType[0]) > 0:
-        forceAll /= (len(pType[0]) + len(pType[1]) + len(pType[2]) + len(pType[3]))
-        reactionAll /= (len(pType[0]) + len(pType[1]) + len(pType[2]) + len(pType[3]))
-        accuracyAll /= (len(pType[0]) + len(pType[1]) + len(pType[2]) + len(pType[3]))
-        
-    print(f"FORCE: {forceAll}, REAC: {reactionAll}, ACC: {accuracyAll}")
+#~~~~~~~~~~ Write results to file ~~~~~~~~~~
+with open("metrics.json","w") as f:
+    json.dump(metrics, f, indent=4)
