@@ -23,6 +23,15 @@ metrics = {
             "quads": [0,0,0,0],
             "numPunch": [0,0,0,0]
         },
+        "form": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "performance": {
+            "avg": 0,
+            "data": []
+        },
         "numPunch": 0
     },
 
@@ -42,6 +51,15 @@ metrics = {
             "quads": [0,0,0,0],
             "numPunch": [0,0,0,0]
         },
+        "form": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "performance": {
+            "avg": 0,
+            "data": []
+        },
         "numPunch": 0
     },
     
@@ -60,6 +78,15 @@ metrics = {
             "avg": 0,
             "quads": [0,0,0,0],
             "numPunch": [0,0,0,0]
+        },
+        "form": {
+            "avg": 0,
+            "quads": [0,0,0,0],
+            "numPunch": [0,0,0,0]
+        },
+        "performance": {
+            "avg": 0,
+            "data": []
         },
         "numPunch": 0
     },    
@@ -89,7 +116,7 @@ for p in data: #for hook, straight, uppercut
 
 #~~~~~~~~~~ Calculate the average of each ~~~~~~~~~~
 for pType in ["hook","uppercut","straight"]:
-    for avg in ["force","reaction","accuracy"]:
+    for avg in ["force","reaction","accuracy","form"]:
 
         #Overall average
         if metrics[pType]["numPunch"] > 0:
@@ -106,6 +133,17 @@ for pType in ["hook","uppercut","straight"]:
     #Remove the number of punches from the metrics dictionary
     del metrics[pType]["numPunch"]
 
+#~~~~~~~~~~ Calculate the performance score of each punch ~~~~~~~~~~
+for p in data:
+
+    performance = 0
+    consider = ["force","reaction","accuracy"]
+
+    for avg in consider:
+        if metrics[p["type"]][avg]["avg"] > 0:
+            performance += p[avg] / metrics[p["type"]][avg]["avg"]
+
+    metrics[p["type"]]["performance"]["data"].append( round(performance / len(consider),2) )
 
 #~~~~~~~~~~ Write results to file ~~~~~~~~~~
 with open("metrics.json","w") as f:
