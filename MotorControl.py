@@ -84,14 +84,23 @@ for thread in threads:
 
 #~~~~~ Save the results ~~~~~
 
-writeData = []
+#Format the duration string
+minutes = str(endTime//60)
+minutes = "0" + minutes if len(minutes) < 2 else minutes #zero pad minutes
+seconds = str(endTime-endTime//60)
+seconds = "0" + seconds if len(seconds) < 2 else seconds #zero pad seconds
+duration = minutes + ":" + seconds
+
+#Compile dictionary
+writeData = [{"duration": duration}]
 for i in range(results.qsize()):
     p = results.get()
     writeData.append(p.Return_Data())
 
 writeData = json.dumps(writeData) #Convert to json
 
-with open("results.json") as f:
+#Write to JSON
+with open("results.json","w") as f:
     f.write(writeData)
 
 del boardLeft

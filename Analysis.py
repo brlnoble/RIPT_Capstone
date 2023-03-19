@@ -1,97 +1,101 @@
 import json
+import datetime
 
-##~~~~~~~~~~ Read in the data #~~~~~~~~~~
+#~~~~~~~~~~ Read in the data ~~~~~~~~~~
 data = []
+
 with open('results.json') as f:
     data = json.load(f)
+
+#Grab the duration and remove it from the array
+duration = data[0]["duration"]
+data = data[1:]
 
 #~~~~~~~~~~ Format of results #~~~~~~~~~~
 metrics = {
     "hook": {
         "force": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
         },
         "reaction": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
         },
         "accuracy": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
         },
         "form": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
-        },
-        "performance": {
-            "avg": 0,
-            "data": []
         },
         "numPunch": 0
     },
 
     "uppercut": {
         "force": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
         },
         "reaction": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
         },
         "accuracy": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
         },
         "form": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
-        },
-        "performance": {
-            "avg": 0,
-            "data": []
         },
         "numPunch": 0
     },
     
     "straight": {
         "force": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
         },
         "reaction": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
         },
         "accuracy": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
         },
         "form": {
-            "avg": 0,
-            "quads": [0,0,0,0],
+            "avg": 0.0,
+            "quads": [0.0,0.0,0.0,0.0],
             "numPunch": [0,0,0,0]
         },
-        "performance": {
-            "avg": 0,
-            "data": []
-        },
         "numPunch": 0
+    },
+    "performance": {
+        "avg": 0.0,
+        "data": []
     },    
 }
 
+max_metrics = {
+    "force": 0.0,
+    "reaction": 0.0,
+    "accuracy": 0.0,
+    "form": 0.0
+}
 #~~~~~~~~~~ Copy data over to metrics ~~~~~~~~~~
 
 for p in data: #for hook, straight, uppercut
@@ -103,9 +107,7 @@ for p in data: #for hook, straight, uppercut
 
     #Quadrant specific
     metrics[p["type"]]["force"]["quads"][int(p["quad"][1])-1] += p["force"]
-
     metrics[p["type"]]["reaction"]["quads"][int(p["quad"][1])-1] += p["reaction"]
-
     metrics[p["type"]]["accuracy"]["quads"][int(p["quad"][1])-1] += p["accuracy"]
 
     #Count number number of punches so average can be calculated
@@ -122,6 +124,10 @@ for pType in ["hook","uppercut","straight"]:
         if metrics[pType]["numPunch"] > 0:
             metrics[pType][avg]["avg"] = round(metrics[pType][avg]["avg"] / metrics[pType]["numPunch"],2)
 
+        #Update the maximum values (used later by performance)
+        if metrics[pType][avg]["avg"] > max_metrics[avg]:
+            max_metrics[avg] = metrics[pType][avg]["avg"]
+
         #Average per quadrant
         for quad in range(0,4):
             if metrics[pType][avg]["numPunch"][quad] > 0:
@@ -137,14 +143,25 @@ for pType in ["hook","uppercut","straight"]:
 for p in data:
 
     performance = 0
-    consider = ["force","reaction","accuracy"]
+    consider = ["force","reaction","accuracy"] #need to incorporate form
 
-    for avg in consider:
-        if metrics[p["type"]][avg]["avg"] > 0:
-            performance += p[avg] / metrics[p["type"]][avg]["avg"]
+    for val in consider:
+        if max_metrics[val] > 0:
+            performance += p[val] / max_metrics[val]
 
-    metrics[p["type"]]["performance"]["data"].append( round(performance / len(consider),2) )
+    #Add to the JSON
+    metrics["performance"]["data"].append( round(performance / len(consider),2) )
+
+#~~~~~~~~~~ Create the final JSON object ~~~~~~~~~~
+session = {
+    "id": "", #to be generated by server
+    "username": "", #to be assigned by server
+    "category": "Personalized", #hard coding for now as we haven't enabled other categories
+    "datetime": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), #time the metrics were calculated, close enough to when the session took place
+    "duration": "0 0:"+duration,
+    "metrics": metrics
+}
 
 #~~~~~~~~~~ Write results to file ~~~~~~~~~~
 with open("metrics.json","w") as f:
-    json.dump(metrics, f, indent=4)
+    json.dump(session, f, indent=4)
