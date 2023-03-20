@@ -3,6 +3,8 @@ import React from "react"
 import "../CSS/General.css"
 import "../CSS/About.css"
 
+import ript_text from "../Images/RIPT_Text.svg"
+
 class About extends React.Component {
     render() {
         return(
@@ -10,7 +12,7 @@ class About extends React.Component {
                 <h1 className="page_title">About This Project</h1>
 
                 <h2>Overview</h2>
-                <p>The Robot Integrated Pad Trainer (R.I.P.T.) is a device for helping boxers develop their offensive skills. The project uses a YOLOv7 computer vision model to observe and track the user with webcams, and identifies deficiencies in their skills. Once a training regime has been developed by a custom algorithm, pad training sessions can be conducted with the new regime. A gantry like system moves pads around for the user to interact with, sensing when they are hit before moving to a new location. This robotic emulation of a human pad trainer allows for more direct customization in the training, and is expandable and repeatable for any number of users and skill levels.</p>
+                <p>The Robot Integrated Pad Trainer (<img src={ript_text} alt="ript" className="ript_text"></img>) is a device for helping boxers develop their offensive skills. The project uses a YOLOv7 computer vision model to observe and track the user with webcams, and identifies deficiencies in their skills. Once a training regime has been developed by a custom algorithm, pad training sessions can be conducted with the new regime. A gantry like system moves pads around for the user to interact with, sensing when they are hit before moving to a new location. This robotic emulation of a human pad trainer allows for more direct customization in the training, and is expandable and repeatable for any number of users and skill levels.</p>
                 <p>The Github for the project can be found <a href="https://www.github.com/brlnoble/RIPT_Capstone" target="_blank" rel="noreferrer" style={{fontStyle: "italic",color: "#777"}}>here</a>.</p>
 
                 <h2>Prototype</h2>

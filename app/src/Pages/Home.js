@@ -5,6 +5,8 @@ import ListBox from "../Components/ListBox"
 import "../CSS/General.css"
 import "../CSS/Home.css"
 
+import ript_text from "../Images/RIPT_Text.svg"
+
 //The information to be displayed in the boxes
 const profile = [{text: 'Update personal information'}, {text: 'Change your settings'}, {text: 'View your average stats'}]
 const sessions = [{text: 'View all your past training sessions'}, {text: 'Get an extensive breakdown of all your metrics'}]
@@ -20,7 +22,7 @@ class Home extends React.Component {
 
                 {/*Little greeting, customize for user's name*/}
                 <div className='greeting'>
-                    <h1>Welcome {user_fullname}, let's get <span className='title'>R.I.P.T.</span></h1>
+                    <h1>Welcome {user_fullname}, let's get </h1><img src={ript_text} alt="ript"></img>
                 </div>
 
                 {/*Information boxes with links to pages*/}

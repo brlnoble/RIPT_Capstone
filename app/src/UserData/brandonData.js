@@ -20,7 +20,7 @@ const userData = {
         accuracy: "87%",
         reaction: "325 ms",
         form: "65%",
-        stability: "80%",
+        performance: "80%",
     },
 
     //The session object

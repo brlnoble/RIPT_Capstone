@@ -19,6 +19,11 @@
     height: 60px;
 }
 
+.nav_logo_text {
+    height: 35px;
+    align-self: center;
+}
+
 /*Company name R.I.P.T. beside logo*/
 .nav_title {
     margin: auto;

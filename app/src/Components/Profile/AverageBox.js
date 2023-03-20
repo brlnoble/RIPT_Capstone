@@ -28,8 +28,8 @@ class AverageBox extends React.Component {
                         <h3>{this.props.user.form}</h3>
                         <p>+1% this week</p>
 
-                        <h2>Stability</h2>
-                        <h3>{this.props.user.stability}</h3>
+                        <h2>Performance</h2>
+                        <h3>{this.props.user.performance}</h3>
                         <p>-11% this week</p>
                     </div>
 

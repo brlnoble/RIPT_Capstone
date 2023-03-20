@@ -67,7 +67,7 @@ h1 {
     }
 
 /*Make the stability graph section large enough for the graph*/
-    .metrics_stability {
+    .metrics_performance {
         width: 90%;
         padding: 0 5%;
     }

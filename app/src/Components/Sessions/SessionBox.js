@@ -3,7 +3,9 @@ import Collapsible from 'react-collapsible';
 
 import SessionsBoxHeader from "./SessionBoxHeader";
 import PunchMetrics from "./PunchMetrics";
-import MetricStability from "./MetricStability"
+import MetricPerformance from "./MetricPerformance"
+
+import ript_text from "../../Images/RIPT_Text.svg"
 
 
 class SessionBox extends React.Component {
@@ -52,13 +54,13 @@ class SessionBox extends React.Component {
                             </PunchMetrics>
                         </div>
 
-                        <div className="metrics_stability">
-                            <MetricStability avg={this.props.data.metrics.performance.avg} chartData={this.props.data.metrics.performance.data}></MetricStability>
+                        <div className="metrics_performance">
+                            <MetricPerformance avg={this.props.data.metrics.performance.avg} chartData={this.props.data.metrics.performance.data}></MetricPerformance>
                         </div>
                         
                         <hr className="line_separator"></hr>
                         <p style={{textAlign: "center"}}>The results of this session will be analyzed and applied to your next personalized session. 
-                            <br/> <strong>R.I.P.T.</strong> is commited to bettering your skills with our boxing algorithms!
+                            <br/> <img src={ript_text} alt="ript" className="ript_text"></img> is commited to bettering your skills with our boxing algorithms!
                         </p>
                     </Collapsible>
                 </div>

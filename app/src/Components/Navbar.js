@@ -5,6 +5,7 @@ import "../CSS/Navbar.css" //Style sheet for the navigation bar
 
 //Import images
 import logo from "../Images/Logo_icon.svg"
+import ript_text from "../Images/RIPT_Text.svg"
 import user_icon_unactive from "../Images/Icons/account_icon_unselect.svg"
 import menu_icon from "../Images/Icons/menu_icon.svg"
 
@@ -29,7 +30,7 @@ class Navbar extends React.Component {
                 <div>
                     <NavLink to="/" className="nav_logo_and_title">
                         <img src={logo} alt="logo" className="nav_logo"></img>
-                        <h1 className="nav_title">R.I.P.T.</h1>
+                        <img src={ript_text} alt="ript" className="nav_logo_text"></img>
                     </NavLink>
                 </div>
             
