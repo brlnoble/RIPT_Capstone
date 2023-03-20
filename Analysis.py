@@ -103,12 +103,12 @@ for p in data: #for hook, straight, uppercut
     #Averages
     metrics[p["type"]]["force"]["avg"] += p["force"]
     metrics[p["type"]]["reaction"]["avg"] += p["reaction"]
-    metrics[p["type"]]["accuracy"]["avg"] += p["accuracy"]
+    metrics[p["type"]]["accuracy"]["avg"] += p["accuracy"]*100
 
     #Quadrant specific
     metrics[p["type"]]["force"]["quads"][int(p["quad"][1])-1] += p["force"]
     metrics[p["type"]]["reaction"]["quads"][int(p["quad"][1])-1] += p["reaction"]
-    metrics[p["type"]]["accuracy"]["quads"][int(p["quad"][1])-1] += p["accuracy"]
+    metrics[p["type"]]["accuracy"]["quads"][int(p["quad"][1])-1] += p["accuracy"]*100
 
     #Count number number of punches so average can be calculated
     metrics[p["type"]]["numPunch"] += 1
@@ -131,7 +131,7 @@ for pType in ["hook","uppercut","straight"]:
         #Average per quadrant
         for quad in range(0,4):
             if metrics[pType][avg]["numPunch"][quad] > 0:
-                metrics[pType][avg]["quads"][quad] = round(metrics[pType][avg]["quads"][quad] / metrics[pType][avg]["numPunch"][quad],2)
+                metrics[pType][avg]["quads"][quad] = round(metrics[pType][avg]["quads"][quad] / metrics[pType][avg]["numPunch"][quad],0)
 
         #Remove the number of punches from the metrics dictionary
         del metrics[pType][avg]["numPunch"]
@@ -150,7 +150,17 @@ for p in data:
             performance += p[val] / max_metrics[val]
 
     #Add to the JSON
-    metrics["performance"]["data"].append( round(performance / len(consider),2) )
+    metrics["performance"]["data"].append( 100*round(performance / len(consider),4) )
+
+#Normalize so the data is between 0-100%, otherwise it reads as very low
+p_max = max(metrics["performance"]["data"])
+p_min = min(metrics["performance"]["data"])
+
+for i in range(len(metrics["performance"]["data"])):
+    metrics["performance"]["data"][i] = round(100* ( (metrics["performance"]["data"][i] - p_min)/(p_max - p_min) ),2)
+
+#Average performance
+metrics["performance"]["avg"] = round(sum(metrics["performance"]["data"]) / len(metrics["performance"]["data"]),2)
 
 #~~~~~~~~~~ Create the final JSON object ~~~~~~~~~~
 session = {
