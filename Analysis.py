@@ -90,7 +90,7 @@ metrics = {
     },    
 }
 
-max_metrics = {
+best_metrics = {
     "force": 0.0,
     "reaction": 0.0,
     "accuracy": 0.0,
@@ -116,6 +116,11 @@ for p in data: #for hook, straight, uppercut
     metrics[p["type"]]["reaction"]["numPunch"][int(p["quad"][1])-1] += 1
     metrics[p["type"]]["accuracy"]["numPunch"][int(p["quad"][1])-1] += 1
 
+    #Grab the best values for each metrix (used later by performance)
+    best_metrics["force"] = p["force"] if p["force"] > best_metrics["force"] else best_metrics["force"]
+    best_metrics["reaction"] = p["reaction"] if p["reaction"] < best_metrics["reaction"] else best_metrics["reaction"]
+    best_metrics["accuracy"] = p["accuracy"] if p["accuracy"] > best_metrics["accuracy"] else best_metrics["accuracy"]
+
 #~~~~~~~~~~ Calculate the average of each ~~~~~~~~~~
 for pType in ["hook","uppercut","straight"]:
     for avg in ["force","reaction","accuracy","form"]:
@@ -123,10 +128,6 @@ for pType in ["hook","uppercut","straight"]:
         #Overall average
         if metrics[pType]["numPunch"] > 0:
             metrics[pType][avg]["avg"] = round(metrics[pType][avg]["avg"] / metrics[pType]["numPunch"],2)
-
-        #Update the maximum values (used later by performance)
-        if metrics[pType][avg]["avg"] > max_metrics[avg]:
-            max_metrics[avg] = metrics[pType][avg]["avg"]
 
         #Average per quadrant
         for quad in range(0,4):
@@ -146,18 +147,21 @@ for p in data:
     consider = ["force","reaction","accuracy"] #need to incorporate form
 
     for val in consider:
-        if max_metrics[val] > 0:
-            performance += p[val] / max_metrics[val]
+        if best_metrics[val] > 0:
+            performance += p[val] / best_metrics[val]
 
     #Add to the JSON
     metrics["performance"]["data"].append( 100*round(performance / len(consider),4) )
 
 #Normalize so the data is between 0-100%, otherwise it reads as very low
-p_max = max(metrics["performance"]["data"])
-p_min = min(metrics["performance"]["data"])
+p_data = metrics["performance"]["data"].copy() #make a copy so it doesn't affect the original
+p_data[:] = (val for val in p_data if val != 0) #remove zeros so the min function doesn't pick them up
+p_max = max(p_data)
+p_min = min(p_data)
 
 for i in range(len(metrics["performance"]["data"])):
-    metrics["performance"]["data"][i] = round(100* ( (metrics["performance"]["data"][i] - p_min)/(p_max - p_min) ),2)
+    if metrics["performance"]["data"][i] > 0.0:
+        metrics["performance"]["data"][i] = round(100* ( (metrics["performance"]["data"][i] - p_min)/(p_max - p_min) ),2)
 
 #Average performance
 metrics["performance"]["avg"] = round(sum(metrics["performance"]["data"]) / len(metrics["performance"]["data"]),2)
