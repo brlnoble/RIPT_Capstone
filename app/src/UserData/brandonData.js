@@ -27,452 +27,294 @@ const userData = {
     sessions: [
         //First session
         {
-            key: "12345", //Unique for each session
-            sessionInfo: { //General information about the session
-                category: "Personalized",
-                date: "Feb. 23, 2023",
-                time: "3:09 PM",
-                duration: "3m 30s",
-            },
-            punchData: [ //Contains all the data regading the punches
-                {
-                    type: "Uppercut", 
-                    metrics: {
-                        force: {
-                            avg: "250 N", 
-                            quads: {
-                                q1: 100, 
-                                q2: 200, 
-                                q3: 300, 
-                                q4: 400
-                            }
-                        }, 
-                        accuracy: {
-                            avg: "92%", 
-                            quads: {
-                                q1: 90, 
-                                q2: 90, 
-                                q3: 88, 
-                                q4: 100
-                            }
-                        }, 
-                        reaction: {
-                            avg: "315 ms", 
-                            quads: {
-                                q1: 335, 
-                                q2: 295, 
-                                q3: 310, 
-                                q4: 320
-                            }
-                        }, 
-                        form: {
-                            avg: "60%", 
-                            quads: {
-                                q1: 65, 
-                                q2: 62, 
-                                q3: 50, 
-                                q4: 63
-                            }
-                        }, 
-                        stability: {
-                            avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72,75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
-                        }
+            "id": "",
+            "username": "",
+            "category": "Personalized",
+            "datetime": "2023-03-19 20:16:04",
+            "duration": "0 0:00:30",
+            "metrics": {
+                "hook": {
+                    "force": {
+                        "avg": 341.57,
+                        "quads": [
+                            350.0,
+                            337.0,
+                            350.0,
+                            337.0
+                        ]
+                    },
+                    "reaction": {
+                        "avg": 375.18,
+                        "quads": [
+                            325.0,
+                            400.0,
+                            325.0,
+                            400.0
+                        ]
+                    },
+                    "accuracy": {
+                        "avg": 100.0,
+                        "quads": [
+                            100.0,
+                            100.0,
+                            100.0,
+                            100.0
+                        ]
+                    },
+                    "form": {
+                        "avg": 0.0,
+                        "quads": [
+                            0.0,
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
                     }
                 },
-
-                {
-                    type: "Cross",
-                    metrics: {
-                        force: {
-                            avg: "250 N", 
-                            quads: {
-                                q1: 100, 
-                                q2: 200, 
-                                q3: 300, 
-                                q4: 400
-                            }
-                        }, 
-                        accuracy: {
-                            avg: "92%", 
-                            quads: {
-                                q1: 90, 
-                                q2: 90, 
-                                q3: 88, 
-                                q4: 100
-                            }
-                        }, 
-                        reaction: {
-                            avg: "315 ms", 
-                            quads: {
-                                q1: 335, 
-                                q2: 295, 
-                                q3: 310, 
-                                q4: 320
-                            }
-                        }, 
-                        form: {
-                            avg: "60%", 
-                            quads: {
-                                q1: 65, 
-                                q2: 62, 
-                                q3: 50, 
-                                q4: 63
-                            }
-                        }, 
-                        stability: {
-                            avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72,75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
-                        }
+                "uppercut": {
+                    "force": {
+                        "avg": 238.35,
+                        "quads": [
+                            0.0,
+                            318.0,
+                            318.0,
+                            0.0
+                        ]
+                    },
+                    "reaction": {
+                        "avg": 984.52,
+                        "quads": [
+                            3000.0,
+                            313.0,
+                            313.0,
+                            0.0
+                        ]
+                    },
+                    "accuracy": {
+                        "avg": 75.0,
+                        "quads": [
+                            0.0,
+                            100.0,
+                            100.0,
+                            0.0
+                        ]
+                    },
+                    "form": {
+                        "avg": 0.0,
+                        "quads": [
+                            0.0,
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
                     }
                 },
-
-                {
-                    type: "Straight",
-                    metrics: {
-                        force: {
-                            avg: "250 N", 
-                            quads: {
-                                q1: 100, 
-                                q2: 200, 
-                                q3: 300, 
-                                q4: 400
-                            }
-                        }, 
-                        accuracy: {
-                            avg: "92%", 
-                            quads: {
-                                q1: 90, 
-                                q2: 90, 
-                                q3: 88, 
-                                q4: 100
-                            }
-                        }, 
-                        reaction: {
-                            avg: "315 ms", 
-                            quads: {
-                                q1: 335, 
-                                q2: 295, 
-                                q3: 310, 
-                                q4: 320
-                            }
-                        }, 
-                        form: {
-                            avg: "60%", 
-                            quads: {
-                                q1: 65, 
-                                q2: 62, 
-                                q3: 50, 
-                                q4: 63
-                            }
-                        }, 
-                        stability: {
-                            avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72,75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
-                        }
+                "straight": {
+                    "force": {
+                        "avg": 66.67,
+                        "quads": [
+                            0.0,
+                            0.0,
+                            100.0,
+                            0.0
+                        ]
+                    },
+                    "reaction": {
+                        "avg": 2116.67,
+                        "quads": [
+                            3000.0,
+                            0.0,
+                            1675.0,
+                            0.0
+                        ]
+                    },
+                    "accuracy": {
+                        "avg": 33.33,
+                        "quads": [
+                            0.0,
+                            0.0,
+                            50.0,
+                            0.0
+                        ]
+                    },
+                    "form": {
+                        "avg": 0.0,
+                        "quads": [
+                            0.0,
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
                     }
                 },
-            ] 
+                "performance": {
+                    "avg": 64.64,
+                    "data": [
+                        65.22,
+                        30.21,
+                        99.45,
+                        100.0,
+                        49.86,
+                        65.22,
+                        30.21,
+                        99.45,
+                        100.0,
+                        49.86,
+                        65.22,
+                        30.21,
+                        99.45,
+                        100.0,
+                        0.0,
+                        49.86
+                    ]
+                }
+            }
         },
 
         //Second session
         {
-            key: "54321", //Unique for each session
-            sessionInfo: { //General information about the session
-                category: "Endurance",
-                date: "Feb. 24, 2023",
-                time: "10:27 AM",
-                duration: "5m 00s",
-            },
-            punchData: [ //Contains all the data regading the punches
-                {
-                    type: "Uppercut", 
-                    metrics: {
-                        force: {
-                            avg: "250 N", 
-                            quads: {
-                                q1: 100, 
-                                q2: 200, 
-                                q3: 300, 
-                                q4: 400
-                            }
-                        }, 
-                        accuracy: {
-                            avg: "92%", 
-                            quads: {
-                                q1: 90, 
-                                q2: 90, 
-                                q3: 88, 
-                                q4: 100
-                            }
-                        }, 
-                        reaction: {
-                            avg: "315 ms", 
-                            quads: {
-                                q1: 335, 
-                                q2: 295, 
-                                q3: 310, 
-                                q4: 320
-                            }
-                        }, 
-                        form: {
-                            avg: "60%", 
-                            quads: {
-                                q1: 65, 
-                                q2: 62, 
-                                q3: 50, 
-                                q4: 63
-                            }
-                        }, 
-                        stability: {
-                            avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
-                        }
+            "id": "",
+            "username": "",
+            "category": "Personalized",
+            "datetime": "2023-03-19 19:40:08",
+            "duration": "0 0:00:30",
+            "metrics": {
+                "hook": {
+                    "force": {
+                        "avg": 341.57,
+                        "quads": [
+                            350.0,
+                            337.0,
+                            350.0,
+                            337.0
+                        ]
+                    },
+                    "reaction": {
+                        "avg": 375.18,
+                        "quads": [
+                            325.0,
+                            400.0,
+                            325.0,
+                            400.0
+                        ]
+                    },
+                    "accuracy": {
+                        "avg": 100.0,
+                        "quads": [
+                            100.0,
+                            100.0,
+                            100.0,
+                            100.0
+                        ]
+                    },
+                    "form": {
+                        "avg": 0.0,
+                        "quads": [
+                            0.0,
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
                     }
                 },
-
-                {
-                    type: "Cross",
-                    metrics: {
-                        force: {
-                            avg: "250 N", 
-                            quads: {
-                                q1: 100, 
-                                q2: 200, 
-                                q3: 300, 
-                                q4: 400
-                            }
-                        }, 
-                        accuracy: {
-                            avg: "92%", 
-                            quads: {
-                                q1: 90, 
-                                q2: 90, 
-                                q3: 88, 
-                                q4: 100
-                            }
-                        }, 
-                        reaction: {
-                            avg: "315 ms", 
-                            quads: {
-                                q1: 335, 
-                                q2: 295, 
-                                q3: 310, 
-                                q4: 320
-                            }
-                        }, 
-                        form: {
-                            avg: "60%", 
-                            quads: {
-                                q1: 65, 
-                                q2: 62, 
-                                q3: 50, 
-                                q4: 63
-                            }
-                        }, 
-                        stability: {
-                            avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
-                        }
+                "uppercut": {
+                    "force": {
+                        "avg": 238.35,
+                        "quads": [
+                            0.0,
+                            318.0,
+                            318.0,
+                            0.0
+                        ]
+                    },
+                    "reaction": {
+                        "avg": 984.52,
+                        "quads": [
+                            3000.0,
+                            313.0,
+                            313.0,
+                            0.0
+                        ]
+                    },
+                    "accuracy": {
+                        "avg": 75.0,
+                        "quads": [
+                            0.0,
+                            100.0,
+                            100.0,
+                            0.0
+                        ]
+                    },
+                    "form": {
+                        "avg": 0.0,
+                        "quads": [
+                            0.0,
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
                     }
                 },
-
-                {
-                    type: "Straight",
-                    metrics: {
-                        force: {
-                            avg: "250 N", 
-                            quads: {
-                                q1: 100, 
-                                q2: 200, 
-                                q3: 300, 
-                                q4: 400
-                            }
-                        }, 
-                        accuracy: {
-                            avg: "92%", 
-                            quads: {
-                                q1: 90, 
-                                q2: 90, 
-                                q3: 88, 
-                                q4: 100
-                            }
-                        }, 
-                        reaction: {
-                            avg: "315 ms", 
-                            quads: {
-                                q1: 335, 
-                                q2: 295, 
-                                q3: 310, 
-                                q4: 320
-                            }
-                        }, 
-                        form: {
-                            avg: "60%", 
-                            quads: {
-                                q1: 65, 
-                                q2: 62, 
-                                q3: 50, 
-                                q4: 63
-                            }
-                        }, 
-                        stability: {
-                            avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
-                        }
+                "straight": {
+                    "force": {
+                        "avg": 66.67,
+                        "quads": [
+                            0.0,
+                            0.0,
+                            100.0,
+                            0.0
+                        ]
+                    },
+                    "reaction": {
+                        "avg": 2116.67,
+                        "quads": [
+                            3000.0,
+                            0.0,
+                            1675.0,
+                            0.0
+                        ]
+                    },
+                    "accuracy": {
+                        "avg": 33.33,
+                        "quads": [
+                            0.0,
+                            0.0,
+                            50.0,
+                            0.0
+                        ]
+                    },
+                    "form": {
+                        "avg": 0.0,
+                        "quads": [
+                            0.0,
+                            0.0,
+                            0.0,
+                            0.0
+                        ]
                     }
                 },
-            ]
-        },
-
-        //Second session
-        {
-            key: "98765", //Unique for each session
-            sessionInfo: { //General information about the session
-                category: "Personalized",
-                date: "Feb. 24, 2023",
-                time: "10:32 AM",
-                duration: "3m 00s",
-            },
-            punchData: [ //Contains all the data regading the punches
-                {
-                    type: "Uppercut", 
-                    metrics: {
-                        force: {
-                            avg: "250 N", 
-                            quads: {
-                                q1: 100, 
-                                q2: 200, 
-                                q3: 300, 
-                                q4: 400
-                            }
-                        }, 
-                        accuracy: {
-                            avg: "92%", 
-                            quads: {
-                                q1: 90, 
-                                q2: 90, 
-                                q3: 88, 
-                                q4: 100
-                            }
-                        }, 
-                        reaction: {
-                            avg: "315 ms", 
-                            quads: {
-                                q1: 335, 
-                                q2: 295, 
-                                q3: 310, 
-                                q4: 320
-                            }
-                        }, 
-                        form: {
-                            avg: "60%", 
-                            quads: {
-                                q1: 65, 
-                                q2: 62, 
-                                q3: 50, 
-                                q4: 63
-                            }
-                        }, 
-                        stability: {
-                            avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
-                        }
-                    }
-                },
-
-                {
-                    type: "Cross",
-                    metrics: {
-                        force: {
-                            avg: "250 N", 
-                            quads: {
-                                q1: 100, 
-                                q2: 200, 
-                                q3: 300, 
-                                q4: 400
-                            }
-                        }, 
-                        accuracy: {
-                            avg: "92%", 
-                            quads: {
-                                q1: 90, 
-                                q2: 90, 
-                                q3: 88, 
-                                q4: 100
-                            }
-                        }, 
-                        reaction: {
-                            avg: "315 ms", 
-                            quads: {
-                                q1: 335, 
-                                q2: 295, 
-                                q3: 310, 
-                                q4: 320
-                            }
-                        }, 
-                        form: {
-                            avg: "60%", 
-                            quads: {
-                                q1: 65, 
-                                q2: 62, 
-                                q3: 50, 
-                                q4: 63
-                            }
-                        }, 
-                        stability: {
-                            avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
-                        }
-                    }
-                },
-
-                {
-                    type: "Straight",
-                    metrics: {
-                        force: {
-                            avg: "250 N", 
-                            quads: {
-                                q1: 100, 
-                                q2: 200, 
-                                q3: 300, 
-                                q4: 400
-                            }
-                        }, 
-                        accuracy: {
-                            avg: "92%", 
-                            quads: {
-                                q1: 90, 
-                                q2: 90, 
-                                q3: 88, 
-                                q4: 100
-                            }
-                        }, 
-                        reaction: {
-                            avg: "315 ms", 
-                            quads: {
-                                q1: 335, 
-                                q2: 295, 
-                                q3: 310, 
-                                q4: 320
-                            }
-                        }, 
-                        form: {
-                            avg: "60%", 
-                            quads: {
-                                q1: 65, 
-                                q2: 62, 
-                                q3: 50, 
-                                q4: 63
-                            }
-                        }, 
-                        stability: {
-                            avg: 70,
-                            chartData: [75,84,80,92,77,65,74,53,45,58,61,65,63,72] //Array of information per punch
-                        }
-                    }
-                },
-            ]
+                "performance": {
+                    "avg": 39.44,
+                    "data": [
+                        40.0,
+                        32.0,
+                        47.0,
+                        47.0,
+                        36.0,
+                        40.0,
+                        32.0,
+                        47.0,
+                        47.0,
+                        36.0,
+                        40.0,
+                        32.0,
+                        47.0,
+                        47.0,
+                        25.0,
+                        36.0
+                    ]
+                }
+            }
         },
     ]
 }

@@ -17,7 +17,7 @@ h1 {
 /*For the quadrant metrics*/
     .quad_box {
         display: grid;
-        grid-template-columns: 2.5em 2.5em;
+        grid-template-columns: 3em 3em;
         padding: 0;
         margin: 0;
     }
@@ -68,12 +68,8 @@ h1 {
 
 /*Make the stability graph section large enough for the graph*/
     .metrics_stability {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .metrics_stability canvas {
-        padding: 2.5%; /*PRevents it from getting cut off*/
+        width: 90%;
+        padding: 0 5%;
     }
 
 

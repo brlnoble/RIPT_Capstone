@@ -19,9 +19,8 @@ class Sessions extends React.Component {
 
                 {this.props.user.sessions.map( (session) => (
                     <SessionBox
-                        key={session.key}
-                        info={session.sessionInfo}
-                        punchData={session.punchData}
+                        key={session.id}
+                        data={session}
                     />
                 ))}
             </div>

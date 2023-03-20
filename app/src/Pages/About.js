@@ -16,7 +16,7 @@ class About extends React.Component {
                 <h2>Prototype</h2>
                 <p>Below are images and GIFs of the prototype developed by the team.</p>
                 <div className="prototype_images">
-                    <img className="sample_img" src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Feb19.gif?raw=true" alt="Movement Test"></img>
+                    <img className="sample_img" src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Mar16.gif?raw=true" alt="Movement Test"></img>
                     <img className="sample_img" src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/One_Side_Model.jpg?raw=true" alt="CAD"></img>
                 </div>
 
@@ -53,7 +53,7 @@ class About extends React.Component {
                     </div>
 
                     <div className="team_member">
-                        <img className="person_pic" src="https://media.licdn.com/dms/image/D5635AQHpDo-CfKbHBA/profile-framedphoto-shrink_800_800/0/1669326139025?e=1677888000&v=beta&t=5IkUqx-SlWEGKbTtwzxQFSHmq3BMXkeBAYCpl0yiASY" alt="Labib"></img>
+                        <img className="person_pic" src="https://media.licdn.com/dms/image/D5603AQEJ8s8phxbMMg/profile-displayphoto-shrink_800_800/0/1669326109089?e=1684972800&v=beta&t=VSoq6Mk-ZeQG4Hq1UqjEfUW5ZwmnSxGnkEH-xAQXPCQ" alt="Labib"></img>
                         <h3>Hunter Ceranic</h3>
                         <p>Mechatronics Engineering & Society</p>
                         <hr/>
