@@ -14,30 +14,30 @@ import StepperMovement
 
 #~~~~~ Setup the left stepper motors ~~~~~
 leftPins = [
-    19, #dir1
-    6, #dir2
-    13, #step1
-    5 #step2
+    3, #dir1
+    17, #dir2
+    2, #step1
+    4 #step2
 ]
 
 leftZero = [
-    27, #X zero
-    22 #Y zero
+    14, #X zero
+    15 #Y zero
 ]
 
 boardLeft = StepperMovement.Stepper(leftPins,leftZero,[0,0]) #can use the same clock for both load cells
 
 #~~~~~ Setup the right stepper motors ~~~~~
 rightPins = [
-    12, #dir1
-    20, #dir2
-    16, #step1
-    21 #step2
+    16, #dir1
+    21, #dir2
+    12, #step1
+    20 #step2
 ]
 
 rightZero = [
-    24, #X zero
-    23 #Y zero
+    19, #X zero
+    26 #Y zero
 ]
 
 boardRight = StepperMovement.Stepper(rightPins,rightZero,[0,0]) #can use the same clock for both load cells
