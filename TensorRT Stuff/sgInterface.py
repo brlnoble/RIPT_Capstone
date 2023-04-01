@@ -37,7 +37,7 @@ screenLayout = [
 
 		[sg.Text('',key="timer",font=largeFont)], #Timer for how long is left in the session
 		[sg.Image(filename='',key='image')],
-                [sg.Text("",key="infer_time",font=font)],
+                [sg.Text("",key="infer_time",font=font,justification='c')],
 		[sg.Button("Exit Program",key="exit_disp",enable_events=True,button_color='Red',font=btnFont,pad=(100,20),size=(15,1))],
 	],key="displayScreen",visible=False,element_justification='c')]
 ]
