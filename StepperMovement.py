@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO #for IO control
+import ServoMovement
 from time import sleep, perf_counter
 from multiprocessing import Process, Queue
 
@@ -7,7 +8,7 @@ cw = GPIO.HIGH
 ccw = GPIO.LOW
 
 class Stepper:
-    def __init__(self,motorPins,zeroPins,loadPins):
+    def __init__(self,motorPins,zeroPins,loadPins,servoPins,servoAngs):
 
         #Pins for the motor drivers
         self.dirPin1 = motorPins[0]
@@ -23,6 +24,10 @@ class Stepper:
         #self.loadRead = loadPins[0]
         #self.loadClock = loadPins[1]
         #self.loadCalibrate = 0 #value for calibration
+        
+        #For the pad movement
+        GPIO.setmode(GPIO.BCM)
+        self.servos = ServoMovement.RIPT_Servo(servoPins,servoAngs[0],servoAngs[1],servoAngs[2])
 
         #Parameters of the motors
         self.speed_max_default =  150e3 #delay between pulses (200k Hz default)
@@ -38,8 +43,6 @@ class Stepper:
         self.punch_timer = 3.0
 
         #Setup the GPIO pins
-        GPIO.setmode(GPIO.BCM)
-
         GPIO.setup(self.dirPin1,GPIO.OUT)
         GPIO.setup(self.stepPin1,GPIO.OUT)
         GPIO.setup(self.dirPin2,GPIO.OUT)
@@ -201,12 +204,14 @@ class Stepper:
         while(GPIO.input(self.zeroPinY) == GPIO.HIGH):
             self.Move_Motors(1,1e3,1e3) #very slowly move motors 1 step at a time
         sleep(2)
+        print("Y")
 
         #Zero the X position second
         self.Motor_Direction("left")
         while(GPIO.input(self.zeroPinX) == GPIO.HIGH):
             self.Move_Motors(1,1e3,1e3) #very slowly move motors 1 step at a time
         sleep(2)
+        print("X")
 
         #Move the motors slightly off the actual zero point
         self.Motor_Direction("right")
@@ -230,6 +235,7 @@ class Stepper:
     Total time of operation is 640us of delays + time for executing commands.
     '''
     def ReadLoad(self):
+        #Output high to Jetson
         return 0
         # reading = 0
 
@@ -242,7 +248,6 @@ class Stepper:
         #     GPIO.output(self.loadClock,GPIO.HIGH)
         #     sleep(10e-6) #CANNOT EXCEED 60us OR BOARD WILL POWER DOWN
         #     GPIO.output(self.loadClock,GPIO.LOW)
-        #     sleep(10e-6)
 
         #     #Reading is from MSB to LSB, so shift bit as required
         #     reading |= (GPIO.input(self.loadRead) << i)
@@ -266,6 +271,10 @@ class Stepper:
         
         #Time the last punch occured
         punchStart = perf_counter() - self.punch_timer
+        
+        #Start the servo PWM
+        self.servos.top_serv.start(0)
+        self.servos.bot_serv.start(0)
 
         #~~~~~ Main loop~~~~~
         while endTime - perf_counter() > 0.0 and punchIndex <= numPunches:
@@ -281,6 +290,9 @@ class Stepper:
 
                 #Move the motors into position
                 self.Move_To(punches[punchIndex].position[0], punches[punchIndex].position[1])
+                
+                #Move pads
+                self.servos.move_servo(punches[punchIndex].typ)
 
                 #Record metrics while motors are moving
                 thisPunch = punches[punchIndex] #Access the current punch object
@@ -298,3 +310,4 @@ class Stepper:
         #Finished, return close to zero
         sleep(2)
         self.Move_To(5,5)
+        self.servos.move_servo("straight")
