@@ -39,8 +39,6 @@ leftServoAngs = [
 
 boardLeft = StepperMovement.Stepper(leftPins,leftZero,[0,0],leftServoPins,leftServoAngs) #can use the same clock for both load cells
 
-#servosLeft = ServoMovement.RIPT_Servo(leftPins,leftServoAngs[0],
-
 #~~~~~ Setup the right stepper motors ~~~~~
 rightPins = [
     16, #dir1
@@ -75,7 +73,7 @@ punchSeqRight = punch.Punch_Sequence(numPunches,["q3","q4"])
 
 #~~~~~ Zero the motors ~~~~~
 print("~~~~~ Zeroing motors ~~~~~")
-'''thread1 = Process(target=boardRight.Zero_Motors, args=())
+thread1 = Process(target=boardRight.Zero_Motors, args=())
 thread2 = Process(target=boardLeft.Zero_Motors, args=())
 threads = [thread1, thread2]
 
@@ -85,7 +83,7 @@ for thread in threads:
 
 #Join so the threads so we ensure both finish before continuing
 for thread in threads:
-    thread.join()'''
+    thread.join()
 
 #~~~~~ Loop through the punches ~~~~~
 endTime = 30.0 #maximum runtime of the program (30s)
