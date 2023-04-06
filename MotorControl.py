@@ -11,36 +11,59 @@ import json
 
 import punch
 import StepperMovement
+import ServoMovement
 
 #~~~~~ Setup the left stepper motors ~~~~~
 leftPins = [
-    19, #dir1
-    6, #dir2
-    13, #step1
-    5 #step2
+    3, #dir1
+    17, #dir2
+    2, #step1
+    4 #step2
 ]
 
 leftZero = [
-    27, #X zero
-    22 #Y zero
+    14, #X zero
+    15 #Y zero
 ]
 
-boardLeft = StepperMovement.Stepper(leftPins,leftZero,[0,0]) #can use the same clock for both load cells
+leftServoPins = [
+    6, #top
+    13 #bot
+]
+
+leftServoAngs = [
+     [0,0], #jab
+     [90,0], #hook
+     [45,90], #uppercut
+]
+
+boardLeft = StepperMovement.Stepper(leftPins,leftZero,[0,0],leftServoPins,leftServoAngs) #can use the same clock for both load cells
 
 #~~~~~ Setup the right stepper motors ~~~~~
 rightPins = [
-    12, #dir1
-    20, #dir2
-    16, #step1
-    21 #step2
+    16, #dir1
+    21, #dir2
+    12, #step1
+    20 #step2
 ]
 
 rightZero = [
-    24, #X zero
-    23 #Y zero
+    19, #X zero
+    26 #Y zero
 ]
 
-boardRight = StepperMovement.Stepper(rightPins,rightZero,[0,0]) #can use the same clock for both load cells
+rightServoPins = [
+     23, #top
+     24 #bot
+]
+
+rightServoAngs = [
+     [75,90], #jab
+     [160,90], #uppercut
+     [120,0] #hook
+]
+
+boardRight = StepperMovement.Stepper(rightPins,rightZero,[0,0],rightServoPins,rightServoAngs) #can use the same clock for both load cells
 
 
 #~~~~~ Get the punch sequences ~~~~~
@@ -69,11 +92,12 @@ sleep(3)
 print("~~~~~ Starting movements ~~~~~")
 
 #Using queues to return the punch objects to the main program
-results = Queue()
+resultsL = Queue()
+resultsR = Queue()
 
 #Create the movement threads
-thread1 = Process(target=boardLeft.Movements, args=(punchSeqLeft,endTime,results))
-thread2 = Process(target=boardRight.Movements, args=(punchSeqRight,endTime,results))
+thread1 = Process(target=boardLeft.Movements, args=(punchSeqLeft,endTime,resultsL))
+thread2 = Process(target=boardRight.Movements, args=(punchSeqRight,endTime,resultsR))
 threads = [thread1, thread2]
 
 for thread in threads:
@@ -84,23 +108,26 @@ for thread in threads:
 
 #~~~~~ Save the results ~~~~~
 
-#Format the duration string
-minutes = str(endTime//60)
-minutes = "0" + minutes if len(minutes) < 2 else minutes #zero pad minutes
-seconds = str(endTime-endTime//60)
-seconds = "0" + seconds if len(seconds) < 2 else seconds #zero pad seconds
-duration = minutes + ":" + seconds
-
-#Compile dictionary
-writeData = [{"duration": duration}]
-for i in range(results.qsize()):
-    p = results.get()
+#Left side
+writeData = []
+for i in range(resultsL.qsize()):
+    p = resultsL.get()
     writeData.append(p.Return_Data())
 
 writeData = json.dumps(writeData) #Convert to json
 
-#Write to JSON
-with open("results.json","w") as f:
+with open("resultsL.json","w") as f:
+    f.write(writeData)
+
+#Right side
+writeData = []
+for i in range(resultsR.qsize()):
+    p = resultsR.get()
+    writeData.append(p.Return_Data())
+
+writeData = json.dumps(writeData) #Convert to json
+
+with open("resultsR.json","w") as f:
     f.write(writeData)
 
 del boardLeft

@@ -17,6 +17,8 @@ import tensorrt as trt
 #ADDED
 import PySimpleGUI as sg
 import sgInterface
+import RPi.GPIO as GPIO
+from time import perf_counter
 
 CONF_THRESH = 0.5
 IOU_THRESHOLD = 0.4
@@ -516,12 +518,29 @@ class inferThread(threading.Thread):
                 window["startScreen"].update(visible=False)
                 window["displayScreen"].update(visible=True)
                 break
+        
+
+        #Setup the GPIO pins
+        rightPin = 35
+        leftPin = 37
+
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(rightPin,GPIO.IN)
+        GPIO.setup(leftPin,GPIO.IN)
 
 
-        IOU_total = 0
-        IOU_frames = 1 #start at 1 to prevent division by zero
+        #Setup the IOU arrays
+        IOU_data = []
+        IOU_left = []
+        IOU_right = []
 
+        IOU_curr_right = None
+        IOU_curr_left = None
 
+        IOU_total_frames = 0
+        timer = perf_counter()
+
+        #~~~~~ Main Loop ~~~~~
         while(True):
             ref, frame = self.cap.read()
             img = cv2.resize(frame[:,240:1680], (480,360))
@@ -533,30 +552,63 @@ class inferThread(threading.Thread):
             classes = list(boxes[0])
             boxi = list(boxes[1])
             
-            #Check if there is at least 1 face and 1 glove
-            if classes.count(0) and classes.count(1):
-                face = boxi.pop(classes.index(0)) #Grab the face
+            #Check if there is at least 1 glove
+            if classes.count(0):
                 
-                #Loop through for all the gloves
-                for glove in boxi:
-                    IOU += self.yolov7_wrapper.cool_bbox_iou(face,glove)
+                if classes.count(1):
+                    face = boxi.pop(classes.index(1)) #Grab the face
                 
-                IOU_total += IOU
-                IOU_frames += 1
+                    #Loop through for all the gloves
+                    for glove in boxi:
+                        IOU += self.yolov7_wrapper.cool_bbox_iou(face,glove)
+                
+                #Two gloves, no face present
+                else:
+                    IOU = 1
 
+                leftRead = GPIO.input(leftPin)
+                rightRead = GPIO.input(rightPin)
+                
+                #Add to either left or right
+                if leftRead == GPIO.HIGH and IOU_curr_left == None:
+                    IOU_curr_left = IOU_total_frames
+
+                elif leftRead == GPIO.LOW:
+                    if IOU_curr_left != None:
+                        IOU_left.append([IOU_curr_left,IOU_total_frames])
+                    IOU_curr_left = None
+
+                if rightRead == GPIO.HIGH and IOU_curr_right == None:
+                    IOU_curr_right = IOU_total_frames
+
+                elif rightRead == GPIO.LOW:
+                    if IOU_curr_right != None:
+                        IOU_right.append([IOU_curr_right,IOU_total_frames])
+                    IOU_curr_right = None
+
+                #Save the IOU for this frame
+            IOU_data.append(IOU)
+            IOU_total_frames += 1
             
             # ~~~~~ ADDED THIS ~~~~~
             infer_img = cv2.resize(result,(720,480))
             infer_img = cv2.imencode('.png',infer_img)[1].tobytes()
             window['image'].update(data=infer_img)
-            window["infer_time"].update("Inference: " + str(round(use_time*1000)) + "ms")
+            window["infer_time"].update("Inference: " + str(round(use_time*1000)) + "ms\n" + str( (not IOU)*"Not ") + "Guarding")
 
             #cv2.imshow("Recognition result", result)
-            print('time->{:.2f}ms'.format(use_time * 1000)) #+ "\n\t" + str(boxes)) #~~~~~~~~ ADDED THIS ~~~~~~~~~
-            print("\t\t" + str(IOU))
+            #print('time->{:.2f}ms'.format(use_time * 1000)) #+ "\n\t" + str(boxes)) #~~~~~~~~ ADDED THIS ~~~~~~~~~
             #cv2.imshow("Recognition result depth",depth_colormap)
             if cv2.waitKey(1) & 0xFF == ord('q') or event == "exit_disp":
-                print("Form score: %.4f %%" % ( 100* (IOU_total / IOU_frames) ))
+                #print("Form score: %.4f %%" % ( 100* (IOU_total / IOU_frames) ))
+                #window.save_window_screenshot_to_disk("screenshot.png")
+                print(IOU_left)
+                print("#"*50)
+                print(IOU_right)
+                print("#"*50)
+                print(IOU_data)
+                print("Frames: " + str(IOU_total_frames))
+                print(perf_counter() - timer)
                 window.close()
                 break
 

@@ -9,6 +9,9 @@ The **Robot Integrated Pad Trainer** (R.I.P.T.) is a device for helping boxers d
 
 This project is a collaboration between Brandon Noble ([brlnoble](https://github.com/brlnoble "Brandon's Github")), Labib Kazi ([kazia3](https://github.com/kazia3 "Labib's Github")), Jame Tran ([JameTran](https://github.com/JameTran "Jame's Github")), and Hunter Ceranic ([cer-hunter](https://github.com/cer-hunter "Hunter's Github")).
 
+### Explanation and Demonstration
+View on YouTube <a href="https://www.youtube.com/watch?v=VvdgLEhPr5o&feature=youtu.be" target="_blank" rel="noopener noreferrer">here</a>
+
 ___
 
 ## Project Goals
