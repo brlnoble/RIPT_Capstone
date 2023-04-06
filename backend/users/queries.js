@@ -3,9 +3,14 @@
 const getUsers = 'SELECT * FROM users';
 const getUsersbyUsername = 'SELECT * FROM users WHERE username = $1';
 const addUser = 'INSERT INTO users (username, first_name, email, birthday, membership, session_num, isorthodox, picture) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+const deleteUser = 'DELETE FROM users WHERE username = $1';
+const updateUser = 'UPDATE users SET first_name = $1, email = $2, birthday = $3, membership = $4, session_num = $5, isorthodox = $6, picture = $7 WHERE username = $8'
 
 module.exports = {
     getUsers,
     getUsersbyUsername,
     addUser,
+    deleteUser,
+    updateUser,
+
 }
