@@ -32,12 +32,17 @@ leftServoPins = [
 ]
 
 leftServoAngs = [
-     [0,0], #jab
-     [90,0], #hook
-     [45,90], #uppercut
+    [160,0],
+    [120,90],
+    [90,0]
 ]
 
-boardLeft = StepperMovement.Stepper(leftPins,leftZero,[0,0],leftServoPins,leftServoAngs) #can use the same clock for both load cells
+#Pin for communicating with the Jetson
+leftJet = 22
+
+boardLeft = StepperMovement.Stepper(leftPins,leftZero,[0,0],leftServoPins,leftServoAngs,leftJet) #can use the same clock for both load cells
+
+#servosLeft = ServoMovement.RIPT_Servo(leftPins,leftServoAngs[0],
 
 #~~~~~ Setup the right stepper motors ~~~~~
 rightPins = [
@@ -63,17 +68,20 @@ rightServoAngs = [
      [120,0] #hook
 ]
 
-boardRight = StepperMovement.Stepper(rightPins,rightZero,[0,0],rightServoPins,rightServoAngs) #can use the same clock for both load cells
+#Pin for communicating with the Jetson
+rightJet = 27
+
+boardRight = StepperMovement.Stepper(rightPins,rightZero,[0,0],rightServoPins,rightServoAngs, rightJet) #can use the same clock for both load cells
 
 
 #~~~~~ Get the punch sequences ~~~~~
-numPunches = 5
+numPunches = 10
 punchSeqLeft = punch.Punch_Sequence(numPunches,["q1","q2"])
 punchSeqRight = punch.Punch_Sequence(numPunches,["q3","q4"])
 
 #~~~~~ Zero the motors ~~~~~
 print("~~~~~ Zeroing motors ~~~~~")
-thread1 = Process(target=boardRight.Zero_Motors, args=())
+'''thread1 = Process(target=boardRight.Zero_Motors, args=())
 thread2 = Process(target=boardLeft.Zero_Motors, args=())
 threads = [thread1, thread2]
 
@@ -83,7 +91,7 @@ for thread in threads:
 
 #Join so the threads so we ensure both finish before continuing
 for thread in threads:
-    thread.join()
+    thread.join()'''
 
 #~~~~~ Loop through the punches ~~~~~
 endTime = 30.0 #maximum runtime of the program (30s)
