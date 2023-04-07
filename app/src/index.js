@@ -11,7 +11,7 @@ import SignIn from "./Pages/SignIn"
 import NoPage from "./Pages/NoPage"
 
 //This needs to be passed in by the backend
-import currentUser from "./UserData/brandonData";
+import currentUser from "./UserData/userData";
 
 
 export default function App() {

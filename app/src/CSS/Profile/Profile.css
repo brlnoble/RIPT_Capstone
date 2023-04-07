@@ -7,6 +7,40 @@
     padding: 0;
 }
 
+.user_select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.user_select_title {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.user_select button {
+    width: 200px;
+    height: 3em;
+
+    border: 2px solid #f15a24;
+    border-radius: 25px;
+    background-color: #f15a24;
+    font: inherit;
+    color: #eee;
+    font-weight: bold;
+    box-shadow: 5px 5px 10px #0d27502f, -5px -5px 5px #FFF;
+}
+
+.user_select button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    background-color: #eee;
+    color: #533;
+    transition: 0.5s ease;
+}
+
 /*~~~~~~~~~~ MOBILE SUPPORT ~~~~~~~~~~*/
 @media only screen and (max-width: 600px) {
     .profile_container {
