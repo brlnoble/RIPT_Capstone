@@ -75,68 +75,78 @@ boardRight = StepperMovement.Stepper(rightPins,rightZero,[0,0],rightServoPins,ri
 
 
 #~~~~~ Get the punch sequences ~~~~~
-numPunches = 10
+numPunches = 5
 punchSeqLeft = punch.Punch_Sequence(numPunches,["q1","q2"])
 punchSeqRight = punch.Punch_Sequence(numPunches,["q3","q4"])
 
-#~~~~~ Zero the motors ~~~~~
-print("~~~~~ Zeroing motors ~~~~~")
-'''thread1 = Process(target=boardRight.Zero_Motors, args=())
-thread2 = Process(target=boardLeft.Zero_Motors, args=())
-threads = [thread1, thread2]
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jetson_in = 10
+GPIO.setup(jetson_in,GPIO.IN)
 
-#Start threads
-for thread in threads:
-    thread.start()
+jet_state = 0
 
-#Join so the threads so we ensure both finish before continuing
-for thread in threads:
-    thread.join()'''
+while True:
+    jet_read = GPIO.input(jetson_in)
+    
+    if jet_read != jet_state:
+            
 
-#~~~~~ Loop through the punches ~~~~~
-endTime = 30.0 #maximum runtime of the program (30s)
+        #~~~~~ Zero the motors ~~~~~
+        print("~~~~~ Zeroing motors ~~~~~")
+        thread1 = Process(target=boardRight.Zero_Motors, args=())
+        thread2 = Process(target=boardLeft.Zero_Motors, args=())
+        threads = [thread1, thread2]
 
-sleep(3)
-print("~~~~~ Starting movements ~~~~~")
+        #Start threads
+        for thread in threads:
+            thread.start()
 
-#Using queues to return the punch objects to the main program
-resultsL = Queue()
-resultsR = Queue()
+        #Join so the threads so we ensure both finish before continuing
+        for thread in threads:
+            thread.join()
 
-#Create the movement threads
-thread1 = Process(target=boardLeft.Movements, args=(punchSeqLeft,endTime,resultsL))
-thread2 = Process(target=boardRight.Movements, args=(punchSeqRight,endTime,resultsR))
-threads = [thread1, thread2]
+        #~~~~~ Loop through the punches ~~~~~
+        endTime = 30.0 #maximum runtime of the program (30s)
 
-for thread in threads:
-    thread.start()
+        while GPIO.input(jetson_in) == GPIO.LOW:
+            sleep(0)
 
-for thread in threads:
-    thread.join()
+        sleep(3)
+        print("~~~~~ Starting movements ~~~~~")
 
-#~~~~~ Save the results ~~~~~
+        #Using queues to return the punch objects to the main program
+        results = Queue()
+        results = Queue()
 
-#Left side
-writeData = []
-for i in range(resultsL.qsize()):
-    p = resultsL.get()
-    writeData.append(p.Return_Data())
+        #Create the movement threads
+        thread1 = Process(target=boardLeft.Movements, args=(punchSeqLeft,endTime,results))
+        thread2 = Process(target=boardRight.Movements, args=(punchSeqRight,endTime,results))
+        threads = [thread1, thread2]
 
-writeData = json.dumps(writeData) #Convert to json
+        for thread in threads:
+            thread.start()
 
-with open("resultsL.json","w") as f:
-    f.write(writeData)
+        for thread in threads:
+            thread.join()
 
-#Right side
-writeData = []
-for i in range(resultsR.qsize()):
-    p = resultsR.get()
-    writeData.append(p.Return_Data())
+        #~~~~~ Save the results ~~~~~
 
-writeData = json.dumps(writeData) #Convert to json
+        writeData = []
+        for i in range(results.qsize()):
+            p = results.get()
+            writeData.append(p.Return_Data())
 
-with open("resultsR.json","w") as f:
-    f.write(writeData)
+        writeData = json.dumps(writeData) #Convert to json
+
+        with open("results.json","w") as f:
+            f.write(writeData)
+
+        
+        jet_state = 0
 
 del boardLeft
 del boardRight

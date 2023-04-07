@@ -18,7 +18,9 @@ import tensorrt as trt
 import PySimpleGUI as sg
 import sgInterface
 import RPi.GPIO as GPIO
-from time import perf_counter
+from time import perf_counter,sleep
+
+from form_send import Client
 
 CONF_THRESH = 0.5
 IOU_THRESHOLD = 0.4
@@ -502,7 +504,22 @@ class inferThread(threading.Thread):
 
         #Startup UI is fetched
         window = sgInterface.GetWindow()
+        
+        #Setup the GPIO pins
+        rightPin = 35
+        leftPin = 37
 
+        piPin = 31
+
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(rightPin,GPIO.IN)
+        GPIO.setup(leftPin,GPIO.IN)
+        GPIO.setup(piPin,GPIO.OUT)
+
+        #Start the Pi
+        GPIO.output(piPin,GPIO.HIGH)
+        sleep(1)
+        GPIO.output(piPin,GPIO.LOW)
 
         #Interface to start inference
         while True:
@@ -520,13 +537,8 @@ class inferThread(threading.Thread):
                 break
         
 
-        #Setup the GPIO pins
-        rightPin = 35
-        leftPin = 37
-
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(rightPin,GPIO.IN)
-        GPIO.setup(leftPin,GPIO.IN)
+        #Start the Pi motors
+        GPIO.output(piPin,GPIO.HIGH)
 
 
         #Setup the IOU arrays
@@ -540,8 +552,12 @@ class inferThread(threading.Thread):
         IOU_total_frames = 0
         timer = perf_counter()
 
+        end_timer = perf_counter() + 35
+
         #~~~~~ Main Loop ~~~~~
         while(True):
+            GPIO.output(piPin,GPIO.LOW)
+
             ref, frame = self.cap.read()
             img = cv2.resize(frame[:,240:1680], (480,360))
             result, use_time, boxes = self.yolov7_wrapper.infer(img)
@@ -591,17 +607,31 @@ class inferThread(threading.Thread):
             IOU_total_frames += 1
             
             # ~~~~~ ADDED THIS ~~~~~
-            infer_img = cv2.resize(result,(720,480))
+            #infer_img = cv2.resize(result,(720,480))
+            infer_img = result
             infer_img = cv2.imencode('.png',infer_img)[1].tobytes()
             window['image'].update(data=infer_img)
+            window['timer'].update(str(round(end_timer - perf_counter(),1)))
             window["infer_time"].update("Inference: " + str(round(use_time*1000)) + "ms\n" + str( (not IOU)*"Not ") + "Guarding")
 
             #cv2.imshow("Recognition result", result)
             #print('time->{:.2f}ms'.format(use_time * 1000)) #+ "\n\t" + str(boxes)) #~~~~~~~~ ADDED THIS ~~~~~~~~~
             #cv2.imshow("Recognition result depth",depth_colormap)
-            if cv2.waitKey(1) & 0xFF == ord('q') or event == "exit_disp":
+            if cv2.waitKey(1) & 0xFF == ord('q') or event == "exit_disp" or perf_counter() > end_timer:
                 #print("Form score: %.4f %%" % ( 100* (IOU_total / IOU_frames) ))
                 #window.save_window_screenshot_to_disk("screenshot.png")
+                
+                resultData = {
+                    "iou_data": IOU_data,
+                    "iou_left": IOU_left,
+                    "iou_right": IOU_right,
+                    "frames": IOU_total_frames
+                }
+
+                send_this = Client(resultData)
+
+                del send_this
+                
                 print(IOU_left)
                 print("#"*50)
                 print(IOU_right)
