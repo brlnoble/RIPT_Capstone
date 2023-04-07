@@ -8,7 +8,7 @@ cw = GPIO.HIGH
 ccw = GPIO.LOW
 
 class Stepper:
-    def __init__(self,motorPins,zeroPins,loadPins,servoPins,servoAngs):
+    def __init__(self,motorPins,zeroPins,loadPins,servoPins,servoAngs,jetPin):
 
         #Pins for the motor drivers
         self.dirPin1 = motorPins[0]
@@ -24,6 +24,9 @@ class Stepper:
         #self.loadRead = loadPins[0]
         #self.loadClock = loadPins[1]
         #self.loadCalibrate = 0 #value for calibration
+        
+        #Pin for Jetson communication
+        self.jetPin = jetPin
         
         #For the pad movement
         GPIO.setmode(GPIO.BCM)
@@ -47,6 +50,7 @@ class Stepper:
         GPIO.setup(self.stepPin1,GPIO.OUT)
         GPIO.setup(self.dirPin2,GPIO.OUT)
         GPIO.setup(self.stepPin2,GPIO.OUT)
+        GPIO.setup(self.jetPin,GPIO.OUT)
 
         GPIO.setup(self.zeroPinX,GPIO.IN)
         GPIO.setup(self.zeroPinY,GPIO.OUT)
@@ -236,6 +240,8 @@ class Stepper:
     '''
     def ReadLoad(self):
         #Output high to Jetson
+        GPIO.output(self.jetPin,GPIO.HIGH)
+        
         return 0
         # reading = 0
 
@@ -284,6 +290,8 @@ class Stepper:
 
             #If the user hit or if the timer expired, move to next position
             if punchForce > 0.0 or perf_counter() - punchStart > self.punch_timer:
+                
+                GPIO.output(self.jetPin, GPIO.LOW)
 
                 #End of the punch (for reaction time)
                 punchEnd = perf_counter() 
@@ -311,3 +319,4 @@ class Stepper:
         sleep(2)
         self.Move_To(5,5)
         self.servos.move_servo("straight")
+        sleep(2)
