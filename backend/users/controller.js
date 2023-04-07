@@ -10,7 +10,7 @@ const getUsers = (req, res) => {
     });
 };
 
-const getUsersbyUsername = (req, res) => {
+const getUsersByUsername = (req, res) => {
     const username = req.params.username;
     pool.query(queries.getUsersbyUsername, [username], (error, results) => {
         if (error) {
@@ -88,7 +88,7 @@ const updateUser = (req, res) => {
 
 module.exports = {
     getUsers,
-    getUsersbyUsername,
+    getUsersByUsername,
     addUser,
     deleteUser,
     updateUser,

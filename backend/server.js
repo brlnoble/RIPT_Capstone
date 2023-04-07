@@ -2,6 +2,7 @@ const express = require("express");
 const metrics_routes = require("./metrics/routes");
 const users_routes = require("./users/routes");
 const sessions_routes = require("./sessions/routes");
+const frontend_routes = require("./frontend/routes");
 
 const app = express();
 const port = 3000;
@@ -17,5 +18,6 @@ app.get("/", (req, res) => {
 app.use("/metrics", metrics_routes);
 app.use("/users", users_routes);
 app.use("/sessions", sessions_routes);
+app.use("/frontend", frontend_routes);
 
 app.listen(port, () => console.log(`app listening on port ${port}!`));
