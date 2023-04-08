@@ -3,9 +3,11 @@ const metrics_routes = require("./metrics/routes");
 const users_routes = require("./users/routes");
 const sessions_routes = require("./sessions/routes");
 const frontend_routes = require("./frontend/routes");
+const cors = require("cors");
 
 const app = express();
-const port = 3000;
+app.use(cors());
+const port = 8080;
 
 
 // Middleware for handling JSONs

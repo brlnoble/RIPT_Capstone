@@ -1,5 +1,6 @@
 import React from "react";
 
+
 import "../CSS/General.css"
 import "../CSS/Profile/Profile.css"
 
@@ -7,8 +8,8 @@ import ProfileBox from "../Components/Profile/ProfileBox";
 import AverageBox from "../Components/Profile/AverageBox";
 
 //Selects the user to view
-function BrandonClick() {
-    console.log("Brandon")
+async function BrandonClick() {
+    console.log("Brandon");
 }
 
 function JameClick() {

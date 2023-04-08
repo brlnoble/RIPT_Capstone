@@ -17,7 +17,7 @@ const getEverything = async (req, res) => {
     sessions = sessions_query.rows;
 
     //Create the Mega JSON
-    const mega_json = {"Profile": user, "averageMetrics": metrics, "sessions": sessions};
+    const mega_json = {"profile": user, "averageMetrics": metrics, "sessions": sessions};
     res.status(200).json(mega_json);
 
 };

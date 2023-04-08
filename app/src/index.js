@@ -1,5 +1,7 @@
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import Layout from "./Pages/layout"
 import Home from "./Pages/Home"
@@ -11,10 +13,22 @@ import SignIn from "./Pages/SignIn"
 import NoPage from "./Pages/NoPage"
 
 //This needs to be passed in by the backend
-import currentUser from "./UserData/userData";
+import defaultUser from "./UserData/userData";
+
 
 
 export default function App() {
+  const [currentUser, setUser] = useState(defaultUser);
+  const getData = async () => {
+    await axios.get("http://localhost:8080/frontend/GingaNinja").then((response) => {
+        //console.log(response.data);
+        setUser(response.data);
+    });
+  }
+
+  useEffect(() => {getData()}, [])
+  console.log(currentUser);
+
   return (
     <BrowserRouter>
       <Routes>
