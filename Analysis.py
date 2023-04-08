@@ -3,13 +3,39 @@ import datetime
 
 #~~~~~~~~~~ Read in the data ~~~~~~~~~~
 data = []
-
+#Read in most of the data
 with open('results.json') as f:
     data = json.load(f)
+
+#Read in the form data
+form_data = []
+with open('form_results.json') as f:
+    form_data = json.load(f)
 
 #Grab the duration and remove it from the array
 duration = data[0]["duration"]
 data = data[1:]
+
+#~~~~~~~~~~ Calculate IOU Scores ~~~~~~~~~~
+#Total IOU score
+total_iou = sum(form_data["iou_data"]) / form_data["frames"]
+
+prev_frames = [0,0]
+iou_vals = []
+
+#Values for the left side
+for curr_frames in form_data["iou_left"]:
+    iou_vals.append( round(100*sum(form_data["iou_data"][prev_frames[1]:curr_frames[1]]) / (curr_frames[1] - prev_frames[1]),2))
+
+    prev_frames = curr_frames
+
+prev_frames = [0,0]
+
+#Values for the right side
+for curr_frames in form_data["iou_right"]:
+    iou_vals.append( round(100*sum(form_data["iou_data"][prev_frames[1]:curr_frames[1]]) / (curr_frames[1] - prev_frames[1]),2))
+
+    prev_frames = curr_frames
 
 #~~~~~~~~~~ Format of results #~~~~~~~~~~
 metrics = {
@@ -98,7 +124,17 @@ avg_metrics = {
 }
 #~~~~~~~~~~ Copy data over to metrics ~~~~~~~~~~
 
+iou_index = 0
+
 for p in data: #for hook, straight, uppercut
+
+    #Add the IOU
+    if iou_index < len(iou_vals):
+        metrics[p["type"]]["form"]["avg"] += iou_vals[iou_index]
+        metrics[p["type"]]["form"]["quads"][int(p["quad"][1])-1] += iou_vals[iou_index]
+    else:
+        metrics[p["type"]]["form"]["avg"] += total_iou
+        metrics[p["type"]]["accuracy"]["quads"][int(p["quad"][1])-1] += total_iou
 
     #Averages
     metrics[p["type"]]["force"]["avg"] += p["force"]
@@ -141,7 +177,7 @@ for pType in ["hook","uppercut","straight"]:
     del metrics[pType]["numPunch"]
 
 #~~~~~~~~~~ Calculate the performance score of each punch ~~~~~~~~~~
-consider = ["force","reaction","accuracy"] #need to incorporate form
+consider = ["force","reaction","accuracy","form"]
 
 #Find metric averages across the session
 for val in consider:
