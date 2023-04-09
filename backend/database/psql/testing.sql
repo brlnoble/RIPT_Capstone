@@ -28,8 +28,25 @@ CREATE TABLE metrics (
   reaction real,
   form real,
   stability real
- 
+
 );
+
+CREATE TABLE IF NOT EXISTS probs (
+  username VARCHAR(16) PRIMARY KEY,
+  q1 REAL,
+  q2 REAL,
+  q3 REAL,
+  q4 REAL,
+  hook REAL,
+  uppercut REAL,
+  straight REAL,
+  CONSTRAINT FK_username FOREIGN KEY(username)
+  	REFERENCES users(username)
+
+);
+
+INSERT INTO probs
+VALUES ('test', 0.5, 0.5, 0.5, 0.5, 0.33, 0.33, 0.33);
 
 INSERT INTO users
 VALUES ('GingaNinja', 'Brandon', 'brandon@email.com',

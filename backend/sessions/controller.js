@@ -1,5 +1,6 @@
 const pool = require('.././database/database');
 const queries = require('./queries');
+const services = require('.././services/updateMetrics');
 
 
 const getSessions = (req, res) => { 
@@ -27,6 +28,7 @@ const addSession = (req, res) => {
         if (error) {
             throw error;
         }
+        services.updateMetricsValues(username);
         res.status(201).send(`Session added with ID: ${session_id}}`);
     });
 };

@@ -22,4 +22,4 @@ app.use("/users", users_routes);
 app.use("/sessions", sessions_routes);
 app.use("/frontend", frontend_routes);
 
-app.listen(port, "10.0.0.20", () => console.log(`app listening on port ${port}!`));
+app.listen(port, () => console.log(`app listening on port ${port}!`));
