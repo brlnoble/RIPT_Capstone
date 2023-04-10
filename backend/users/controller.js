@@ -12,7 +12,7 @@ const getUsers = (req, res) => {
 
 const getUsersByUsername = (req, res) => {
     const username = req.params.username;
-    pool.query(queries.getUsersbyUsername, [username], (error, results) => {
+    pool.query(queries.getUsersByUsername, [username], (error, results) => {
         if (error) {
             throw error;
         }
