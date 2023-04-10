@@ -36,7 +36,7 @@ class AverageBox extends React.Component {
                     <p className={styles.context}>Your average metrics are based off your last 10 sessions</p>
 
                     <Link to="/sessions" className="react_link_button"><button>View Sessions</button></Link>
-                    <Link to="/trends" className="react_link_button"><button>See My Trends</button></Link>
+                    {/* <Link to="/trends" className="react_link_button"><button>See My Trends</button></Link> */}
 
                 </div>
             </div>

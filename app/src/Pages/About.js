@@ -18,8 +18,13 @@ class About extends React.Component {
                 <h2>Prototype</h2>
                 <p>Below are images and GIFs of the prototype developed by the team.</p>
                 <div className="prototype_images">
-                    <img className="sample_img" src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Mar16.gif?raw=true" alt="Movement Test"></img>
-                    <img className="sample_img" src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/One_Side_Model.jpg?raw=true" alt="CAD"></img>
+                    <img className="sample_img" src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Final_Face_On.gif?raw=true" alt="Movement Face On"></img>
+                    <img className="sample_img" src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Final_Side.gif?raw=true" alt="Movement Side"></img>
+                    <img className="sample_img" src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/YOLO_Final.gif?raw=true" alt="YOLO Model"></img>
+                </div>
+
+                <div className="video_frame">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/QMfrOVIuLZo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
 
                 <h2>Meet the Team</h2>

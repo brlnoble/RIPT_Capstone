@@ -39,7 +39,7 @@ class Navbar extends React.Component {
                     <li><NavLink to="/about" style={({ isActive }) => isActive ? active_link : unactive_link}>About</NavLink></li>
                     <li><NavLink to="/technical" style={({ isActive }) => isActive ? active_link : unactive_link}>How it Works</NavLink></li>
                     <li><NavLink to="/sessions" style={({ isActive }) => isActive ? active_link : unactive_link}>Sessions</NavLink></li>
-                    <li><NavLink to="/trends" style={({ isActive }) => isActive ? active_link : unactive_link}>Trends</NavLink></li>
+                    {/*<li><NavLink to="/trends" style={({ isActive }) => isActive ? active_link : unactive_link}>Trends</NavLink></li> */}
                     <NavLink to="/profile" 
                         style={({ isActive }) => isActive ? active_link : unactive_link}
                         className={({ isActive }) => isActive ? "nav_active_icon" : "nav_inactive_icon"}>

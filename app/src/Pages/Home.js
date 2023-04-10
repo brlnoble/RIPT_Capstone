@@ -10,7 +10,7 @@ import ript_text from "../Images/RIPT_Text.svg"
 //The information to be displayed in the boxes
 const profile = [{text: 'Update personal information'}, {text: 'Change your settings'}, {text: 'View your average stats'}]
 const sessions = [{text: 'View all your past training sessions'}, {text: 'Get an extensive breakdown of all your metrics'}]
-const progress = [{text: 'Check out trends in your recent sessions'}, {text: 'Identify key areas to focus your efforts on'}]
+const progress = [{text: 'See how the project was made'}, {text: 'See who was involved'}]
 
 //Need to link to the API
 const user_fullname = 'Brandon'
@@ -42,10 +42,10 @@ class Home extends React.Component {
                     </ListBox>
 
                     <ListBox 
-                    title_text="Track My Progress" 
+                    title_text="About the Project" 
                     show_text={progress}
-                    button_text="Check my progress"
-                    redirect="/progress">
+                    button_text="See how it works"
+                    redirect="/about">
                     </ListBox>
                 </div>
 

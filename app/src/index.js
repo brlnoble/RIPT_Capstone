@@ -11,6 +11,7 @@ import Trends from "./Pages/Trends"
 import About from "./Pages/About"
 import SignIn from "./Pages/SignIn"
 import NoPage from "./Pages/NoPage"
+import Technical from "./Pages/Technical"
 
 //This needs to be passed in by the backend
 import defaultUser from "./UserData/userData";
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/trends" element={<Trends user={currentUser}/>} />
           <Route path="/about" element={<About />} />
           <Route path="/sign-in" element={<SignIn/>} />
+          <Route path="/technical" element={<Technical/>} />
 
           <Route path="*" element={<NoPage />} />
         </Route>

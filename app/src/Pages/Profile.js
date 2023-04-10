@@ -37,13 +37,13 @@ class Profile extends React.Component {
                     <AverageBox user={this.props.user.averageMetrics}></AverageBox>
                 </div>
 
-                <h2 className="user_select_title">Select User to Display</h2>
+                {/* <h2 className="user_select_title">Select User to Display</h2>
                 <div className="user_select">
                     <button onClick={BrandonClick}>Brandon</button>
                     <button onClick={JameClick}>Jame</button>
                     <button onClick={LabibClick}>Labib</button>
                     <button onClick={HunterClick}>Hunter</button>
-                </div>
+                </div> */}
             </div>
         )
     }
