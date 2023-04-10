@@ -1,6 +1,6 @@
 # R.I.P.T. Capstone Project
 This is a final year engineering capstone project for McMaster University. Students were given 8 months to develop a project and then present to judges and supervisors.
-Work is currently in progress, with an anticipated end date of April 1st, 2023.
+Work is completed and being presented on April 11th.
 
 ___
 
@@ -10,7 +10,8 @@ The **Robot Integrated Pad Trainer** (R.I.P.T.) is a device for helping boxers d
 This project is a collaboration between Brandon Noble ([brlnoble](https://github.com/brlnoble "Brandon's Github")), Labib Kazi ([kazia3](https://github.com/kazia3 "Labib's Github")), Jame Tran ([JameTran](https://github.com/JameTran "Jame's Github")), and Hunter Ceranic ([cer-hunter](https://github.com/cer-hunter "Hunter's Github")).
 
 ### Explanation and Demonstration
-View on YouTube <a href="https://www.youtube.com/watch?v=VvdgLEhPr5o&feature=youtu.be" target="_blank" rel="noopener noreferrer">here</a>
+View the explanation on YouTube <a href="https://youtu.be/TRa0bQ9WmGY" target="_blank" rel="noopener noreferrer">here</a>
+View the demonstration on YouTube <a href="https://youtu.be/QMfrOVIuLZo" target="_blank" rel="noopener noreferrer">here</a>
 
 ___
 
@@ -19,36 +20,37 @@ ___
   - [X] H-bot inspired pulley system with 10mm GT2 belt, and custom mounts
   - [X] Zero motor position
   - [X] Fine motor control for NEMA 24 stepper motors to accurately move gantry system to specific locations
-- [ ] System to change pad orientation along 2 axes
+- [X] System to change pad orientation along 2 axes
   - [X] Mechanical design to support pad
-  - [ ] Control over position for different types of punches
+  - [X] Control over position for different types of punches
 - [X] YOLOv7 computer vision model
   - [X] Train YOLOv7 tiny model to recognize faces and boxing gloves
   - [X] Deploy on NVIDIA Jetson Nano
   - [X] Determine user blocking with intersection between gloves and face
-- [ ] Display and collect user metrics
-  - [ ] Implement various sensors to collect user metrics (i.e. reaction time, speed, endurance, accuracy, etc.)
+- [X] Display and collect user metrics
+  - [X] Implement various sensors to collect user metrics (i.e. reaction time, speed, endurance, accuracy, etc.)
   - [X] Web application to display metrics and training sessions
-  - [ ] Utilize user metrics to personalize a training regime
+  - [X] Utilize user metrics to personalize a training regime
   
 ___
 
 ## Current State
-The project is very much a work in progress and is actively changing day to day. Below are some images and videos of the current state. More detailed images and pictures to come.
+The project is completed and almost all of the original goals have bee met. Below are some pictures and GIFs of the device in operation.
 
-#### Movement Test of H-Bot System
-<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Mar16.gif" width="900">
-<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Zeroing_Test.gif" width="900">
-<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Test_Feb19.gif" width="900">
+#### Operation of the Device
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Final_Face_On.gif" width="900">
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Final_Side.gif" width="900">
 
 #### Pad Orientation and Control
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Pad_Orient_1.gif" width="200"> <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Pad_Orient_2.gif" width="200">
 
-#### CAD of One Side of the Device
-<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/One_Side_Model.jpg" width="900">
+#### 3D Model of the Future of RIPT
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/RIPT_Future.png" width="900">
 
 ### Front End Demonstration of the Web App
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Web_Front_End_Mar6.gif" width="900">
 
-#### Selfie with our YOLOv7 Model
+#### Demonstration of the YOLOv7 Model
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/YOLO_Selfie.jpg" width="450">
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/YOLO_Final.gif" width="900">
+<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/YOLO_Screen.gif" width="900">
