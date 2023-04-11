@@ -13,13 +13,15 @@ function getMonthName(monthNumber) {
     return date.toLocaleString('en-US', { month: 'long' });
 }
 
-function SessionsBoxHeader(category, datetime, duration) {
+function SessionsBoxHeader(datetime, duration) {
+    console.log(datetime)
+
     return (
         <div>
             <div className={styles.header}>
 
                 <div className={styles.header_box}>
-                    <h2>{category}</h2>
+                    <h2>Personalized</h2>
 
                     {/*Vertical line for styling*/}
                     <span></span>

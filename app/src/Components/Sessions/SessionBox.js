@@ -17,9 +17,8 @@ class SessionBox extends React.Component {
 
                         //Box with information that can be opened or collapsed
                         SessionsBoxHeader(
-                            this.props.data.category,
-                            this.props.data.datetime,
-                            this.props.data.duration)}
+                            this.props.datetime,
+                            this.props.duration)}
                         
                     >
                         <hr className="line_separator"></hr>

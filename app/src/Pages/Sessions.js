@@ -19,8 +19,10 @@ class Sessions extends React.Component {
 
                 {this.props.user.sessions.map( (session) => (
                     <SessionBox
-                        key={session.id}
-                        data={session}
+                        key={session.session_id}
+                        data={session.metrics}
+                        datetime={session.datetime}
+                        duration={session.duration}
                     />
                 ))}
             </div>

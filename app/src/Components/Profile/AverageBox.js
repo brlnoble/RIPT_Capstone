@@ -13,7 +13,7 @@ class AverageBox extends React.Component {
 
                     <div className={styles.metric_box}>
                         <h2>Force</h2>
-                        <h3>{this.props.user.force}</h3>
+                        <h3>{this.props.user.forces}</h3>
                         <p>+10% this week</p>
 
                         <h2>Accuracy</h2>
@@ -28,8 +28,8 @@ class AverageBox extends React.Component {
                         <h3>{this.props.user.form}</h3>
                         <p>+1% this week</p>
 
-                        <h2>Performance</h2>
-                        <h3>{this.props.user.performance}</h3>
+                        <h2>Stability</h2>
+                        <h3>{this.props.user.stability}</h3>
                         <p>-11% this week</p>
                     </div>
 

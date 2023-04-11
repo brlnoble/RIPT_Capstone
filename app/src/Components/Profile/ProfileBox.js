@@ -4,6 +4,15 @@ import {Link} from "react-router-dom"
 import "../../CSS/Box.css"
 import styles from "../../CSS/Profile/ProfileBox.module.css"
 
+function getStance(stance) {
+    if(stance == true) {
+        return "Orthodox"
+    }
+    else {
+        return "Southpaw"
+    }
+}
+
 class ProfileBox extends React.Component {
     render() {
         return(
@@ -11,8 +20,8 @@ class ProfileBox extends React.Component {
                 <div className={styles.profile_box}>
 
                     {/*Profile picture and first name*/}
-                    <img src={this.props.user.picture.base64} alt="profile_picture" className={styles.profile_pic}></img>
-                    <h1 className={styles.user_fullname}>{this.props.user.firstName}</h1>
+                    <img src={this.props.user.picture} alt="profile_picture" className={styles.profile_pic}></img>
+                    <h1 className={styles.user_fullname}>{this.props.user.first_name}</h1>
                     
                     <div className={styles.user_info}>
                         
@@ -29,13 +38,13 @@ class ProfileBox extends React.Component {
 
                         {/*The user's actual information*/}
                         <div className={styles.info_text}>
-                            <h2>{this.props.user.userName}</h2>
+                            <h2>{this.props.user.username}</h2>
                             <h2>{this.props.user.email}</h2>
-                            <h2>{this.props.user.birthday}</h2>
+                            <h2>{this.props.user.birthday.slice(0,10)}</h2>
                             <br></br>
-                            <h2>{this.props.user.member}</h2>
-                            <h2>{this.props.user.sessions}</h2>
-                            <h2>{this.props.user.stance}</h2>
+                            <h2>{this.props.user.membership.slice(0,10)}</h2>
+                            <h2>{this.props.user.session_num}</h2>
+                            <h2>{getStance(this.props.user.isorthodox)}</h2>
                         </div>
 
                     </div>

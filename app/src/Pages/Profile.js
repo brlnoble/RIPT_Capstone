@@ -8,7 +8,7 @@ import ProfileBox from "../Components/Profile/ProfileBox";
 import AverageBox from "../Components/Profile/AverageBox";
 
 //Selects the user to view
-async function BrandonClick() {
+/*async function BrandonClick() {
     console.log("Brandon");
 }
 
@@ -22,7 +22,7 @@ function LabibClick() {
 
 function HunterClick() {
     console.log("Hunter")
-}
+}*/
 
 //Main class
 class Profile extends React.Component {
