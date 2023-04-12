@@ -12,6 +12,7 @@ This project is a collaboration between Brandon Noble ([brlnoble](https://github
 
 ### Explanation and Demonstration
 View the explanation on YouTube <a href="https://youtu.be/TRa0bQ9WmGY" target="_blank" rel="noopener noreferrer">here</a>
+
 View the demonstration on YouTube <a href="https://youtu.be/QMfrOVIuLZo" target="_blank" rel="noopener noreferrer">here</a>
 
 ___
@@ -36,20 +37,18 @@ ___
 ___
 
 ## Current State
-The project is completed and almost all of the original goals have bee met. Below are some pictures and GIFs of the device in operation.
+The project is completed and almost all of the original goals have been met. Below are some pictures and GIFs of the device in operation.
 
 #### Operation of the Device
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Final_Face_On.gif" width="900">
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Movement_Final_Side.gif" width="900">
-
-#### Pad Orientation and Control
-<img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Pad_Orient_1.gif" width="200"> <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Pad_Orient_2.gif" width="200">
 
 #### 3D Model of the Future of RIPT
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/RIPT_Future.png" width="900">
 
 ### Front End Demonstration of the Web App
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/Web_Front_End_Mar6.gif" width="900">
+You can view a function version of the website at https://brlnoble.github.io/RIPT_Capstone/
 
 #### Demonstration of the YOLOv7 Model
 <img src="https://github.com/brlnoble/RIPT_Capstone/blob/main/Pictures%20and%20Documents/YOLO_Selfie.jpg" width="450">
