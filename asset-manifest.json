@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/RIPT_Capstone/static/css/main.cd0bb8e7.css",
-    "main.js": "/RIPT_Capstone/static/js/main.08158b24.js",
+    "main.js": "/RIPT_Capstone/static/js/main.e1ea7ae9.js",
     "static/media/RIPT_Text.svg": "/RIPT_Capstone/static/media/RIPT_Text.1b39fa215e6170581bdc9cbadbbcfec6.svg",
     "static/media/Logo_icon.svg": "/RIPT_Capstone/static/media/Logo_icon.68c8811ea8ac8c6d313f58e431f0c0c6.svg",
     "static/media/account_icon_unselect.svg": "/RIPT_Capstone/static/media/account_icon_unselect.8e94e9797d2c9aa4d94b6acd4c52d469.svg",
@@ -10,10 +10,10 @@
     "static/media/menu_icon.svg": "/RIPT_Capstone/static/media/menu_icon.59c892fa6c63829abe4fa96cb60ba8ee.svg",
     "static/media/expand_icon.svg": "/RIPT_Capstone/static/media/expand_icon.8d4a9ac9c10811c65db4a50b20d1c0b3.svg",
     "main.cd0bb8e7.css.map": "/RIPT_Capstone/static/css/main.cd0bb8e7.css.map",
-    "main.08158b24.js.map": "/RIPT_Capstone/static/js/main.08158b24.js.map"
+    "main.e1ea7ae9.js.map": "/RIPT_Capstone/static/js/main.e1ea7ae9.js.map"
   },
   "entrypoints": [
     "static/css/main.cd0bb8e7.css",
-    "static/js/main.08158b24.js"
+    "static/js/main.e1ea7ae9.js"
   ]
 }
