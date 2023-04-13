@@ -40,7 +40,7 @@ leftServoAngs = [
 #Pin for communicating with the Jetson
 leftJet = 22
 
-boardLeft = StepperMovement.Stepper(leftPins,leftZero,[0,0],leftServoPins,leftServoAngs,leftJet) #can use the same clock for both load cells
+boardLeft = StepperMovement.Stepper(leftPins,leftZero,[11,9],leftServoPins,leftServoAngs,leftJet) #can use the same clock for both load cells
 
 #servosLeft = ServoMovement.RIPT_Servo(leftPins,leftServoAngs[0],
 
@@ -89,65 +89,69 @@ GPIO.setup(jetson_in,GPIO.IN)
 
 jet_state = 0
 
-while True:
-    jet_read = GPIO.input(jetson_in)
-    
-    if jet_read != jet_state:
-            
-
-        #~~~~~ Zero the motors ~~~~~
-        print("~~~~~ Zeroing motors ~~~~~")
-        thread1 = Process(target=boardRight.Zero_Motors, args=())
-        thread2 = Process(target=boardLeft.Zero_Motors, args=())
-        threads = [thread1, thread2]
-
-        #Start threads
-        for thread in threads:
-            thread.start()
-
-        #Join so the threads so we ensure both finish before continuing
-        for thread in threads:
-            thread.join()
-
-        #~~~~~ Loop through the punches ~~~~~
-        endTime = 30.0 #maximum runtime of the program (30s)
-
-        while GPIO.input(jetson_in) == GPIO.LOW:
-            sleep(0)
-
-        sleep(3)
-        print("~~~~~ Starting movements ~~~~~")
-
-        #Using queues to return the punch objects to the main program
-        results = Queue()
-        results = Queue()
-
-        #Create the movement threads
-        thread1 = Process(target=boardLeft.Movements, args=(punchSeqLeft,endTime,results))
-        thread2 = Process(target=boardRight.Movements, args=(punchSeqRight,endTime,results))
-        threads = [thread1, thread2]
-
-        for thread in threads:
-            thread.start()
-
-        for thread in threads:
-            thread.join()
-
-        #~~~~~ Save the results ~~~~~
-
-        writeData = []
-        for i in range(results.qsize()):
-            p = results.get()
-            writeData.append(p.Return_Data())
-
-        writeData = json.dumps(writeData) #Convert to json
-
-        with open("results.json","w") as f:
-            f.write(writeData)
-
+try:
+    while True:
+        jet_read = GPIO.input(jetson_in)
         
-        jet_state = 0
+        if jet_read != jet_state:
+                
 
-del boardLeft
-del boardRight
-GPIO.cleanup()
+            #~~~~~ Zero the motors ~~~~~
+            print("~~~~~ Zeroing motors ~~~~~")
+            thread1 = Process(target=boardRight.Zero_Motors, args=())
+            thread2 = Process(target=boardLeft.Zero_Motors, args=())
+            threads = [thread1, thread2]
+
+            #Start threads
+            for thread in threads:
+                thread.start()
+
+            #Join so the threads so we ensure both finish before continuing
+            for thread in threads:
+                thread.join()
+
+            #~~~~~ Loop through the punches ~~~~~
+            endTime = 30.0 #maximum runtime of the program (30s)
+
+            while GPIO.input(jetson_in) == GPIO.LOW:
+                sleep(0)
+
+            sleep(3)
+            print("~~~~~ Starting movements ~~~~~")
+
+            #Using queues to return the punch objects to the main program
+            results = Queue()
+            results = Queue()
+
+            #Create the movement threads
+            thread1 = Process(target=boardLeft.Movements, args=(punchSeqLeft,endTime,results))
+            thread2 = Process(target=boardRight.Movements, args=(punchSeqRight,endTime,results))
+            threads = [thread1, thread2]
+
+            for thread in threads:
+                thread.start()
+
+            for thread in threads:
+                thread.join()
+
+            #~~~~~ Save the results ~~~~~
+
+            writeData = []
+            for i in range(results.qsize()):
+                p = results.get()
+                writeData.append(p.Return_Data())
+
+            writeData = json.dumps(writeData) #Convert to json
+
+            with open("results.json","w") as f:
+                f.write(writeData)
+
+            
+            jet_state = 0
+            print("Session finished")
+
+except KeyboardInterrupt:
+
+    del boardLeft
+    del boardRight
+    GPIO.cleanup()
