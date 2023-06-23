@@ -1,7 +1,7 @@
 # R.I.P.T. Capstone Project
 This is a final year engineering capstone project for McMaster University. Students were given 8 months to develop a project and then present to judges and supervisors.
 
-🏅Recognized as one of the most impressive projects by industry judges.
+🏅3rd place for Most Impressive Prototype.
 
 ___
 
